@@ -7,6 +7,7 @@
 //
 
 #import "VideoTableViewController.h"
+#import "VideoPlayerViewController.h"
 
 @interface VideoTableViewController ()
 
@@ -20,6 +21,11 @@
         self.title = @"KinectHolo";
     }
     return self;
+}
+
+- (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController.navigationBar setHidden:NO];
 }
 
 - (void)viewDidLoad {
@@ -68,9 +74,9 @@
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    VideoPlayerViewController *playerVC = [[VideoPlayerViewController alloc] init];
+    [self.navigationController pushViewController:playerVC animated:YES];
 }
 
 @end
