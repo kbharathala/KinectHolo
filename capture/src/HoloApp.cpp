@@ -12,9 +12,22 @@ void HoloApp::setup() {
 }
 
 void HoloApp::update() {
+  if (!this->kinect->isConnected) return;
+
+  colorPixels = this->kinect->getColorPixels();
+  depthPixels = this->kinect->getDepthPixels();
+  hasData = (colorPixels.size() > 0);
+
+  if (hasData) {
+    colorTexture.loadData(colorPixels);
+  }
 }
 
 void HoloApp::draw() {
+  if (!hasData) {
+    return;
+  }
+  colorTexture.draw(0,0);
 }
 
 HoloApp::~HoloApp() {

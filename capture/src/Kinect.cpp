@@ -78,6 +78,7 @@ ofFloatPixels Kinect::getDepthPixels() {
 
 void Kinect::threadedFunction() {
     while (isThreadRunning()) {
+      ofLogNotice("HoloApp") << "processed kinect frame";
       if (!listener->waitForNewFrame(frames, 2*1000)) {
         std::cerr << "Timed out!" << std::endl;
         break;

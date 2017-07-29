@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ofBaseApp.h"
+#include "ofImage.h"
 #include "Kinect.h"
 #undef Status
 #undef None
@@ -10,6 +11,12 @@ class HoloApp : public ofBaseApp {
 private:
   void updateKinect();
   Kinect *kinect = nullptr;
+
+  ofPixels colorPixels;
+  ofFloatPixels depthPixels;
+  ofTexture colorTexture;
+
+  bool hasData = false;
 
 public:
   void setup();
