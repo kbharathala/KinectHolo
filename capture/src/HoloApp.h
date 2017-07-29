@@ -1,11 +1,15 @@
 #pragma once
 
 #include "ofBaseApp.h"
+#include "Kinect.h"
+#undef Status
+#undef None
 
 class HoloApp : public ofBaseApp {
 
 private:
   void updateKinect();
+  Kinect *kinect = nullptr;
 
 public:
   void setup();

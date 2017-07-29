@@ -32,11 +32,11 @@ private:
 
     libfreenect2::FrameMap frames;
     libfreenect2::Freenect2 freenect2;
-    libfreenect2::Freenect2Device *device = NULL;
-    libfreenect2::SyncMultiFrameListener *listener = NULL;
+    libfreenect2::Freenect2Device *device = nullptr;
+    libfreenect2::SyncMultiFrameListener *listener = nullptr;
 
-    libfreenect2::Registration *registration = NULL;
-    libfreenect2::Frame *undistorted = NULL;
-    libfreenect2::Frame *registered = NULL;
-    libfreenect2::Frame *bigDepth = NULL;
+    libfreenect2::Registration *registration = nullptr;
+    libfreenect2::Frame *undistorted = nullptr;
+    libfreenect2::Frame *registered = nullptr;
+    libfreenect2::Frame *bigDepth = nullptr;
 };

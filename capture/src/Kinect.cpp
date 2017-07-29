@@ -1,14 +1,14 @@
 #include "Kinect.h"
 
 Kinect::Kinect() {
-  libfreenect2::setGlobalLogger(libfreenect2::createConsoleLogger(libfreenect2::Logger::None));
+  libfreenect2::setGlobalLogger(libfreenect2::createConsoleLogger(libfreenect2::Logger::Nada));
   isConnected = false;
 }
 
 // returns true if successful
 bool Kinect::connect() {
   if (freenect2.enumerateDevices() == 0) {
-    std::cerr << "No Kinect device detected" << std::endl;
+    std::cerr << "Kinect not plugged in" << std::endl;
     return false;
   }
 

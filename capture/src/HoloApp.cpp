@@ -1,8 +1,14 @@
+#include "ofAppRunner.h"
 #include "HoloApp.h"
 
-#include "ofAppRunner.h"
-
 void HoloApp::setup() {
+  kinect = new Kinect();
+
+  bool didConnectSuccessfully = kinect->connect();
+  if (!didConnectSuccessfully) {
+      std::exit(1);
+  }
+
 }
 
 void HoloApp::update() {
@@ -13,6 +19,8 @@ void HoloApp::draw() {
 
 HoloApp::~HoloApp() {
   ofLogNotice("HoloApp", "Shutting down...");
+  kinect->waitForThread(true);
+  kinect->disconnect();
 }
 
 void HoloApp::keyReleased(int key) {}
