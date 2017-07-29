@@ -7,6 +7,7 @@
 //
 
 #import "VideoTableViewController.h"
+#import "TableViewCell.h"
 #import "ARKitViewController.h"
 
 @interface VideoTableViewController ()
@@ -18,7 +19,7 @@
 -(id) init {
     self = [super init];
     if (self) {
-        self.title = @"KinectHolo";
+        self.title = @"HoloChat";
     }
     return self;
 }
@@ -32,20 +33,15 @@
     [super viewDidLoad];
     
     self.tableView.tableFooterView = [UIView new];
-    self.navigationController.navigationBar.backgroundColor =
-        [UIColor colorWithRed:255.0/256 green:0/255 blue:255.0/255 alpha:1.0];
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlackOpaque;
-    
-    // self.view.backgroundColor = [UIColor colorWithRed:153.0/256 green:50.0/256 blue:204.0/256 alpha:1.0];
+    self.navigationController.navigationBar.barTintColor =
+    [UIColor colorWithRed:188.0/255 green:0/255 blue:221.0/255 alpha:1.0];
+    self.navigationController.navigationBar.translucent = NO;
     
     [self.navigationController.navigationBar
-     setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+     setTitleTextAttributes: @{NSForegroundColorAttributeName : [UIColor whiteColor],
+                               NSFontAttributeName: [UIFont fontWithName:@"AvenirNext-Regular" size:20.0]}];
     
-    //[self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
-
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    [self.tableView setSeparatorColor:[UIColor colorWithRed:240.0/255 green:240.0/255 blue:240.0/255 alpha:.5]];
     
 }
 
@@ -55,31 +51,44 @@
     return 10;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 56;
+}
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
-    
-    cell.textLabel.text = @"kbharathala";
-    cell.detailTextLabel.text = @"10 minutes ago";
-    
-    // image stuff
-    cell.imageView.image = [UIImage imageNamed:@"SampleProfPic"];
-    cell.imageView.layer.cornerRadius = cell.frame.size.height/2;
-    cell.imageView.clipsToBounds = YES;
 
+- (TableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    cell.backgroundColor = [UIColor whiteColor];
+    TableViewCell *cell = [[TableViewCell alloc] initWithCellInfo:@"kbharathala" timestamp:@"10 minutes ago" picture:[UIImage imageNamed:@"SampleProfPic"]];
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    VideoPlayerViewController *playerVC = [[VideoPlayerViewController alloc] init];
-//    [self.navigationController pushViewController:playerVC animated:YES];
-    
     ARKitViewController *arVC = [[ARKitViewController alloc] init];
     [self.navigationController pushViewController:arVC animated:YES];
+}
+
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+        [cell setSeparatorInset:UIEdgeInsetsZero];
+    }
+    
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+        [cell setLayoutMargins:UIEdgeInsetsZero];
+    }
+}
+
+-(void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)]) {
+        [self.tableView setSeparatorInset:UIEdgeInsetsZero];
+    }
+    
+    if ([self.tableView respondsToSelector:@selector(setLayoutMargins:)]) {
+        [self.tableView setLayoutMargins:UIEdgeInsetsZero];
+    }
 }
 
 @end

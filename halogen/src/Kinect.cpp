@@ -78,13 +78,13 @@ ofFloatPixels Kinect::getDepthPixels() {
 
 void Kinect::threadedFunction() {
     while (isThreadRunning()) {
-      ofLogNotice("HoloApp") << "processed kinect frame";
+      // ofLogNotice("HoloApp") << "processed kinect frame";
       if (!listener->waitForNewFrame(frames, 2*1000)) {
         std::cerr << "Timed out!" << std::endl;
         break;
       }
       libfreenect2::Frame *color = frames[libfreenect2::Frame::Color];
-      libfreenect2::Frame *ir = frames[libfreenect2::Frame::Ir];
+      // libfreenect2::Frame *ir = frames[libfreenect2::Frame::Ir];
       libfreenect2::Frame *depth = frames[libfreenect2::Frame::Depth];
 
       registration->apply(color, depth, undistorted, registered, true, bigDepth);

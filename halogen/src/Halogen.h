@@ -17,6 +17,8 @@ private:
   ofFloatPixels depthPixels;
   ofTexture colorTexture;
 
+  ofRectangle face;
+  
   cv::CascadeClassifier face_cascade;
   // std::vector<ofRectangle> faces;
   bool hasData = false;

@@ -1,5 +1,14 @@
 #include "ofAppRunner.h"
 #include "Halogen.h"
+#include "ofxTimeMeasurements.h"
+
+void drawBoundBox(ofRectangle r, ofColor color) {
+  ofNoFill();
+  ofSetLineWidth(6.0);
+  ofSetColor(color);
+  ofDrawRectRounded(r, 30.0);
+  ofSetColor(ofColor::white);
+}
 
 void Halogen::setup() {
 
@@ -12,14 +21,16 @@ void Halogen::setup() {
   }
 
   // Set up face detector
-  face_cascade.load("haarcascade_frontalface_default.xml");
+  face_cascade.load("assets/haarcascade_frontalface_default.xml");
 }
 
 void Halogen::update() {
   if (!this->kinect->isConnected) return;
 
+  TS_START("[Kinect] update frames");
   colorPixels = this->kinect->getColorPixels();
   depthPixels = this->kinect->getDepthPixels();
+  TS_STOP("[Kinect] update frames");
   hasData = (colorPixels.size() > 0);
 
   if (!hasData) {
@@ -28,8 +39,24 @@ void Halogen::update() {
   colorTexture.loadData(colorPixels);
 
   std::vector<cv::Rect> faces;
-  // face_cascade.detectMultiScale(
-  //   ofxCv::toCv(colorPixels), faces, 1.1, 2, 0|CV_HAAR_SCALE_IMAGE, cv::Size(30, 30));
+  TS_START("face detect");
+  face_cascade.detectMultiScale(ofxCv::toCv(colorPixels), faces, 1.1, 2, 0|CV_HAAR_SCALE_IMAGE, cv::Size(60, 60));
+  TS_STOP("face detect");
+
+  auto sortedFaces = faces;
+  std::sort(
+    sortedFaces.begin(),
+    sortedFaces.end(),
+    [] (const cv::Rect& a, const cv::Rect& b) { return a.area() > b.area(); }
+  );
+
+  // Only use biggest face
+  if (sortedFaces.size() > 0) {
+     face = ofxCv::toOf(sortedFaces[0]);
+     ofLogNotice("Halogen") << "Face at (" << face.x << ", " << face.y << ")";
+  } else {
+    ofLogNotice("Halogen", "No faces detected!");
+  }
 }
 
 void Halogen::draw() {
@@ -37,6 +64,8 @@ void Halogen::draw() {
     return;
   }
   colorTexture.draw(0,0);
+  drawBoundBox(face, ofColor::green);
+  // drawBoundBox(ofRectangle(500, 500, 100, 100), ofColor::green);
 }
 
 Halogen::~Halogen() {
