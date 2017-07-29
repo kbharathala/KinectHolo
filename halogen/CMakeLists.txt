@@ -31,7 +31,7 @@ include_directories(BEFORE ${OpenCV_INCLUDE_DIRS})
 include_directories(${freenect2_INCLUDE_DIRS})
 
 ### addons
-# ofxaddon(ofxGui)
+ofxaddon(ofxGui)
 ofxaddon(addons/ofxCv)
 ofxaddon(addons/ofxTimeMeasurements)
 

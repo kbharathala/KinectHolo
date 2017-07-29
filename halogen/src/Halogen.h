@@ -4,6 +4,7 @@
 #include "ofImage.h"
 #include "Kinect.h"
 #include "ofxCv.h"
+#include "ofxGui.h"
 #undef Status
 #undef None
 
@@ -23,6 +24,9 @@ private:
   bool hasData = false;
 
   void findFace();
+
+  ofxFloatSlider radius;
+  ofxPanel gui;
 
 public:
   void setup();
