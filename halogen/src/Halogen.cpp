@@ -1,6 +1,11 @@
+#include <math.h>
 #include "ofAppRunner.h"
 #include "Halogen.h"
 #include "ofxTimeMeasurements.h"
+
+float MIN_DEPTH = 0;
+float MAX_DEPTH = 10 * 1000;
+float mmToFeet(float millimeters) { return millimeters * 0.00328084; }
 
 void drawBoundBox(ofRectangle r, ofColor color) {
   ofNoFill();
@@ -9,6 +14,20 @@ void drawBoundBox(ofRectangle r, ofColor color) {
   ofDrawRectRounded(r, 30.0);
   ofSetColor(ofColor::white);
 }
+
+float averageDepth(ofFloatPixels depthPixels) {
+  auto numPixels = depthPixels.size();
+  float totalPixelValue = 0;
+  const float *pixelData = depthPixels.getData();
+  for (size_t i = 0; i < numPixels; i++) {
+    auto currentPixel = pixelData[i];
+    auto normalizedPixelValue = max(min(currentPixel, MAX_DEPTH), MIN_DEPTH);
+    totalPixelValue += normalizedPixelValue;
+  }
+  auto average = totalPixelValue / numPixels;
+  return average;
+}
+
 
 void Halogen::setup() {
 
@@ -37,7 +56,16 @@ void Halogen::update() {
     return;
   }
   colorTexture.loadData(colorPixels);
+  findFace();
 
+  ofFloatPixels faceDepthPixels;
+  depthPixels.cropTo(faceDepthPixels, face.x, face.y, face.width, face.height);
+  float faceDistance = averageDepth(faceDepthPixels);
+
+  ofLogNotice("Halogen") << "Distance of face: " << mmToFeet(faceDistance) << " ft";
+}
+
+void Halogen::findFace() {
   std::vector<cv::Rect> faces;
   TS_START("face detect");
   face_cascade.detectMultiScale(ofxCv::toCv(colorPixels), faces, 1.1, 2, 0|CV_HAAR_SCALE_IMAGE, cv::Size(60, 60));
