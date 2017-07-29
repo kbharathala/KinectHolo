@@ -29,6 +29,17 @@
     
     self.sceneView = [[ARSCNView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     [self.view addSubview: _sceneView];
+    
+    UISwipeGestureRecognizer *rightSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipe:)];
+    rightSwipe.direction = UISwipeGestureRecognizerDirectionRight;
+    [self.view addGestureRecognizer:rightSwipe];
+}
+
+- (void)didSwipe:(UISwipeGestureRecognizer*) swipe {
+    
+    if (swipe.direction == UISwipeGestureRecognizerDirectionRight) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -36,6 +47,10 @@
     
     [self setupScene];
     [self startSession];
+    
+    // Setting up the navigation bar
+    [self.navigationController.navigationBar setHidden:YES];
+    self.navigationController.navigationItem.backBarButtonItem = nil;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -156,6 +171,7 @@
 - (void)sessionInterruptionEnded:(ARSession *)session
 {
 }
+
 
 
 @end

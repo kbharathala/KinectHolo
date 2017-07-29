@@ -7,7 +7,6 @@
 //
 
 #import "VideoTableViewController.h"
-#import "VideoPlayerViewController.h"
 #import "ARKitViewController.h"
 
 @interface VideoTableViewController ()
