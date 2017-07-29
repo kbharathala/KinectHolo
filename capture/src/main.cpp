@@ -1,4 +1,4 @@
-#include "KinectHoloApp.h" // Include things which include Xlib.h after
+#include "HoloApp.h"
 #include "ofUtils.h"
 #include "ofAppRunner.h"
 #include "ofxTimeMeasurements.h"
