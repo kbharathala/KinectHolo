@@ -60,7 +60,7 @@ void Halogen::setup() {
 
   gui.setup();
   gui.setPosition(200, 200);
-  gui.add(radius.setup("radius", 255, 25, 1000));
+  gui.add(radius.setup("radius", 255, 25, 500));
 }
 
 void Halogen::update() {
@@ -82,7 +82,7 @@ void Halogen::update() {
   depthPixels.cropTo(faceDepthPixels, face.x, face.y, face.width, face.height);
   float faceDistance = averageDepth(faceDepthPixels);
 
-  ofLogNotice("Halogen") << "Face at (x=" << face.x << ", y=" << face.y << ") " << mmToFeet(faceDistance) << " ft away";
+  ofLogNotice("Halogen") << "Face at (x=" << face.x << ", y=" << face.y << ", w=" << face.width << ", h=" << face.height << ") " << mmToFeet(faceDistance) << " ft away";
 
   subtractBackground(
     &colorPixels,
@@ -96,7 +96,7 @@ void Halogen::update() {
 void Halogen::findFace() {
   std::vector<cv::Rect> faces;
   TS_START("face detect");
-  face_cascade.detectMultiScale(ofxCv::toCv(colorPixels), faces, 1.1, 2, 0|CV_HAAR_SCALE_IMAGE, cv::Size(60, 60));
+  face_cascade.detectMultiScale(ofxCv::toCv(colorPixels), faces, 1.1, 2, 0|CV_HAAR_SCALE_IMAGE, cv::Size(90, 90));
   TS_STOP("face detect");
 
   auto sortedFaces = faces;
@@ -124,7 +124,7 @@ void Halogen::draw() {
     return;
   }
   colorTexture.draw(0,0);
-  // drawBoundBox(face, ofColor::green);
+  drawBoundBox(face, ofColor::green);
 }
 
 Halogen::~Halogen() {
