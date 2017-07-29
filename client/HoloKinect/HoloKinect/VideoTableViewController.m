@@ -8,6 +8,7 @@
 
 #import "VideoTableViewController.h"
 #import "VideoPlayerViewController.h"
+#import "ARKitViewController.h"
 
 @interface VideoTableViewController ()
 
@@ -75,8 +76,11 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    VideoPlayerViewController *playerVC = [[VideoPlayerViewController alloc] init];
-    [self.navigationController pushViewController:playerVC animated:YES];
+//    VideoPlayerViewController *playerVC = [[VideoPlayerViewController alloc] init];
+//    [self.navigationController pushViewController:playerVC animated:YES];
+    
+    ARKitViewController *arVC = [[ARKitViewController alloc] init];
+    [self.navigationController pushViewController:arVC animated:YES];
 }
 
 @end

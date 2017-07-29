@@ -1,5 +1,5 @@
 //
-//  VideoPlayerViewController.h
+//  ARKitViewController.h
 //  HoloKinect
 //
 //  Created by Krishna Bharathala on 7/29/17.
@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <SceneKit/SceneKit.h>
+#import <ARKit/ARKit.h>
 
-@interface VideoPlayerViewController : UIViewController
+@interface ARKitViewController : UIViewController
 
 @end

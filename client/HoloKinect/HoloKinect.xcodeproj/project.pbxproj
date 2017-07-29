@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6B060EA21F2D29270097D482 /* ARKitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B060EA11F2D29270097D482 /* ARKitViewController.m */; };
 		6B736A5A1F2D0BEE0007F9BE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B736A591F2D0BEE0007F9BE /* main.m */; };
 		6B736A5D1F2D0BEE0007F9BE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B736A5C1F2D0BEE0007F9BE /* AppDelegate.m */; };
 		6B736A651F2D0BEE0007F9BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6B736A641F2D0BEE0007F9BE /* Assets.xcassets */; };
 		6B736A701F2D0C260007F9BE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6B736A6F1F2D0C260007F9BE /* Default-568h@2x.png */; };
 		6B736A731F2D0D280007F9BE /* VideoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B736A721F2D0D280007F9BE /* VideoTableViewController.m */; };
-		6BF88DC11F2D14190086CA3C /* VideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BF88DC01F2D14190086CA3C /* VideoPlayerViewController.m */; };
 		6BF88DC41F2D17E70086CA3C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BF88DC31F2D17E70086CA3C /* UIKit.framework */; };
 		6BF88DC61F2D17EF0086CA3C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BF88DC51F2D17EF0086CA3C /* AVFoundation.framework */; };
 		6BF88DC81F2D17F60086CA3C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BF88DC71F2D17F60086CA3C /* CoreGraphics.framework */; };
@@ -20,6 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6B060EA01F2D29270097D482 /* ARKitViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARKitViewController.h; sourceTree = "<group>"; };
+		6B060EA11F2D29270097D482 /* ARKitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ARKitViewController.m; sourceTree = "<group>"; };
 		6B736A551F2D0BEE0007F9BE /* HoloKinect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HoloKinect.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B736A591F2D0BEE0007F9BE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6B736A5B1F2D0BEE0007F9BE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -29,8 +31,6 @@
 		6B736A6F1F2D0C260007F9BE /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		6B736A711F2D0D280007F9BE /* VideoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoTableViewController.h; sourceTree = "<group>"; };
 		6B736A721F2D0D280007F9BE /* VideoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoTableViewController.m; sourceTree = "<group>"; };
-		6BF88DBF1F2D14190086CA3C /* VideoPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlayerViewController.h; sourceTree = "<group>"; };
-		6BF88DC01F2D14190086CA3C /* VideoPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPlayerViewController.m; sourceTree = "<group>"; };
 		6BF88DC31F2D17E70086CA3C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		6BF88DC51F2D17EF0086CA3C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		6BF88DC71F2D17F60086CA3C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -77,8 +77,8 @@
 				6B736A5C1F2D0BEE0007F9BE /* AppDelegate.m */,
 				6B736A711F2D0D280007F9BE /* VideoTableViewController.h */,
 				6B736A721F2D0D280007F9BE /* VideoTableViewController.m */,
-				6BF88DBF1F2D14190086CA3C /* VideoPlayerViewController.h */,
-				6BF88DC01F2D14190086CA3C /* VideoPlayerViewController.m */,
+				6B060EA01F2D29270097D482 /* ARKitViewController.h */,
+				6B060EA11F2D29270097D482 /* ARKitViewController.m */,
 				6B736A641F2D0BEE0007F9BE /* Assets.xcassets */,
 				6B736A691F2D0BEE0007F9BE /* Info.plist */,
 				6B736A581F2D0BEE0007F9BE /* Supporting Files */,
@@ -177,8 +177,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				6B736A5D1F2D0BEE0007F9BE /* AppDelegate.m in Sources */,
-				6BF88DC11F2D14190086CA3C /* VideoPlayerViewController.m in Sources */,
 				6B736A5A1F2D0BEE0007F9BE /* main.m in Sources */,
+				6B060EA21F2D29270097D482 /* ARKitViewController.m in Sources */,
 				6B736A731F2D0D280007F9BE /* VideoTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
