@@ -12,8 +12,7 @@ void get_faces(Mat image, CascadeClassifier face_cascade, std::vector<Rect> face
     face_cascade.detectMultiScale( image, faces, 1.1, 2, 0|CV_HAAR_SCALE_IMAGE, Size(30, 30) );
 }
  
-int main( )
-{
+int main( ) {
     Mat image;
     image = imread("lena.jpg", CV_LOAD_IMAGE_COLOR);  
     namedWindow( "window1", 1 );   imshow( "window1", image );
@@ -35,6 +34,6 @@ int main( )
      
     imshow( "Detected Face", image );
      
-    waitKey(0);                   
+    waitKey(0);
     return 0;
 }
