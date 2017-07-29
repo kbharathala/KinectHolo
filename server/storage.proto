@@ -1,0 +1,14 @@
+message HoloChat {
+	message Frame {
+		message Point {
+			float r = 1;
+			float g = 2;
+			float b = 3;
+			float x = 4;
+			float y = 5;
+			float z = 6;
+		}
+		repeated Point points = 1;
+	}
+	repeated Frame frames = 1;
+}
