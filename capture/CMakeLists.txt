@@ -32,7 +32,7 @@ include_directories(${freenect2_INCLUDE_DIRS})
 
 ### addons
 # ofxaddon(ofxGui)
-# ofxaddon(addons/ofxCv)
+ofxaddon(addons/ofxCv)
 ofxaddon(addons/ofxTimeMeasurements)
 
 # set(ofx_addon_includes addons/ofxCv/libs/CLD/include/CLD addons/ofxCv/libs/ofxCv/include/ofxCv)
