@@ -13,6 +13,10 @@
 		6B736A701F2D0C260007F9BE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6B736A6F1F2D0C260007F9BE /* Default-568h@2x.png */; };
 		6B736A731F2D0D280007F9BE /* VideoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B736A721F2D0D280007F9BE /* VideoTableViewController.m */; };
 		6BF88DC11F2D14190086CA3C /* VideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BF88DC01F2D14190086CA3C /* VideoPlayerViewController.m */; };
+		6BF88DC41F2D17E70086CA3C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BF88DC31F2D17E70086CA3C /* UIKit.framework */; };
+		6BF88DC61F2D17EF0086CA3C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BF88DC51F2D17EF0086CA3C /* AVFoundation.framework */; };
+		6BF88DC81F2D17F60086CA3C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BF88DC71F2D17F60086CA3C /* CoreGraphics.framework */; };
+		6BF88DCA1F2D17FC0086CA3C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BF88DC91F2D17FC0086CA3C /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +31,10 @@
 		6B736A721F2D0D280007F9BE /* VideoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoTableViewController.m; sourceTree = "<group>"; };
 		6BF88DBF1F2D14190086CA3C /* VideoPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlayerViewController.h; sourceTree = "<group>"; };
 		6BF88DC01F2D14190086CA3C /* VideoPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPlayerViewController.m; sourceTree = "<group>"; };
+		6BF88DC31F2D17E70086CA3C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		6BF88DC51F2D17EF0086CA3C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		6BF88DC71F2D17F60086CA3C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		6BF88DC91F2D17FC0086CA3C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,6 +42,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6BF88DCA1F2D17FC0086CA3C /* Foundation.framework in Frameworks */,
+				6BF88DC81F2D17F60086CA3C /* CoreGraphics.framework in Frameworks */,
+				6BF88DC61F2D17EF0086CA3C /* AVFoundation.framework in Frameworks */,
+				6BF88DC41F2D17E70086CA3C /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -46,6 +58,7 @@
 				6B736A6F1F2D0C260007F9BE /* Default-568h@2x.png */,
 				6B736A571F2D0BEE0007F9BE /* HoloKinect */,
 				6B736A561F2D0BEE0007F9BE /* Products */,
+				6BF88DC21F2D17E70086CA3C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -79,6 +92,17 @@
 				6B736A591F2D0BEE0007F9BE /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		6BF88DC21F2D17E70086CA3C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6BF88DC91F2D17FC0086CA3C /* Foundation.framework */,
+				6BF88DC71F2D17F60086CA3C /* CoreGraphics.framework */,
+				6BF88DC51F2D17EF0086CA3C /* AVFoundation.framework */,
+				6BF88DC31F2D17E70086CA3C /* UIKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
