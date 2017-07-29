@@ -7,6 +7,12 @@
 //
 
 #import "ARKitViewController.h"
+@import SceneKit;
+
+typedef struct PointCloudModel
+{
+    float x, y, z, r, g, b;
+} PointCloudModel;
 
 @interface ARKitViewController () <ARSCNViewDelegate>
 
@@ -20,16 +26,20 @@
 
 @implementation ARKitViewController
 
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
 //    [self setupLabel];
     [self setupSceneView];
+    [self makePointCloud];
     
     self.sceneView = [[ARSCNView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     [self.view addSubview: _sceneView];
     
+
     UISwipeGestureRecognizer *rightSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipe:)];
     rightSwipe.direction = UISwipeGestureRecognizerDirectionRight;
     [self.view addGestureRecognizer:rightSwipe];
@@ -69,6 +79,80 @@
 {
     self.scene = [SCNScene new];
     self.sceneView.scene = self.scene;
+    
+    SCNNode *cameraNode = [SCNNode node];
+    cameraNode.camera = [SCNCamera camera];
+    cameraNode.position = SCNVector3Make(0, 0, 0);
+    cameraNode.rotation = SCNVector4Make(1, 0, 0, -sin(12.0/30.0));
+    
+    [self.scene.rootNode addChildNode:cameraNode];
+}
+
+- (void)makePointCloud
+{
+    NSUInteger numPoints = 100;
+    
+    int randomPosUL = 2;
+    int scaleFactor = 10000;
+    
+    PointCloudModel pointCloudVertices[numPoints];
+    
+    for (NSUInteger i = 0; i < numPoints; i++) {
+        
+        PointCloudModel vertex;
+        
+        float x = (float)(arc4random_uniform(randomPosUL * 2 * scaleFactor));
+        float y = (float)(arc4random_uniform(randomPosUL * 2 * scaleFactor));
+        float z = (float)(arc4random_uniform(randomPosUL * 2 * scaleFactor));
+        
+        vertex.x = (x - randomPosUL * scaleFactor) / scaleFactor;
+        vertex.y = (y - randomPosUL * scaleFactor) / scaleFactor;
+        vertex.z = (z - randomPosUL * scaleFactor) / scaleFactor;
+        
+        vertex.r = arc4random_uniform(255) / 255.0;
+        vertex.g = arc4random_uniform(255) / 255.0;
+        vertex.b = arc4random_uniform(255) / 255.0;
+        
+        pointCloudVertices[i] = vertex;
+    }
+    
+    // convert array to point cloud data (position and color)
+    NSData *pointCloudData = [NSData dataWithBytes:&pointCloudVertices length:sizeof(pointCloudVertices)];
+    
+    // create vertex source
+    SCNGeometrySource *vertexSource = [SCNGeometrySource geometrySourceWithData:pointCloudData
+                                                                       semantic:SCNGeometrySourceSemanticVertex
+                                                                    vectorCount:numPoints
+                                                                floatComponents:YES
+                                                            componentsPerVector:3
+                                                              bytesPerComponent:sizeof(float)
+                                                                     dataOffset:0
+                                                                     dataStride:sizeof(PointCloudModel)];
+    
+    // create color source
+    SCNGeometrySource *colorSource = [SCNGeometrySource geometrySourceWithData:pointCloudData
+                                                                      semantic:SCNGeometrySourceSemanticColor
+                                                                   vectorCount:numPoints
+                                                               floatComponents:YES
+                                                           componentsPerVector:3
+                                                             bytesPerComponent:sizeof(float)
+                                                                    dataOffset:sizeof(float) * 3
+                                                                    dataStride:sizeof(PointCloudModel)];
+    
+    // create element
+    SCNGeometryElement *element = [SCNGeometryElement geometryElementWithData:nil
+                                                                primitiveType:SCNGeometryPrimitiveTypePoint
+                                                               primitiveCount:numPoints
+                                                                bytesPerIndex:sizeof(int)];
+    
+    // create geometry
+    SCNGeometry *pointcloudGeometry = [SCNGeometry geometryWithSources:@[ vertexSource, colorSource ] elements:@[ element]];
+    
+    // add pointcloud to scene
+    SCNNode *pointcloudNode = [SCNNode nodeWithGeometry:pointcloudGeometry];
+    [self.sceneView.scene.rootNode addChildNode:pointcloudNode];
+    
+    
 }
 
 //- (void)setupLabel
