@@ -101,8 +101,8 @@
 				BFBA040A1F2D3B10000B39EB /* TableViewCell.h */,
 				BFBA040B1F2D3B10000B39EB /* TableViewCell.m */,
 				6B060EA01F2D29270097D482 /* ARKitViewController.h */,
-				6B060EA11F2D29270097D482 /* ARKitViewController.m */,
 				6B736A641F2D0BEE0007F9BE /* Assets.xcassets */,
+				6B060EA11F2D29270097D482 /* ARKitViewController.m */,
 				6B736A691F2D0BEE0007F9BE /* Info.plist */,
 				6B736A581F2D0BEE0007F9BE /* Supporting Files */,
 			);

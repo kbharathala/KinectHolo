@@ -61,7 +61,10 @@ typedef struct PointCloudModel
 
 - (void)didSwipe:(UISwipeGestureRecognizer*) swipe {
     
+    
+    
     if (swipe.direction == UISwipeGestureRecognizerDirectionRight) {
+
         [self.navigationController popViewControllerAnimated:YES];
     }
 }
@@ -79,9 +82,13 @@ typedef struct PointCloudModel
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+
     [super viewWillDisappear:animated];
     
+    [self.sceneView.scene removeAllParticleSystems];
+    
     [self.sceneView.session pause];
+    
 }
 - (void)setupSceneView
 {
@@ -107,95 +114,114 @@ typedef struct PointCloudModel
     ARWorldTrackingSessionConfiguration *configuration = [ARWorldTrackingSessionConfiguration new];
     configuration.planeDetection = ARPlaneDetectionHorizontal;
     configuration.worldAlignment = ARWorldAlignmentGravityAndHeading;
+    
+//    for (SCNNode *node in [self.sceneView.scene.rootNode childNodes]) {
+//        [node removeFromParentNode];
+//    }
+    
     [self.sceneView.session runWithConfiguration:configuration];
 }
 
 - (void)resetPointCloud
 {
-    for (SCNNode *node in [self.sceneView.scene.rootNode childNodes]) {
-        [node removeFromParentNode];
-    }
     
     [self makePointCloud];
 }
 
 - (void)makePointCloud
 {
-    NSUInteger numPoints = 1000;
+    NSUInteger numPoints = 30000;
 
     int randomPosUL = 2;
-    int scaleFactor = 10000;
+    int scaleFactor = 1000;
 
     PointCloudModel pointCloudVertices[numPoints];
 
     for (NSUInteger i = 0; i < numPoints; i++) {
 
         PointCloudModel vertex;
-
-        float x = (float)(arc4random_uniform(randomPosUL * 2 * scaleFactor));
-        float y = (float)(arc4random_uniform(randomPosUL * 2 * scaleFactor));
-        float z = (float)(arc4random_uniform(randomPosUL * 2 * scaleFactor));
+    
+        float x = (arc4random_uniform(randomPosUL * 2 * scaleFactor));
+//        (float) rand() / (RAND_MAX);
+        float y = (arc4random_uniform(randomPosUL * 2 * scaleFactor));
+        float z = (arc4random_uniform(randomPosUL * 2 * scaleFactor));
+//        (arc4random_uniform(randomPosUL * 2 * scaleFactor));
 
         vertex.x = (x - randomPosUL * scaleFactor) / scaleFactor;
         vertex.y = (y - randomPosUL * scaleFactor) / scaleFactor;
         vertex.z = (z - randomPosUL * scaleFactor) / scaleFactor;
+        
+//        vertex.x = (float) (rand() / RAND_MAX);
+//        vertex.y = (float) (rand() / RAND_MAX);
+//        vertex.z = (float) (rand() / RAND_MAX);
 
         vertex.r = arc4random_uniform(255) / 255.0;
         vertex.g = arc4random_uniform(255) / 255.0;
         vertex.b = arc4random_uniform(255) / 255.0;
+        
 
         pointCloudVertices[i] = vertex;
         
-        SCNMaterial *particleMaterial = [SCNMaterial new];
-        particleMaterial.diffuse.contents = [UIColor colorWithRed:vertex.r green:vertex.g blue:vertex.b alpha:1];
-        
-        SCNGeometry *particleGeometry = [SCNSphere sphereWithRadius:0.003];
-        particleGeometry.firstMaterial = particleMaterial;
-        SCNNode *particle = [SCNNode nodeWithGeometry:particleGeometry];
-        particle.position = SCNVector3Make(vertex.x, vertex.y, vertex.z);
-        [self.sceneView.scene.rootNode addChildNode:particle];
+//        SCNMaterial *particleMaterial = [SCNMaterial new];
+//        particleMaterial.diffuse.contents = [UIColor colorWithRed:vertex.r green:vertex.g blue:vertex.b alpha:1];
+//
+//        SCNGeometry *particleGeometry = [SCNSphere sphereWithRadius:0.003];
+//        particleGeometry.firstMaterial = particleMaterial;
+//        SCNNode *particle = [SCNNode nodeWithGeometry:particleGeometry];
+//        particle.position = SCNVector3Make(vertex.x, vertex.y, vertex.z);
+//        SCNAction *fadeParticle = [SCNAction fadeOpacityTo:0.0 duration:0.05f];
+//        [particle runAction:fadeParticle];
+//        [self.sceneView.scene.rootNode addChildNode:particle];
     }
     
 
     // convert array to point cloud data (position and color)
-//    NSData *pointCloudData = [NSData dataWithBytes:&pointCloudVertices length:sizeof(pointCloudVertices)];
+    NSData *pointCloudData = [NSData dataWithBytes:&pointCloudVertices length:sizeof(pointCloudVertices)];
 
 //    // create vertex source
-//    SCNGeometrySource *vertexSource = [SCNGeometrySource geometrySourceWithData:pointCloudData
-//                                                                       semantic:SCNGeometrySourceSemanticVertex
-//                                                                    vectorCount:numPoints
-//                                                                floatComponents:YES
-//                                                            componentsPerVector:3
-//                                                              bytesPerComponent:sizeof(float)
-//                                                                     dataOffset:0
-//                                                                     dataStride:sizeof(PointCloudModel)];
-//
-//    // create color source
-//    SCNGeometrySource *colorSource = [SCNGeometrySource geometrySourceWithData:pointCloudData
-//                                                                      semantic:SCNGeometrySourceSemanticColor
-//                                                                   vectorCount:numPoints
-//                                                               floatComponents:YES
-//                                                           componentsPerVector:3
-//                                                             bytesPerComponent:sizeof(float)
-//                                                                    dataOffset:sizeof(float) * 3
-//                                                                    dataStride:sizeof(PointCloudModel)];
-//
-//    // create element
-//    SCNGeometryElement *element = [SCNGeometryElement geometryElementWithData:nil
-//                                                                primitiveType:SCNGeometryPrimitiveTypePoint
-//                                                               primitiveCount:numPoints
-//                                                                bytesPerIndex:sizeof(int)];
-//
-//    // create geometry
-//    SCNGeometry *pointcloudGeometry = [SCNGeometry geometryWithSources:@[ vertexSource, colorSource ] elements:@[ element]];
+    SCNGeometrySource *vertexSource = [SCNGeometrySource geometrySourceWithData:pointCloudData
+                                                               semantic:SCNGeometrySourceSemanticVertex
+                                                                    vectorCount:numPoints
+                                                                floatComponents:YES
+                                                            componentsPerVector:3
+                                                              bytesPerComponent:sizeof(float)
+                                                                     dataOffset:offsetof(PointCloudModel, x)
+                                                                     dataStride:sizeof(PointCloudModel)];
 
-    // add pointcloud to scene
-//    SCNNode *pointcloudNode = [SCNNode nodeWithGeometry:pointcloudGeometry];
-//        [SCNBox boxWithWidth:0.1 height:0.1 length:0.1 chamferRadius:0];
-//    pointcloudNode.geometry = [SCNGeometry geometryWithSources:@[vertexSource, colorSource] elements:@[element]];
-//    pointcloudNode.geometry = [SCNGeometry geometryWithSources:@[ vertexSource, colorSource ] elements:@[ element]];
-//    pointcloudNode.position = SCNVector3Make(0, 0, -0.2);
-//    [self.sceneView.scene.rootNode addChildNode:pointcloudNode];
+    // create color source
+    SCNGeometrySource *colorSource = [SCNGeometrySource geometrySourceWithData:pointCloudData
+                                                                  semantic:SCNGeometrySourceSemanticColor
+                                                                   vectorCount:numPoints
+                                                               floatComponents:YES
+                                                           componentsPerVector:3
+                                                             bytesPerComponent:sizeof(float)
+                                                                    dataOffset:offsetof(PointCloudModel, r)
+                                                                    dataStride:sizeof(PointCloudModel)];
+
+    // create element
+    SCNGeometryElement *element = [SCNGeometryElement geometryElementWithData:nil
+                                                            primitiveType:SCNGeometryPrimitiveTypePoint
+                                                               primitiveCount:numPoints
+                                                                bytesPerIndex:sizeof(int)];
+
+    // create geometry
+    
+    
+    SCNGeometry *pointcloudGeometry = [SCNGeometry geometryWithSources:@[ vertexSource, colorSource] elements:@[ element]];
+    
+    SCNNode *pointcloudNode = [SCNNode nodeWithGeometry:pointcloudGeometry];
+//    pointcloudGeometry.firstMaterial.shaderModifiers = @{SCNShaderModifierEntryPointGeometry : @"gl_PointSize = 0.0000000000005"};
+    pointcloudNode.geometry = pointcloudGeometry;
+//    pointcloudNode.geometry.shaderModifiers = @{SCNShaderModifierEntryPointGeometry : @"gl_PointSize = 2.0"};
+    pointcloudNode.position = SCNVector3Make(0, 0, -0.2);
+    SCNAction *fadeParticle = [SCNAction fadeOpacityTo:0.0 duration:0.05f];
+    [pointcloudNode runAction:fadeParticle];
+    
+//
+//    pointcloudGeometry.firstMaterial.shaderModifiers =[SCNShaderModifierEntryPointGeometry] [SCNShaderModifierEntryPointGeometry:"gl_PointSize = 2.5;"];
+    
+//    pointcloudGeometry.firstMaterial.shaderModifiers = [SCNShaderModifierEntryPoint.geometry: "gl_PointSize = 2.5;"]
+    [self.sceneView.scene.rootNode addChildNode:pointcloudNode];
 
 
 }
