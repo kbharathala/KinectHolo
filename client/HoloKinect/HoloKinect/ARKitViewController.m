@@ -26,6 +26,8 @@ typedef struct PointCloudModel
 @property (nonatomic, strong) SCNNode *currNode;
 @property (nonatomic, strong) ARPlaneAnchor *currAnchor;
 
+@property (nonatomic, strong) SCNNode *particle;
+
 @property (nonatomic) BOOL planeFound;
 
 @end
@@ -59,17 +61,31 @@ typedef struct PointCloudModel
     rightSwipe.direction = UISwipeGestureRecognizerDirectionRight;
     [self.view addGestureRecognizer:rightSwipe];
     
-    UITapGestureRecognizer *singleFingerTap =
-    [[UITapGestureRecognizer alloc] initWithTarget:self
-                                            action:@selector(handleSingleTap:)];
-    [self.view addGestureRecognizer:singleFingerTap];
+    SCNMaterial *particleMaterial = [SCNMaterial new];
+    particleMaterial.diffuse.contents = [UIColor colorWithRed:125/255.0 green:125/255.0 blue:125/255.0 alpha:1];
+    
+    SCNGeometry *particleGeometry = [SCNSphere sphereWithRadius:0.003];
+    particleGeometry.firstMaterial = particleMaterial;
+    
+    self.particle = [SCNNode nodeWithGeometry:particleGeometry];
+    self.particle.position = SCNVector3Make(0, 0, 0);
+    [self.sceneView.scene.rootNode addChildNode:self.particle];
+    
+    [self.view setMultipleTouchEnabled:YES];
 }
 
-- (void)handleSingleTap:(UITapGestureRecognizer *)recognizer
-{
-    CGPoint location = [recognizer locationInView:[recognizer.view superview]];
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+   
+    UITouch *touch = touches.allObjects.firstObject;
+    NSArray<ARHitTestResult *> *results =
+        [self.sceneView hitTest: [touch locationInView:self.sceneView] types:ARHitTestResultTypeFeaturePoint];
     
-    //Do stuff here...
+    ARHitTestResult *hitFeature = results.lastObject;
+    SCNMatrix4 hitTransform = SCNMatrix4FromMat4(hitFeature.worldTransform);
+    
+    SCNVector3 hitPosition = SCNVector3Make(hitTransform.m41, hitTransform.m42, hitTransform.m43);
+    
+    self.particle.position = hitPosition;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -78,10 +94,6 @@ typedef struct PointCloudModel
     // Setting up the navigation bar
     [self.navigationController.navigationBar setHidden:YES];
     self.navigationController.navigationItem.backBarButtonItem = nil;
-    
-    // setting up the scene
-//    self.scene = [SCNScene new];
-//    self.sceneView.scene = self.scene;
     
     // starting the session
     ARWorldTrackingSessionConfiguration *configuration = [ARWorldTrackingSessionConfiguration new];
@@ -190,66 +202,51 @@ typedef struct PointCloudModel
 }
 
 
-
-- (void)showAnchorPoint:(ARPlaneAnchor *)anchor onNode:(SCNNode *)node
-{
-    SCNNode *plane = [self planeFromAnchor:anchor];
-    
-    SCNSphere *sphereGeometry = [SCNSphere sphereWithRadius:0.5];
-    SCNNode *sphereNode = [SCNNode nodeWithGeometry:sphereGeometry];
-    sphereNode.position = SCNVector3Make(0, 0, 3);
-    
-    [plane addChildNode:sphereNode];
-    [node addChildNode:plane];
-}
+//- (void)showAnchorPoint:(ARPlaneAnchor *)anchor onNode:(SCNNode *)node
+//{
+//    SCNNode *plane = [self planeFromAnchor:anchor];
+//
+//    SCNSphere *sphereGeometry = [SCNSphere sphereWithRadius:0.5];
+//    SCNNode *sphereNode = [SCNNode nodeWithGeometry:sphereGeometry];
+//    sphereNode.position = SCNVector3Make(0, 0, 3);
+//
+//    [plane addChildNode:sphereNode];
+//    [node addChildNode:plane];
+//}
 
 #pragma mark - Node builders
-
-- (SCNNode *)planeFromAnchor:(ARPlaneAnchor *)anchor
-{
-    
-    NSLog(@"i'm being called here");
-    
-    SCNPlane *plane = [SCNPlane planeWithWidth:anchor.extent.x height:anchor.extent.z];
-    // plane.firstMaterial.diffuse.contents = [UIColor redColor];
-    SCNNode *planeNode = [SCNNode nodeWithGeometry:plane];
-    planeNode.position = SCNVector3Make(anchor.center.x, 0, anchor.center.z);
-    planeNode.transform = SCNMatrix4MakeRotation(-M_PI * 0.5, 1, 0, 0);
-
-    return planeNode;
-}
 
 #pragma mark - ARSCNViewDelegate
 
 - (void)renderer:(id <SCNSceneRenderer>)renderer didAddNode:(SCNNode *)node forAnchor:(ARAnchor *)anchor;
 {
     
-    if (self.planeFound == NO)
-    {
-        if ([anchor isKindOfClass:[ARPlaneAnchor class]])
-        {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [SVProgressHUD showSuccessWithStatus:@"found the right anchor"];
-                self.planeFound = YES;
-                
-                self.currNode = node;
-                self.currAnchor = (ARPlaneAnchor *) anchor;
-                
-//                [self showAnchorPoint:self.currAnchor onNode:self.currNode];
-                
-                [node addChildNode:[self planeFromAnchor:(ARPlaneAnchor *)anchor]];
-                
-                self.playVideo = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-                [self.playVideo setFrame: CGRectMake(0, 0, 275, 40)];
-                [self.playVideo setCenter:CGPointMake(self.view.frame.size.width / 2, self.view.frame.size.height * 6 / 7)];
-                self.playVideo.backgroundColor = [UIColor whiteColor];
-                [self.playVideo setTitle:@"Play video message now!" forState:UIControlStateNormal];
-                self.playVideo.layer.cornerRadius = 8;
-                [self.playVideo addTarget:self action:@selector(playVideoPressed) forControlEvents:UIControlEventTouchUpInside];
-                [self.sceneView addSubview:self.playVideo];
-            });
-        }
-    }
+//    if (self.planeFound == NO)
+//    {
+//        if ([anchor isKindOfClass:[ARPlaneAnchor class]])
+//        {
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                [SVProgressHUD showSuccessWithStatus:@"found the right anchor"];
+//                self.planeFound = YES;
+//
+//                self.currNode = node;
+//                self.currAnchor = (ARPlaneAnchor *) anchor;
+//
+////                [self showAnchorPoint:self.currAnchor onNode:self.currNode];
+//
+//                [node addChildNode:[self planeFromAnchor:(ARPlaneAnchor *)anchor]];
+//
+//                self.playVideo = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//                [self.playVideo setFrame: CGRectMake(0, 0, 275, 40)];
+//                [self.playVideo setCenter:CGPointMake(self.view.frame.size.width / 2, self.view.frame.size.height * 6 / 7)];
+//                self.playVideo.backgroundColor = [UIColor whiteColor];
+//                [self.playVideo setTitle:@"Play video message now!" forState:UIControlStateNormal];
+//                self.playVideo.layer.cornerRadius = 8;
+//                [self.playVideo addTarget:self action:@selector(playVideoPressed) forControlEvents:UIControlEventTouchUpInside];
+//                [self.sceneView addSubview:self.playVideo];
+//            });
+//        }
+//    }
 }
 
 -(void) playVideoPressed {
