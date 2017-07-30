@@ -81,8 +81,12 @@ ofPixels Kinect::getColorPixels() {
   return colorPixelsFront;
 }
 
-ofFloatPixels Kinect::getDepthPixels() {
-  return depthPixelsFront;
+ofFloatPixels Kinect::getSmallDepthPixels() {
+  return smallDepthPixelsFront;
+}
+
+ofFloatPixels Kinect::getBigDepthPixels() {
+  return bigDepthPixelsBack;
 }
 
 void Kinect::threadedFunction() {
@@ -93,7 +97,7 @@ void Kinect::threadedFunction() {
         break;
       }
       libfreenect2::Frame *color = frames[libfreenect2::Frame::Color];
-      // libfreenect2::Frame *ir = frames[libfreenect2::Frame::Ir];
+      libfreenect2::Frame *ir = frames[libfreenect2::Frame::Ir];
       libfreenect2::Frame *depth = frames[libfreenect2::Frame::Depth];
 
       mutex.lock();
@@ -101,11 +105,13 @@ void Kinect::threadedFunction() {
       registration->apply(color, depth, undistorted, registered, true, bigDepth);
 
       colorPixelsBack.setFromPixels(color->data, color->width, color->height, OF_PIXELS_BGRA);
-      // unalignedDepthPixelsBack.setFromPixels(reinterpret_cast<float *>(depth->data), ir->width, ir->height, OF_PIXELS_GRAY);
-      depthPixelsBack.setFromPixels(reinterpret_cast<float *>(bigDepth->data), bigDepth->width, bigDepth->height, OF_PIXELS_GRAY);
+      smallDepthPixelsBack.setFromPixels(reinterpret_cast<float *>(depth->data), ir->width, ir->height, OF_PIXELS_GRAY);
+      bigDepthPixelsBack.setFromPixels(reinterpret_cast<float *>(bigDepth->data), bigDepth->width, bigDepth->height, OF_PIXELS_GRAY);
 
       colorPixelsFront.swap(colorPixelsBack);
-      depthPixelsFront.swap(depthPixelsBack);
+      smallDepthPixelsFront.swap(smallDepthPixelsBack);
+      bigDepthPixelsFront.swap(bigDepthPixelsBack);
+
 
       mutex.unlock();
 

@@ -15,10 +15,10 @@ void drawBoundBox(ofRectangle r, ofColor color) {
   ofSetColor(ofColor::white);
 }
 
-float averageDepth(ofFloatPixels depthPixels) {
-  auto numPixels = depthPixels.size();
+float averageDepth(ofFloatPixels bigDepthPixels) {
+  auto numPixels = bigDepthPixels.size();
   float totalPixelValue = 0;
-  const float *pixelData = depthPixels.getData();
+  const float *pixelData = bigDepthPixels.getData();
   for (size_t i = 0; i < numPixels; i++) {
     auto currentPixel = pixelData[i];
     auto normalizedPixelValue = max(min(currentPixel, MAX_DEPTH), MIN_DEPTH);
@@ -30,6 +30,7 @@ float averageDepth(ofFloatPixels depthPixels) {
 
 void subtractBackground(ofPixels *colorPixels, const ofFloatPixels &depthPixels, float low, float high) {
   // ofPixels paintedPixels;
+  ofLogNotice("subtractBackground") << "Size:" << depthPixels.getWidth() << " ," << depthPixels.getHeight();
   // paintedPixels.allocate(depthPixels.getWidth(), depthPixels.getHeight(), OF_IMAGE_COLOR_ALPHA);
   const float *data = depthPixels.getData();
 
@@ -37,7 +38,7 @@ void subtractBackground(ofPixels *colorPixels, const ofFloatPixels &depthPixels,
     auto normalizedPixelValue = max(min(data[i], MAX_DEPTH), MIN_DEPTH);
     bool isPixelWithinThreshold = (normalizedPixelValue > low) && (normalizedPixelValue < high);
     if (!isPixelWithinThreshold) {
-      colorPixels->setColor(i*4, ofColor(255, 255, 255, 255));
+      colorPixels->setColor(i*4, ofColor(0, 0, 0, 0));
     }
     // paintedPixels.setColor(i * 4, isPixelWithinThreshold ? inColor : outColor);
   }
@@ -60,17 +61,20 @@ void Halogen::setup() {
 
   gui.setup();
   gui.setPosition(200, 200);
-  gui.add(radius.setup("radius", 255, 25, 500));
+  gui.add(radius.setup("radius", 255, 25, 350));
 }
 
 void Halogen::update() {
   if (!this->kinect->isConnected) return;
 
+  if (isSaving) return;
+
   TS_START("[Kinect] update frames");
   colorPixels = this->kinect->getColorPixels();
-  depthPixels = this->kinect->getDepthPixels();
+  smallDepthPixels = this->kinect->getSmallDepthPixels();
+  bigDepthPixels = this->kinect->getBigDepthPixels();
   TS_STOP("[Kinect] update frames");
-  hasData = (colorPixels.size() > 0);
+  hasData = (colorPixels.size() > 0 && smallDepthPixels.size() > 0 && bigDepthPixels.size() > 0);
 
   if (!hasData) {
     return;
@@ -79,19 +83,19 @@ void Halogen::update() {
   findFace();
 
   ofFloatPixels faceDepthPixels;
-  depthPixels.cropTo(faceDepthPixels, face.x, face.y, face.width, face.height);
+  bigDepthPixels.cropTo(faceDepthPixels, face.x, face.y, face.width, face.height);
   faceDistance = averageDepth(faceDepthPixels);
 
   ofLogNotice("Halogen") << "Faces at (x=" << face.x << ", y=" << face.y << ", w=" << face.width << ", h=" << face.height << ") " << mmToFeet(faceDistance) << " ft away";
 
   ofPixels newColorPixels = colorPixels;
   subtractBackground(
-    &newColorPixels,
-    depthPixels,
+    &colorPixels,
+    bigDepthPixels,
     faceDistance - (radius * 2),
     faceDistance + radius
   );
-  colorTexture.loadData(newColorPixels);
+  colorTexture.loadData(colorPixels);
 }
 
 void Halogen::findFace() {
@@ -138,41 +142,35 @@ void Halogen::draw() {
 }
 
 void Halogen::saveFrame() {
+  isSaving = true;
   ofLogNotice("Halogen", "saving frame");
-  ofPixels newColorPixels = colorPixels;
-  subtractBackground(
-    &newColorPixels,
-    depthPixels,
-    faceDistance - (radius * 2),
-    faceDistance + radius
-  );
 
   Message *msg = new Message();
   auto frame = msg->add_frames();
 
-  float x, y, z;
+  auto low = faceDistance - (radius * 2);
+  auto high = faceDistance + radius;
+
+  float xMeters, yMeters, zMeters;
   uint8_t r, g, b;
-  for (auto i = 0; i < newColorPixels.getHeight(); i++) {
-    for (auto j = 0; j < newColorPixels.getWidth(); j++) {
-      auto pixel = newColorPixels.getColor(i, j);
-      bool isEmpty = pixel == ofColor(255, 255, 255, 255);
-      if (isEmpty) {
-        cout << " ";
-        continue;
+  // depthPixels 1920x1082 "big depth"
+  for (auto curHeight = 0; curHeight < smallDepthPixels.getHeight(); curHeight++) {
+    for (auto curWidth = 0; curWidth < smallDepthPixels.getWidth(); curWidth++) {
+      // getPoint(r, c) indexes into small depth
+      kinect->getPoint(curHeight, curWidth, xMeters, yMeters, zMeters, r, g, b);
+      float zMm = zMeters * 1000;
+
+      auto normalizedPixelValue = max(min(zMm, MAX_DEPTH), MIN_DEPTH);
+      bool isPixelWithinThreshold = (normalizedPixelValue > low) && (normalizedPixelValue < high);
+      if (isPixelWithinThreshold) {
+        auto pt = frame->add_points();
+        pt->set_x(xMeters);
+        pt->set_y(yMeters);
+        pt->set_z(zMeters);
+        pt->set_r((uint32_t) r);
+        pt->set_g((uint32_t) g);
+        pt->set_b((uint32_t) b);
       }
-      kinect->getPoint(i, j, x, y, z, r, g, b);
-      if (isnan(x) || isnan(y) || isnan(z)) {
-        cout << "x";
-        continue;
-      }
-      auto pt = frame->add_points();
-      pt->set_x(x);
-      pt->set_y(y);
-      pt->set_z(z);
-      pt->set_r((uint32_t) r);
-      pt->set_g((uint32_t) g);
-      pt->set_b((uint32_t) b);
-      cout << "o";
     }
   }
 
@@ -180,6 +178,8 @@ void Halogen::saveFrame() {
   ofLogNotice() << "# of points " << frame->points_size();
   frame->set_timestamp(0);
   msg->SerializeToOstream(&output);
+
+  isSaving = false;
 }
 
 void Halogen::startRecording() {

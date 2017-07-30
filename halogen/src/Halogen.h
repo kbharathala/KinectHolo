@@ -16,7 +16,8 @@ private:
   Kinect *kinect = nullptr;
 
   ofPixels colorPixels;
-  ofFloatPixels depthPixels;
+  ofFloatPixels smallDepthPixels;
+  ofFloatPixels bigDepthPixels;
   ofTexture colorTexture;
 
   ofRectangle face;
@@ -34,6 +35,8 @@ private:
   void startRecording();
   void stopRecording();
   void saveFrame();
+
+  bool isSaving = false;
 
 public:
   void setup();
