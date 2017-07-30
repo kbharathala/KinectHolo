@@ -293,7 +293,7 @@ typedef struct PointCloudModel
     
     [self.recorder startRecording];
     
-    [NSTimer scheduledTimerWithTimeInterval:2.0
+    [NSTimer scheduledTimerWithTimeInterval:10.0
                                      target:self
                                    selector:@selector(stopRecorder)
                                    userInfo:nil
