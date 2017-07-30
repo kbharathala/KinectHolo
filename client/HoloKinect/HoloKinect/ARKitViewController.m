@@ -7,6 +7,7 @@
 //
 
 #import "ARKitViewController.h"
+#import <SVProgressHUD/SVProgressHUD.h>
 
 typedef struct PointCloudModel
 {
@@ -20,6 +21,10 @@ typedef struct PointCloudModel
 @property (nonatomic, strong) UILabel *label;
 
 @property (nonatomic) int *count;
+
+@property (nonatomic, strong) UIButton *playVideo;
+@property (nonatomic, strong) SCNNode *currNode;
+@property (nonatomic, strong) ARPlaneAnchor *currAnchor;
 
 @property (nonatomic) BOOL planeFound;
 
@@ -70,10 +75,6 @@ typedef struct PointCloudModel
     configuration.planeDetection = ARPlaneDetectionHorizontal;
     configuration.worldAlignment = ARWorldAlignmentGravityAndHeading;
     [self.sceneView.session runWithConfiguration:configuration];
-    
-    // Makes the point cloud
-    [self makePointCloud];
-
 }
 
 - (void) handleTimer:(NSTimer *)timer {
@@ -225,31 +226,35 @@ typedef struct PointCloudModel
 - (void)renderer:(id <SCNSceneRenderer>)renderer didAddNode:(SCNNode *)node forAnchor:(ARAnchor *)anchor;
 {
     
-    NSLog(@"HIELAJ:fiawef");
+    [SVProgressHUD showSuccessWithStatus:@"found an anchor"];
     
     if (self.planeFound == NO)
     {
         if ([anchor isKindOfClass:[ARPlaneAnchor class]])
         {
             dispatch_async(dispatch_get_main_queue(), ^{
+                [SVProgressHUD showSuccessWithStatus:@"found the right anchor"];
                 self.planeFound = YES;
-                self.label.text = @"DANCEFLOOR FOUND. LET'S BOOGIE";
                 
-                UIView *overlay = [[UIView alloc] initWithFrame:self.view.frame];
-                overlay.backgroundColor = [UIColor blackColor];
-                overlay.alpha = 0;
-                [self.view insertSubview:overlay belowSubview:self.label];
+                self.currNode = node;
+                self.currAnchor = (ARPlaneAnchor *) anchor;
                 
-                [UIView animateWithDuration:1.5 delay:2 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                    self.label.alpha = 0;
-                    overlay.alpha = 0.5;
-                } completion:^(BOOL finished) {
-                    ARPlaneAnchor *planeAnchor = (ARPlaneAnchor *)anchor;
-                    [self showDiscoBallWithAncor:planeAnchor onNode:node];
-                }];
+                self.playVideo = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+                [self.playVideo setFrame: CGRectMake(0, 0, 275, 40)];
+                [self.playVideo setCenter:CGPointMake(self.view.frame.size.width / 2, self.view.frame.size.height * 6 / 7)];
+                self.playVideo.backgroundColor = [UIColor whiteColor];
+                [self.playVideo setTitle:@"Play video message now!" forState:UIControlStateNormal];
+                self.playVideo.layer.cornerRadius = 8;
+                [self.playVideo addTarget:self action:@selector(playVideoPressed) forControlEvents:UIControlEventTouchUpInside];
+                [self.sceneView addSubview:self.playVideo];
             });
         }
     }
+}
+
+-(void) playVideoPressed {
+    [self.playVideo removeFromSuperview];
+    [self makePointCloud];
 }
 
 - (void)session:(ARSession *)session didFailWithError:(NSError *)error
