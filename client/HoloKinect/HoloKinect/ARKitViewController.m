@@ -24,8 +24,6 @@ typedef struct PointCloudModel
 @property (nonatomic) int *count;
 
 @property (nonatomic, strong) UIButton *playVideo;
-@property (nonatomic, strong) SCNNode *currNode;
-@property (nonatomic, strong) ARPlaneAnchor *currAnchor;
 
 @property (nonatomic) float xcenter;
 @property (nonatomic) float ycenter;
@@ -130,7 +128,7 @@ typedef struct PointCloudModel
 }
 
 - (void) handleTimer:(NSTimer *)timer {
-    //    [self resetPointCloud];
+    // [self resetPointCloud];
     // Hanlde the timed event.
 }
 
@@ -222,69 +220,17 @@ typedef struct PointCloudModel
                                                                 bytesPerIndex:sizeof(int)];
     
     // create geometry
-    
-    
     SCNGeometry *pointcloudGeometry = [SCNGeometry geometryWithSources:@[ vertexSource, colorSource] elements:@[ element]];
     
     SCNNode *pointcloudNode = [SCNNode nodeWithGeometry:pointcloudGeometry];
     // pointcloudGeometry.firstMaterial.shaderModifiers = @{SCNShaderModifierEntryPointGeometry : @"gl_PointSize = 0.0000000000005"};
     // pointcloudNode.geometry = pointcloudGeometry;
-    //    pointcloudNode.geometry.shaderModifiers = @{SCNShaderModifierEntryPointGeometry : @"gl_PointSize = 2.0"};
+    // pointcloudNode.geometry.shaderModifiers = @{SCNShaderModifierEntryPointGeometry : @"gl_PointSize = 2.0"};
     pointcloudNode.position = SCNVector3Make(0, 0, 0);
-    //    SCNAction *fadeParticle = [SCNAction fadeOpacityTo:0.0 duration:0.05f];
-    //    [pointcloudNode runAction:fadeParticle];
+    // SCNAction *fadeParticle = [SCNAction fadeOpacityTo:0.0 duration:0.05f];
+    // [pointcloudNode runAction:fadeParticle];
     
     [self.sceneView.scene.rootNode addChildNode:pointcloudNode];
-    
-    
-}
-
-
-//- (void)showAnchorPoint:(ARPlaneAnchor *)anchor onNode:(SCNNode *)node
-//{
-//    SCNNode *plane = [self planeFromAnchor:anchor];
-//
-//    SCNSphere *sphereGeometry = [SCNSphere sphereWithRadius:0.5];
-//    SCNNode *sphereNode = [SCNNode nodeWithGeometry:sphereGeometry];
-//    sphereNode.position = SCNVector3Make(0, 0, 3);
-//
-//    [plane addChildNode:sphereNode];
-//    [node addChildNode:plane];
-//}
-
-#pragma mark - Node builders
-
-#pragma mark - ARSCNViewDelegate
-
-- (void)renderer:(id <SCNSceneRenderer>)renderer didAddNode:(SCNNode *)node forAnchor:(ARAnchor *)anchor;
-{
-    
-//    if (self.planeFound == NO)
-//    {
-//        if ([anchor isKindOfClass:[ARPlaneAnchor class]])
-//        {
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                [SVProgressHUD showSuccessWithStatus:@"found the right anchor"];
-//                self.planeFound = YES;
-//
-//                self.currNode = node;
-//                self.currAnchor = (ARPlaneAnchor *) anchor;
-//
-////                [self showAnchorPoint:self.currAnchor onNode:self.currNode];
-//
-//                [node addChildNode:[self planeFromAnchor:(ARPlaneAnchor *)anchor]];
-//
-//                self.playVideo = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-//                [self.playVideo setFrame: CGRectMake(0, 0, 275, 40)];
-//                [self.playVideo setCenter:CGPointMake(self.view.frame.size.width / 2, self.view.frame.size.height * 6 / 7)];
-//                self.playVideo.backgroundColor = [UIColor whiteColor];
-//                [self.playVideo setTitle:@"Play video message now!" forState:UIControlStateNormal];
-//                self.playVideo.layer.cornerRadius = 8;
-//                [self.playVideo addTarget:self action:@selector(playVideoPressed) forControlEvents:UIControlEventTouchUpInside];
-//                [self.sceneView addSubview:self.playVideo];
-//            });
-//        }
-//    }
 }
 
 -(void) playVideoPressed {
