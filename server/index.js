@@ -34,7 +34,7 @@ app.get('/allmessages', (req, res, next)=>{
 });
 
 app.get('/messages/:name', (req, res, next)=>{
-  var filename = 'files/' + req.params.name;
+  var filename = path.join(__dirname, 'files', req.params.name);
   console.log(filename);
   fs.readFile(filename, function(err, data) {
     if (err) {
@@ -51,7 +51,8 @@ app.post('/newmessage/:name', (req, res, next)=>{
   if (req.raw) {
     try {
       // let msg = new Message(req.raw).encode().toBuffer();
-      fs.writeFile("files/" + req.params.name, req.raw, function(err) {
+      fs.writeFile(path.join(__dirname, 'files', req.params.name),
+          req.raw, function(err) {
         if(err) {
             return console.log(err);
         }
