@@ -40,7 +40,8 @@ app.get('/messages/:name', (req, res, next)=>{
 app.post('/newmessage/:name', (req, res, next)=>{
   if (req.raw) {
     try {
-      fs.writeFile("files/" + req.params.name, req.raw, function(err) {
+      let msg = new Message(req.raw).encode().toBuffer();
+      fs.writeFile("files/" + req.params.name, msg, function(err) {
         if(err) {
             return console.log(err);
         }
