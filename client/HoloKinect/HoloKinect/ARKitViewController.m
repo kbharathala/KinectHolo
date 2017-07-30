@@ -198,9 +198,9 @@ typedef struct PointCloudModel
         
         int testing_algorithm = i;
         
-        vertex.x = ([[[frames objectAtIndex:self.count] pointsArray] objectAtIndex:testing_algorithm].x / 15.0) + (self.particle.position.x - self.xcenter);
-        vertex.y = [[[frames objectAtIndex:self.count] pointsArray] objectAtIndex:testing_algorithm].y / -15.0 + (self.particle.position.y - self.ycenter);
-        vertex.z = [[[frames objectAtIndex:self.count] pointsArray] objectAtIndex:testing_algorithm].z / 15.0 + (self.particle.position.z - self.zcenter);
+        vertex.x = ([[[frames objectAtIndex:self.count] pointsArray] objectAtIndex:testing_algorithm].x / 15.0) + ( - self.xcenter  + self.particle.position.x);
+        vertex.y = [[[frames objectAtIndex:self.count] pointsArray] objectAtIndex:testing_algorithm].y / -15.0 + ( - self.ycenter + self.particle.position.y);
+        vertex.z = [[[frames objectAtIndex:self.count] pointsArray] objectAtIndex:testing_algorithm].z / 15.0 + ( - self.zcenter + self.particle.position.z);
         
         sum_x += vertex.x;
         sum_y += vertex.y;
