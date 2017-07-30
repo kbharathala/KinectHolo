@@ -28,6 +28,7 @@ typedef struct PointCloudModel
 @property (nonatomic, strong) UIButton *playVideo;
 @property (nonatomic, strong) UIButton *closeViewButton;
 @property (nonatomic, strong) UILabel *tutorialView;
+@property (nonatomic, strong) UIButton *emojiButton;
 //@property (nonatomic, strong) UIButton *rotateCameraButton;
 
 @property (nonatomic) SCNNode *pointcloudNode;
@@ -43,6 +44,8 @@ typedef struct PointCloudModel
 @property (nonatomic) BOOL isRecording;
 @property (nonatomic, strong) ASScreenRecorder *recorder;
 
+@property (nonatomic, strong) UIView *stickerOverlay;
+@property (nonatomic) int currStickerIndex;
 
 @property (nonatomic) BOOL isObjectPlaced;
 
@@ -235,6 +238,14 @@ typedef struct PointCloudModel
     //    self.rotateCameraButton.backgroundColor = [UIColor clearColor];
     //    [self.rotateCameraButton addTarget:self action:@selector(closeViewPressed) forControlEvents:UIControlEventTouchUpInside];
     //    [self.view addSubview:self.rotateCameraButton];
+    
+    self.emojiButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.emojiButton setFrame: CGRectMake(self.view.frame.size.width - 60, 20, 40, 40)];
+    [self.emojiButton setImage:[UIImage imageNamed:@"emoji"] forState:UIControlStateNormal];
+    self.emojiButton.backgroundColor = [UIColor clearColor];
+    [self.emojiButton addTarget:self action:@selector(emojiButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.emojiButton];
+    
 }
 
 - (void) handleTimer:(NSTimer *)timer {
@@ -404,7 +415,78 @@ typedef struct PointCloudModel
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+-(void) emojiButtonPressed {
+    self.stickerOverlay = [[UIView alloc] initWithFrame:self.view.frame];
+    [self.stickerOverlay setBackgroundColor:[UIColor colorWithWhite:0.1 alpha:0.9]];
+    [self.view addSubview: self.stickerOverlay];
+    
+    UIButton *closeStickerButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [closeStickerButton setFrame: CGRectMake(20, 30, 20, 20)];
+    [closeStickerButton setImage:[UIImage imageNamed:@"cross"] forState:UIControlStateNormal];
+    closeStickerButton.backgroundColor = [UIColor clearColor];
+    [closeStickerButton addTarget:self action:@selector(closeStickerPressed) forControlEvents:UIControlEventTouchUpInside];
+    [self.stickerOverlay addSubview:closeStickerButton];
+    
+    UIButton *firstUser = [UIButton buttonWithType:UIButtonTypeCustom];
+    [firstUser setFrame:CGRectMake(0, 0, 80, 80)];
+    [firstUser setCenter:CGPointMake(self.view.frame.size.width/5, 120)];
+    [firstUser setImage:[UIImage imageNamed:@"krishna"] forState:UIControlStateNormal];
+    firstUser.layer.cornerRadius = 40;
+    firstUser.clipsToBounds = YES;
+    [firstUser addTarget:self action:@selector(firstUserStickerPressed) forControlEvents:UIControlEventTouchUpInside];
+    [self.stickerOverlay addSubview:firstUser];
+    
+    UIButton *secondUser = [UIButton buttonWithType:UIButtonTypeCustom];
+    [secondUser setFrame:CGRectMake(0, 0, 80, 80)];
+    [secondUser setCenter:CGPointMake(self.view.frame.size.width/2, 120)];
+    [secondUser setImage:[UIImage imageNamed:@"Natasha"] forState:UIControlStateNormal];
+    secondUser.layer.cornerRadius = 40;
+    secondUser.clipsToBounds = YES;
+    [secondUser addTarget:self action:@selector(secondUserStickerPressed) forControlEvents:UIControlEventTouchUpInside];
+    [self.stickerOverlay addSubview:secondUser];
+    
+    UIButton *thirdUser = [UIButton buttonWithType:UIButtonTypeCustom];
+    [thirdUser setFrame:CGRectMake(0, 0, 80, 80)];
+    [thirdUser setCenter:CGPointMake(4 * self.view.frame.size.width/5, 120)];
+    [thirdUser setImage:[UIImage imageNamed:@"Brijen"] forState:UIControlStateNormal];
+    thirdUser.layer.cornerRadius = 40;
+    thirdUser.clipsToBounds = YES;
+    [thirdUser addTarget:self action:@selector(thirdUserStickerPressed) forControlEvents:UIControlEventTouchUpInside];
+    [self.stickerOverlay addSubview:thirdUser];
+    
+    UIButton *fourthUser = [UIButton buttonWithType:UIButtonTypeCustom];
+    [fourthUser setFrame:CGRectMake(0, 0, 80, 80)];
+    [fourthUser setCenter:CGPointMake(self.view.frame.size.width/5, 220)];
+    [fourthUser setImage:[UIImage imageNamed:@"Avi"] forState:UIControlStateNormal];
+    fourthUser.layer.cornerRadius = 40;
+    fourthUser.clipsToBounds = YES;
+    [fourthUser addTarget:self action:@selector(fourthUserStickerPressed) forControlEvents:UIControlEventTouchUpInside];
+    [self.stickerOverlay addSubview:fourthUser];
+}
 
+- (void) closeStickerPressed {
+    [self.stickerOverlay removeFromSuperview];
+}
+
+- (void) firstUserStickerPressed {
+    self.currStickerIndex = 0;
+    [self closeStickerPressed];
+}
+
+- (void) secondUserStickerPressed {
+    self.currStickerIndex = 1;
+    [self closeStickerPressed];
+}
+
+- (void) thirdUserStickerPressed {
+    self.currStickerIndex = 2;
+    [self closeStickerPressed];
+}
+
+- (void) fourthUserStickerPressed {
+    self.currStickerIndex = 3;
+    [self closeStickerPressed];
+}
 
 @end
 
