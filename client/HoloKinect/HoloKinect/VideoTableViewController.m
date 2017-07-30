@@ -40,20 +40,22 @@
 
 - (void) updateTable {
     
+    [SVProgressHUD showWithStatus:@"Loading Holos"];
+    
     NSData* raw_data =
         [NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://127.0.0.1:5000/api/get_videos/"]];
     if (!raw_data) {
-        [SVProgressHUD showErrorWithStatus:@"Please turn on the server"];
+        [SVProgressHUD showErrorWithStatus:@"Our servers are down :("];
         return;
     }
 
-    // __block Person* person;
-    //    NSLog(@"proto content size %@",[NSByteCountFormatter stringFromByteCount:raw_data.length countStyle:NSByteCountFormatterCountStyleMemory]);
-    //
-    //    [NSObject logTime:^{
-    //        person = [Person parseFromData:raw_data];
-    //         NSLog(@"%ld",(long)person.personId);
-    //    } withPrefix:@"builing proto objects"];
+    // __block Message* message;
+    // self.videoArray = [Message parseFromData:raw_data];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+        [SVProgressHUD dismiss];
+    });
+    
 }
 
 - (void)viewDidLoad {
