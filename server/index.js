@@ -17,6 +17,7 @@ let builder = ProtoBuf.loadProtoFile(
 );
 let Message = builder.build('Message');
 
+
 app.get('/allmessages', (req, res, next)=>{
   fs.readdir('files', function(err, items) {
     res.setHeader('Content-Type', 'application/json');
@@ -42,8 +43,8 @@ app.get('/messages/:name', (req, res, next)=>{
 app.post('/newmessage/:name', (req, res, next)=>{
   if (req.raw) {
     try {
-      let msg = new Message(req.raw).encode().toBuffer();
-      fs.writeFile("files/" + req.params.name, msg, function(err) {
+      // let msg = new Message(req.raw).encode().toBuffer();
+      fs.writeFile("files/" + req.params.name, req.raw, function(err) {
         if(err) {
             return console.log(err);
         }
@@ -61,6 +62,9 @@ app.get('/testing/:name', (req, res, next)=>{
   // var pr = spawn('python',["test.py", req.params.name]);
   // console.log(req.params.name);
   // pr.stdout.on('data', function (data) {
+  //   console.log(data.toString());
+  // });
+  // pr.stdout.on('end', function () {
   //   console.log(data.toString());
   // });
 });
