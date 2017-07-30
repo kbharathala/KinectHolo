@@ -4,7 +4,7 @@ var url = require('url');
 let path = require('path')
 let express = require('express');
 let app = express();
-let publicFolderName = 'public';
+let publicFolderName = '../common';
 app.use(express.static(publicFolderName));
 
 // For potential future use
