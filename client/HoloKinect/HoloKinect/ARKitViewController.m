@@ -8,6 +8,7 @@
 
 #import "ARKitViewController.h"
 #import <SVProgressHUD/SVProgressHUD.h>
+#import "ASScreenRecorder.h"
 
 typedef struct PointCloudModel
 {
@@ -29,6 +30,7 @@ typedef struct PointCloudModel
 @property (nonatomic, strong) SCNNode *particle;
 
 @property (nonatomic) BOOL planeFound;
+@property (nonatomic, strong) ASScreenRecorder *recorder;
 
 @end
 
@@ -72,6 +74,8 @@ typedef struct PointCloudModel
     [self.sceneView.scene.rootNode addChildNode:self.particle];
     
     [self.view setMultipleTouchEnabled:YES];
+    
+    self.recorder = [ASScreenRecorder sharedInstance];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -252,6 +256,22 @@ typedef struct PointCloudModel
 -(void) playVideoPressed {
     [self.playVideo removeFromSuperview];
     [self makePointCloud];
+    
+    [self.recorder startRecording];
+    
+    [NSTimer scheduledTimerWithTimeInterval:2.0
+                                     target:self
+                                   selector:@selector(stopRecorder)
+                                   userInfo:nil
+                                    repeats:NO];
+}
+
+-(void) stopRecorder {
+    [self.recorder stopRecordingWithCompletion:^{
+        NSLog(@"Finished recording");
+    }];
+    [self.navigationController popViewControllerAnimated:YES];
+    [SVProgressHUD showSuccessWithStatus:@"saved to disk!"];
 }
 
 
