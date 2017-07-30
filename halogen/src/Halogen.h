@@ -41,6 +41,8 @@ private:
 
   bool isSaving = false;
 
+  ofImage bannerImage;
+
 public:
   void setup();
   void update();
