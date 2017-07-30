@@ -42,7 +42,7 @@
 - (void) updateTable {
     
     
-    NSString *filepath = [[NSBundle mainBundle] pathForResource:@"hologram" ofType:@"txt"];
+    NSString *filepath = [[NSBundle mainBundle] pathForResource:@"hologram" ofType:@"hologram"];
     NSLog(@"%@", filepath);
     
     NSError *error;
