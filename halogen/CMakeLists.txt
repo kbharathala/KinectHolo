@@ -24,7 +24,7 @@ find_package(OpenCV 3 REQUIRED)
 # find_package(TurboJPEG REQUIRED)
 find_package(PkgConfig)
 find_package(Protobuf)
-find_package(LibUSB REQUIRED)
+# find_package(LibUSB REQUIRED)
 find_package(freenect2 REQUIRED)
 find_package(OpenCL REQUIRED)
 
@@ -38,7 +38,7 @@ ofxaddon(ofxGui)
 ofxaddon(addons/ofxCv)
 ofxaddon(addons/ofxTimeMeasurements)
 
-# set(ofx_addon_includes addons/ofxCv/libs/CLD/include/CLD addons/ofxCv/libs/ofxCv/include/ofxCv)
+set(ofx_addon_includes addons/ofxCv/libs/CLD/include/CLD addons/ofxCv/libs/ofxCv/include/ofxCv)
 include_directories(${ofx_addon_includes})
 
 ### target definitions

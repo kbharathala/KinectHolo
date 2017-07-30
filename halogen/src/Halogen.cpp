@@ -82,11 +82,11 @@ void Halogen::update() {
   depthPixels.cropTo(faceDepthPixels, face.x, face.y, face.width, face.height);
   faceDistance = averageDepth(faceDepthPixels);
 
-  ofLogNotice("Halogen") << "Face at (x=" << face.x << ", y=" << face.y << ", w=" << face.width << ", h=" << face.height << ") " << mmToFeet(faceDistance) << " ft away";
+  ofLogNotice("Halogen") << "Faces at (x=" << face.x << ", y=" << face.y << ", w=" << face.width << ", h=" << face.height << ") " << mmToFeet(faceDistance) << " ft away";
 
   ofPixels newColorPixels = colorPixels;
   subtractBackground(
-    &colorPixels,
+    &newColorPixels,
     depthPixels,
     faceDistance - (radius * 2),
     faceDistance + radius
@@ -141,11 +141,14 @@ void Halogen::saveFrame() {
   ofLogNotice("Halogen", "saving frame");
   ofPixels newColorPixels = colorPixels;
   subtractBackground(
-    &colorPixels,
+    &newColorPixels,
     depthPixels,
     faceDistance - (radius * 2),
     faceDistance + radius
   );
+
+  Message *msg = new Message();
+  auto frame = msg->add_frames();
 
   float x, y, z;
   uint8_t r, g, b;
@@ -158,10 +161,25 @@ void Halogen::saveFrame() {
         continue;
       }
       kinect->getPoint(i, j, x, y, z, r, g, b);
-      cout << ".";
+      if (isnan(x) || isnan(y) || isnan(z)) {
+        cout << "x";
+        continue;
+      }
+      auto pt = frame->add_points();
+      pt->set_x(x);
+      pt->set_y(y);
+      pt->set_z(z);
+      pt->set_r((uint32_t) r);
+      pt->set_g((uint32_t) g);
+      pt->set_b((uint32_t) b);
+      cout << "o";
     }
   }
 
+  fstream output(ofGetTimestampString() + ".hologram", ios::out | ios::trunc | ios::binary);
+  ofLogNotice() << "# of points " << frame->points_size();
+  frame->set_timestamp(0);
+  msg->SerializeToOstream(&output);
 }
 
 void Halogen::startRecording() {
