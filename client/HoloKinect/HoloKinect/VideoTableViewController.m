@@ -28,7 +28,7 @@
 -(id) init {
     self = [super init];
     if (self) {
-        self.title = @"HoloChat";
+        self.title = @"StickerGram";
         self.videoArray = [[NSMutableArray alloc] init];
     }
     return self;
@@ -41,19 +41,15 @@
 
 - (void) updateTable {
     
-<<<<<<< HEAD
-<<<<<<< HEAD
-    NSString *filepath = [[NSBundle mainBundle] pathForResource:@"movie2" ofType:@"hologram"];
-    NSLog(@"%@", filepath);
-    NSError *error;
-    NSData *data = [NSData dataWithContentsOfFile:filepath];
-    
-    self.message = [Message parseFromData:data error:&error];
-    
-    return;
-=======
-=======
->>>>>>> afe681c2af3653897961d4cab520d11b4d2bac0a
+//    NSString *filepath = [[NSBundle mainBundle] pathForResource:@"movie2" ofType:@"hologram"];
+//    NSLog(@"%@", filepath);
+//    NSError *error;
+//    NSData *data = [NSData dataWithContentsOfFile:filepath];
+//
+//    self.message = [Message parseFromData:data error:&error];
+//
+//    return;
+
 //    NSString *filepath = [[NSBundle mainBundle] pathForResource:@"hologram10" ofType:@"hologram"];
 //    NSError *error;
 //    NSData *data = [NSData dataWithContentsOfFile:filepath];
@@ -61,10 +57,6 @@
 //    self.message = [Message parseFromData:data error:&error];
 //
 //    return;
-<<<<<<< HEAD
->>>>>>> afe681c2af3653897961d4cab520d11b4d2bac0a
-=======
->>>>>>> afe681c2af3653897961d4cab520d11b4d2bac0a
     
 //    [SVProgressHUD showWithStatus:@"Loading Holos"];
 //
@@ -178,7 +170,7 @@
 //        NSURLResponse * _Nullable response,
 //        NSError * _Nullable error) {
     
-    NSString *filepath = [[NSBundle mainBundle] pathForResource:@"hologram10" ofType:@"hologram"];
+    NSString *filepath = [[NSBundle mainBundle] pathForResource:@"movie" ofType:@"hologram"];
     NSError *error;
     NSData *data = [NSData dataWithContentsOfFile:filepath];
     
