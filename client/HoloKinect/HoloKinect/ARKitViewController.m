@@ -25,6 +25,7 @@ typedef struct PointCloudModel
 
 @property (nonatomic, strong) UIButton *playVideo;
 @property (nonatomic, strong) UIButton *closeViewButton;
+@property (nonatomic, strong) UILabel *tutorialView;
 //@property (nonatomic, strong) UIButton *rotateCameraButton;
 
 @property (nonatomic) SCNNode *pointcloudNode;
@@ -117,6 +118,7 @@ typedef struct PointCloudModel
     
     if (!self.isObjectPlaced) {
         [self.playVideo setUserInteractionEnabled:YES];
+        [self.tutorialView removeFromSuperview];
         [self setIsObjectPlaced:YES];
     }
    
@@ -165,6 +167,18 @@ typedef struct PointCloudModel
     self.closeViewButton.backgroundColor = [UIColor clearColor];
     [self.closeViewButton addTarget:self action:@selector(closeViewPressed) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.closeViewButton];
+    
+    self.tutorialView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width + 100, 40)];
+    // [self.tutorialView setBackgroundColor:[UIColor colorWithWhite:0.2 alpha:0.2]];
+    [self.tutorialView setTextColor:[UIColor whiteColor]];
+    [self.tutorialView setText:@"Drop a sticker to get started"];
+    [self.tutorialView setTextAlignment:NSTextAlignmentCenter];
+    //[self.tutorialView sizeToFit];
+    [self.tutorialView setCenter:CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/2)];
+    [self.tutorialView setFont: [UIFont fontWithName:@"AvenirNext-Regular" size:18.0]];
+    [self.tutorialView setUserInteractionEnabled:NO];
+    [self.view addSubview: self.tutorialView];
+    
     
 //    self.rotateCameraButton = [UIButton buttonWithType:UIButtonTypeCustom];
 //    [self.rotateCameraButton setFrame: CGRectMake(self.view.frame.size.width - 60, 30, 30, 30)];
@@ -285,15 +299,6 @@ typedef struct PointCloudModel
     
     [self.sceneView.scene.rootNode addChildNode:self.pointcloudNode];
     
-}
-
-
-#pragma mark - Node builders
-
-#pragma mark - ARSCNViewDelegate
-
-- (void)renderer:(id <SCNSceneRenderer>)renderer didAddNode:(SCNNode *)node forAnchor:(ARAnchor *)anchor;
-{
 }
 
 -(void) playVideoPressed {
