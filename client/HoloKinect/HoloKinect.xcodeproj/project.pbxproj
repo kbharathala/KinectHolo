@@ -32,12 +32,6 @@
 		6B4CACEE1F2D896700E868C2 /* Timestamp.pbobjc.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B4CACAA1F2D887C00E868C2 /* Timestamp.pbobjc.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		6B4CACEF1F2D896700E868C2 /* Type.pbobjc.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B4CACAC1F2D887C00E868C2 /* Type.pbobjc.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		6B4CACF01F2D896700E868C2 /* Wrappers.pbobjc.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B4CACAE1F2D887C00E868C2 /* Wrappers.pbobjc.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		6B4CACF71F2D8E9D00E868C2 /* hologram.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6B4CACF31F2D8D9A00E868C2 /* hologram.txt */; };
-		6B4CACF91F2DC84300E868C2 /* hologram2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6B4CACF81F2DC83C00E868C2 /* hologram2.txt */; };
-		6B4CACFB1F2DCA1B00E868C2 /* hologram3.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6B4CACFA1F2DCA1400E868C2 /* hologram3.txt */; };
-		6B4CACFD1F2DCACF00E868C2 /* hologram4.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6B4CACFC1F2DCACF00E868C2 /* hologram4.txt */; };
-		6B4CAD021F2DCE9600E868C2 /* hologram6.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6B4CAD011F2DCE8100E868C2 /* hologram6.txt */; };
-		6B4CAD031F2DCE9800E868C2 /* hologram5.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6B4CACFE1F2DCC5500E868C2 /* hologram5.txt */; };
 		6B4CAD061F2DD01E00E868C2 /* hologram.hologram in Resources */ = {isa = PBXBuildFile; fileRef = 6B4CAD051F2DD01B00E868C2 /* hologram.hologram */; };
 		6B4CAD071F2DD02000E868C2 /* hologram7.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6B4CAD041F2DD01B00E868C2 /* hologram7.txt */; };
 		6B700AD31F2D867B00BA3D60 /* Message.pbobjc.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B700AD11F2D867B00BA3D60 /* Message.pbobjc.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -46,7 +40,6 @@
 		6B736A651F2D0BEE0007F9BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6B736A641F2D0BEE0007F9BE /* Assets.xcassets */; };
 		6B736A701F2D0C260007F9BE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6B736A6F1F2D0C260007F9BE /* Default-568h@2x.png */; };
 		6B736A731F2D0D280007F9BE /* VideoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B736A721F2D0D280007F9BE /* VideoTableViewController.m */; };
-		6B7659C81F2D5C460019E455 /* NSObject+MKBlockTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B7659C71F2D5C460019E455 /* NSObject+MKBlockTimer.m */; };
 		6BF88DC41F2D17E70086CA3C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BF88DC31F2D17E70086CA3C /* UIKit.framework */; };
 		6BF88DC61F2D17EF0086CA3C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BF88DC51F2D17EF0086CA3C /* AVFoundation.framework */; };
 		6BF88DC81F2D17F60086CA3C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BF88DC71F2D17F60086CA3C /* CoreGraphics.framework */; };
@@ -124,12 +117,6 @@
 		6B4CACD71F2D887C00E868C2 /* GPBWireFormat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GPBWireFormat.h; sourceTree = "<group>"; };
 		6B4CACD81F2D887C00E868C2 /* GPBWireFormat.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GPBWireFormat.m; sourceTree = "<group>"; };
 		6B4CACF11F2D8A3000E868C2 /* 2017-07-29-18-58-16-996.hologram */ = {isa = PBXFileReference; lastKnownFileType = file; path = "2017-07-29-18-58-16-996.hologram"; sourceTree = "<group>"; };
-		6B4CACF31F2D8D9A00E868C2 /* hologram.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = hologram.txt; sourceTree = "<group>"; };
-		6B4CACF81F2DC83C00E868C2 /* hologram2.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = hologram2.txt; sourceTree = "<group>"; };
-		6B4CACFA1F2DCA1400E868C2 /* hologram3.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = hologram3.txt; sourceTree = "<group>"; };
-		6B4CACFC1F2DCACF00E868C2 /* hologram4.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = hologram4.txt; path = ../hologram4.txt; sourceTree = "<group>"; };
-		6B4CACFE1F2DCC5500E868C2 /* hologram5.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = hologram5.txt; sourceTree = "<group>"; };
-		6B4CAD011F2DCE8100E868C2 /* hologram6.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = hologram6.txt; sourceTree = "<group>"; };
 		6B4CAD041F2DD01B00E868C2 /* hologram7.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = hologram7.txt; sourceTree = "<group>"; };
 		6B4CAD051F2DD01B00E868C2 /* hologram.hologram */ = {isa = PBXFileReference; lastKnownFileType = file; path = hologram.hologram; sourceTree = "<group>"; };
 		6B700AD11F2D867B00BA3D60 /* Message.pbobjc.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Message.pbobjc.m; sourceTree = "<group>"; };
@@ -143,8 +130,6 @@
 		6B736A6F1F2D0C260007F9BE /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		6B736A711F2D0D280007F9BE /* VideoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoTableViewController.h; sourceTree = "<group>"; };
 		6B736A721F2D0D280007F9BE /* VideoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoTableViewController.m; sourceTree = "<group>"; };
-		6B7659C61F2D5C460019E455 /* NSObject+MKBlockTimer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+MKBlockTimer.h"; sourceTree = "<group>"; };
-		6B7659C71F2D5C460019E455 /* NSObject+MKBlockTimer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MKBlockTimer.m"; sourceTree = "<group>"; };
 		6BF88DC31F2D17E70086CA3C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		6BF88DC51F2D17EF0086CA3C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		6BF88DC71F2D17F60086CA3C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -319,14 +304,6 @@
 			children = (
 				6B4CAD051F2DD01B00E868C2 /* hologram.hologram */,
 				6B4CAD041F2DD01B00E868C2 /* hologram7.txt */,
-				6B4CAD011F2DCE8100E868C2 /* hologram6.txt */,
-				6B4CACFE1F2DCC5500E868C2 /* hologram5.txt */,
-				6B4CACFC1F2DCACF00E868C2 /* hologram4.txt */,
-				6B4CACF81F2DC83C00E868C2 /* hologram2.txt */,
-				6B4CACFA1F2DCA1400E868C2 /* hologram3.txt */,
-				6B4CACF31F2D8D9A00E868C2 /* hologram.txt */,
-				6B7659C61F2D5C460019E455 /* NSObject+MKBlockTimer.h */,
-				6B7659C71F2D5C460019E455 /* NSObject+MKBlockTimer.m */,
 				6B736A591F2D0BEE0007F9BE /* main.m */,
 			);
 			name = "Supporting Files";
@@ -408,14 +385,8 @@
 			files = (
 				6B736A651F2D0BEE0007F9BE /* Assets.xcassets in Resources */,
 				6B736A701F2D0C260007F9BE /* Default-568h@2x.png in Resources */,
-				6B4CACFD1F2DCACF00E868C2 /* hologram4.txt in Resources */,
-				6B4CACF71F2D8E9D00E868C2 /* hologram.txt in Resources */,
-				6B4CACFB1F2DCA1B00E868C2 /* hologram3.txt in Resources */,
-				6B4CACF91F2DC84300E868C2 /* hologram2.txt in Resources */,
 				6B4CAD071F2DD02000E868C2 /* hologram7.txt in Resources */,
-				6B4CAD031F2DCE9800E868C2 /* hologram5.txt in Resources */,
 				6B4CAD061F2DD01E00E868C2 /* hologram.hologram in Resources */,
-				6B4CAD021F2DCE9600E868C2 /* hologram6.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -502,7 +473,6 @@
 				6B736A5A1F2D0BEE0007F9BE /* main.m in Sources */,
 				6B060EA21F2D29270097D482 /* ARKitViewController.m in Sources */,
 				6B700AD31F2D867B00BA3D60 /* Message.pbobjc.m in Sources */,
-				6B7659C81F2D5C460019E455 /* NSObject+MKBlockTimer.m in Sources */,
 				BFBA040C1F2D3B10000B39EB /* TableViewCell.m in Sources */,
 				6B736A731F2D0D280007F9BE /* VideoTableViewController.m in Sources */,
 			);
