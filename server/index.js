@@ -31,7 +31,8 @@ app.get('/messages/:name', (req, res, next)=>{
     if (err) {
       res.writeHead(404, {'Content-Type': 'text/html'});
       return res.end("404 Not Found");
-    }  
+    }
+    res.writeHead(200, {'Content-Type': 'text/json'});
     res.write(data);
     return res.end();
   });
