@@ -2,9 +2,9 @@
 
 mkdir -p build \
 && cd build \
+&& mkdir -p ../src/proto_cpp_bindings \
+&& protoc -I=../../common/ --cpp_out=../src/proto_cpp_bindings ../../common/message.proto \
 && make -j4 install
 
-rm proto_cpp_bindings/*
-protoc -I=../common/ --cpp_out=proto_cpp_bindings ../common/message.proto
 
 echo "DONE :^)"

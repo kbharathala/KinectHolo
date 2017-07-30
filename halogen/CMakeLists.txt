@@ -16,12 +16,14 @@ set(sources
   src/main.cpp
   src/Halogen.cpp
   src/Kinect.cpp
+  src/proto_cpp_bindings/message.pb.cc
 )
 
 ### dependencies
 find_package(OpenCV 3 REQUIRED)
 # find_package(TurboJPEG REQUIRED)
 find_package(PkgConfig)
+find_package(Protobuf)
 find_package(LibUSB REQUIRED)
 find_package(freenect2 REQUIRED)
 find_package(OpenCL REQUIRED)
@@ -29,6 +31,7 @@ find_package(OpenCL REQUIRED)
 include_directories(BEFORE ${OpenCV_INCLUDE_DIRS})
 # include_directories(${TurboJPEG_INCLUDE_DIRS})
 include_directories(${freenect2_INCLUDE_DIRS})
+include_directories(${protobuf_include_dirs})
 
 ### addons
 ofxaddon(ofxGui)
@@ -50,6 +53,7 @@ target_link_libraries(${APP} PUBLIC
   ${OPENFRAMEWORKS_LIBRARIES}
   # ${TurboJPEG_LIBRARIES}
   ${LibUSB_LIBRARIES}
+  ${PROTOBUF_LIBRARIES}
   ${OpenCL_LIBRARIES}
   ${freenect2_LIBRARIES}
 )
