@@ -117,7 +117,7 @@ typedef struct PointCloudModel
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     
-    if (!self.isObjectPlaced) {
+    if (!h) {
         [self.playVideo setUserInteractionEnabled:YES];
         [self setIsObjectPlaced:YES];
     }
