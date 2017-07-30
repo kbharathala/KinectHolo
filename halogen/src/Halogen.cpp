@@ -29,9 +29,6 @@ float averageDepth(ofFloatPixels bigDepthPixels) {
 }
 
 void subtractBackground(ofPixels *colorPixels, const ofFloatPixels &depthPixels, float low, float high) {
-  // ofPixels paintedPixels;
-  ofLogNotice("subtractBackground") << "Size:" << depthPixels.getWidth() << " ," << depthPixels.getHeight();
-  // paintedPixels.allocate(depthPixels.getWidth(), depthPixels.getHeight(), OF_IMAGE_COLOR_ALPHA);
   const float *data = depthPixels.getData();
 
   for (int i = 0; i < colorPixels->getWidth() * colorPixels->getHeight(); i += 1) {
@@ -40,10 +37,7 @@ void subtractBackground(ofPixels *colorPixels, const ofFloatPixels &depthPixels,
     if (!isPixelWithinThreshold) {
       colorPixels->setColor(i*4, ofColor(0, 0, 0, 0));
     }
-    // paintedPixels.setColor(i * 4, isPixelWithinThreshold ? inColor : outColor);
   }
-
-  // return paintedPixels;
 }
 
 void Halogen::setup() {
@@ -80,13 +74,16 @@ void Halogen::update() {
     return;
   }
   colorTexture.loadData(colorPixels);
-  findFace();
 
-  ofFloatPixels faceDepthPixels;
-  bigDepthPixels.cropTo(faceDepthPixels, face.x, face.y, face.width, face.height);
-  faceDistance = averageDepth(faceDepthPixels);
+  if (!isRecording) {
+    findFace();
 
-  ofLogNotice("Halogen") << "Faces at (x=" << face.x << ", y=" << face.y << ", w=" << face.width << ", h=" << face.height << ") " << mmToFeet(faceDistance) << " ft away";
+    ofFloatPixels faceDepthPixels;
+    bigDepthPixels.cropTo(faceDepthPixels, face.x, face.y, face.width, face.height);
+    faceDistance = averageDepth(faceDepthPixels);
+
+    ofLogNotice("Halogen") << "Faces at (x=" << face.x << ", y=" << face.y << ", w=" << face.width << ", h=" << face.height << ") " << mmToFeet(faceDistance) << " ft away";
+  }
 
   ofPixels newColorPixels = colorPixels;
   subtractBackground(
@@ -147,7 +144,7 @@ void Halogen::draw() {
 
 void Halogen::serializeToDisk() {
   ofLogNotice("Halogen", "serializeToDisk");
-  fstream output(ofGetTimestampString() + ".hologram", ios::out | ios::trunc | ios::binary);
+  fstream output("/home/hacker/KinectHolo/server/files/" + ofGetTimestampString() + ".hologram", ios::out | ios::trunc | ios::binary);
   msg->SerializeToOstream(&output);
 }
 
