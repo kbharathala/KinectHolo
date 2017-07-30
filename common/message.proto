@@ -6,9 +6,9 @@ message Message {
             required float x = 1;
             required float y = 2;
             required float z = 3;
-            required float r = 4;
-            required float g = 5;
-            required float b = 6;
+            required string r = 4; //should only be one character
+            required string g = 5; //should only be one character
+            required string b = 6; //should only be one character
         }
         repeated Point points = 1;
         required float timestamp = 2;
