@@ -147,6 +147,9 @@ void Halogen::saveFrame() {
     faceDistance + radius
   );
 
+  Message *msg = new Message();
+  auto frame = msg->add_frames();
+
   float x, y, z;
   uint8_t r, g, b;
   for (auto i = 0; i < newColorPixels.getHeight(); i++) {
@@ -158,9 +161,19 @@ void Halogen::saveFrame() {
         continue;
       }
       kinect->getPoint(i, j, x, y, z, r, g, b);
+      auto pt = frame->add_points();
+      pt->set_x(x);
+      pt->set_y(y);
+      pt->set_z(z);
+      pt->set_r((uint32_t) r);
+      pt->set_g((uint32_t) g);
+      pt->set_b((uint32_t) b);
       cout << ".";
     }
   }
+
+  fstream output(ofGetTimestampString() + ".hologram", ios::out | ios::trunc | ios::binary);
+  msg.SerializeToOstream(&output);
 
 }
 
