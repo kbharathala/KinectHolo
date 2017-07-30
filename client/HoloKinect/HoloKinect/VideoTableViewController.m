@@ -37,12 +37,9 @@
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar setHidden:NO];
-    
-    [self updateTable];
 }
 
 - (void) updateTable {
-    
     
     NSString *filepath = [[NSBundle mainBundle] pathForResource:@"movie2" ofType:@"hologram"];
     NSLog(@"%@", filepath);
@@ -55,12 +52,37 @@
     
 //    [SVProgressHUD showWithStatus:@"Loading Holos"];
 //
-//    NSData* raw_data =
-//        [NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://127.0.0.1:5000/api/get_videos/"]];
+//    NSString *baseUrl = @"https://dc89e4d7.ngrok.io";
+//
+//    // making a GET request
+//    NSString *targetUrl = [NSString stringWithFormat:@"%@/allmessages", baseUrl];
+//    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+//    [request setHTTPMethod:@"GET"];
+//    [request setURL:[NSURL URLWithString:targetUrl]];
+//
+//    [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:
+//      ^(NSData * _Nullable data,
+//        NSURLResponse * _Nullable response,
+//        NSError * _Nullable error) {
+//
+//          self.videoArray = [NSJSONSerialization JSONObjectWithData:data
+//                                                                   options:kNilOptions
+//                                                                     error:&error];
+//
+//          NSLog(@"%@", self.videoArray);
+//
+//          dispatch_async(dispatch_get_main_queue(), ^{
+//              [SVProgressHUD dismiss];
+//              [self.tableView reloadData];
+//          });
+//      }] resume];
+    
 //    if (!raw_data) {
-//        [SVProgressHUD showErrorWithStatus:@"Our servers are down :("];
+//        [SVProgressHUD showErrorWithStatus:@"HoloChat is no fun without friends. Invite someone now!"];
 //        return;
 //    }
+//
+//
 //
 //    Message *message = [[Message alloc] init];
 //
@@ -91,7 +113,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 10;
-    // return [self.videoArray count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -126,6 +147,27 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+//    [SVProgressHUD showWithStatus:@"Loading Stickers"];
+//    NSString *baseUrl = @"https://dc89e4d7.ngrok.io";
+//
+//    // making a GET request
+//    NSString *targetUrl = [NSString stringWithFormat:@"%@/messages/%@", baseUrl, [self.videoArray objectAtIndex: indexPath.row]];
+//    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+//    [request setHTTPMethod:@"GET"];
+//    [request setURL:[NSURL URLWithString:targetUrl]];
+//
+//    [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:
+//      ^(NSData * _Nullable data,
+//        NSURLResponse * _Nullable response,
+//        NSError * _Nullable error) {
+    
+    NSString *filepath = [[NSBundle mainBundle] pathForResource:@"hologram10" ofType:@"hologram"];
+    NSError *error;
+    NSData *data = [NSData dataWithContentsOfFile:filepath];
+    
+    self.message = [Message parseFromData:data error:&error];
+    
     ARKitViewController *arVC = [[ARKitViewController alloc] init];
     arVC.message = self.message;
     [self.navigationController pushViewController:arVC animated:YES];
@@ -153,5 +195,7 @@
         [self.tableView setLayoutMargins:UIEdgeInsetsZero];
     }
 }
+
+
 
 @end

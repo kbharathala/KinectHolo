@@ -23,7 +23,11 @@ typedef struct PointCloudModel
 
 @property (nonatomic) int *count;
 
+@property (nonatomic) NSTimer *renderTimer;
+
 @property (nonatomic, strong) UIButton *playVideo;
+@property (nonatomic, strong) UIButton *closeViewButton;
+//@property (nonatomic, strong) UIButton *rotateCameraButton;
 
 @property (nonatomic) SCNNode *pointcloudNode;
 
@@ -35,8 +39,9 @@ typedef struct PointCloudModel
 
 @property (nonatomic, strong) SCNNode *particle;
 
-@property (nonatomic) BOOL planeFound;
+@property (nonatomic) BOOL isRecording;
 @property (nonatomic, strong) ASScreenRecorder *recorder;
+
 
 @property (nonatomic) BOOL isObjectPlaced;
 
@@ -84,8 +89,6 @@ typedef struct PointCloudModel
     
     // [self makePointCloud];
     
-    //    [self setupLabel];
-    
     //    SCNNode *cubeNode = [SCNNode node];
     //    cubeNode.geometry = [SCNBox boxWithWidth:0.1 height:0.1 length:0.1 chamferRadius:0];
     //    cubeNode.position = SCNVector3Make(0, 0, -0.2);
@@ -109,12 +112,13 @@ typedef struct PointCloudModel
     [self.view setMultipleTouchEnabled:YES];
     
     self.recorder = [ASScreenRecorder sharedInstance];
+    self.isRecording = NO;
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     
     if (!self.isObjectPlaced) {
-         [self.sceneView addSubview:self.playVideo];
+        [self.playVideo setUserInteractionEnabled:YES];
         [self setIsObjectPlaced:YES];
     }
    
@@ -148,13 +152,29 @@ typedef struct PointCloudModel
     configuration.worldAlignment = ARWorldAlignmentGravityAndHeading;
     [self.sceneView.session runWithConfiguration:configuration];
     
-    self.playVideo = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [self.playVideo setFrame: CGRectMake(0, 0, 275, 40)];
-    [self.playVideo setCenter:CGPointMake(self.view.frame.size.width / 2, self.view.frame.size.height * 6 / 7)];
-    self.playVideo.backgroundColor = [UIColor whiteColor];
-    [self.playVideo setTitle:@"Play video message now!" forState:UIControlStateNormal];
-    self.playVideo.layer.cornerRadius = 8;
+    self.playVideo = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.playVideo setFrame: CGRectMake(0, 0, 80, 80)];
+    [self.playVideo setCenter:CGPointMake(self.view.frame.size.width / 2, self.view.frame.size.height * 20 / 21)];
+    [self.playVideo setImage:[UIImage imageNamed:@"circle"] forState:UIControlStateNormal];
+    self.playVideo.backgroundColor = [UIColor clearColor];
     [self.playVideo addTarget:self action:@selector(playVideoPressed) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.playVideo];
+    [self.playVideo setUserInteractionEnabled:NO];
+    
+    self.closeViewButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.closeViewButton setFrame: CGRectMake(20, 30, 20, 20)];
+    [self.closeViewButton setImage:[UIImage imageNamed:@"cross"] forState:UIControlStateNormal];
+    self.closeViewButton.backgroundColor = [UIColor clearColor];
+    [self.closeViewButton addTarget:self action:@selector(closeViewPressed) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.closeViewButton];
+    
+//    self.rotateCameraButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [self.rotateCameraButton setFrame: CGRectMake(self.view.frame.size.width - 60, 30, 30, 30)];
+//    // [self.closeViewButton setCenter:CGPointMake(self.view.frame.size.width / 2, self.view.frame.size.height * 20 / 21)];
+//    [self.rotateCameraButton setImage:[UIImage imageNamed:@"rotateCamera"] forState:UIControlStateNormal];
+//    self.rotateCameraButton.backgroundColor = [UIColor clearColor];
+//    [self.rotateCameraButton addTarget:self action:@selector(closeViewPressed) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:self.rotateCameraButton];
 }
 
 - (void) handleTimer:(NSTimer *)timer {
@@ -165,7 +185,7 @@ typedef struct PointCloudModel
 - (void)didSwipe:(UISwipeGestureRecognizer*) swipe {
     
     if (swipe.direction == UISwipeGestureRecognizerDirectionRight) {
-        [self.navigationController popViewControllerAnimated:YES];
+        [self stopRecorder];
     }
 }
 
@@ -285,12 +305,17 @@ typedef struct PointCloudModel
 }
 
 -(void) playVideoPressed {
-    [self.playVideo removeFromSuperview];
-    [NSTimer scheduledTimerWithTimeInterval:0.052f target:self selector:@selector(handleTimer:) userInfo:nil repeats:YES];
+
+    [self.playVideo setImage:[UIImage imageNamed:@"redCircle"] forState:UIControlStateNormal];
+    [self.playVideo setUserInteractionEnabled:NO];
+
+    self.renderTimer = [NSTimer scheduledTimerWithTimeInterval:0.05f target:self selector:@selector(handleTimer:) userInfo:nil repeats:YES];
     self.buttonPressed = YES;
+
     [self makePointCloud];
     
     [self.recorder startRecording];
+    self.isRecording = YES;
     
     [NSTimer scheduledTimerWithTimeInterval:10.0
                                      target:self
@@ -300,11 +325,24 @@ typedef struct PointCloudModel
 }
 
 -(void) stopRecorder {
-    [self.recorder stopRecordingWithCompletion:^{
-        NSLog(@"Finished recording");
-    }];
+    if (self.isRecording) {
+        [self.renderTimer invalidate];
+        [self.recorder stopRecordingWithCompletion:^{
+            NSLog(@"Finished recording");
+        }];
+        [SVProgressHUD showSuccessWithStatus:@"saved to disk!"];
+    }
     [self.navigationController popViewControllerAnimated:YES];
-    [SVProgressHUD showSuccessWithStatus:@"saved to disk!"];
+    
+}
+
+-(void) closeViewPressed {
+    if (self.isRecording) {
+        [self.recorder stopRecordingWithCompletion:^{
+            NSLog(@"Finished recording");
+        }];
+    }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 
