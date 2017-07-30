@@ -27,10 +27,16 @@ typedef struct PointCloudModel
 @property (nonatomic, strong) SCNNode *currNode;
 @property (nonatomic, strong) ARPlaneAnchor *currAnchor;
 
+@property (nonatomic) float xcenter;
+@property (nonatomic) float ycenter;
+@property (nonatomic) float zcenter;
+
 @property (nonatomic, strong) SCNNode *particle;
 
 @property (nonatomic) BOOL planeFound;
 @property (nonatomic, strong) ASScreenRecorder *recorder;
+
+@property (nonatomic) BOOL isObjectPlaced;
 
 @end
 
@@ -41,13 +47,16 @@ typedef struct PointCloudModel
     [super viewDidLoad];
     
     self.count = 0;
+    self.xcenter = 0.0;
+    self.ycenter = 0.0;
+    self.zcenter = 0.0;
     
     // setting up the sceneView
     self.sceneView = [[ARSCNView alloc] initWithFrame:self.view.frame];
     self.sceneView.delegate = self;
     [self.view addSubview: self.sceneView];
     
-    [self makePointCloud];
+    // [self makePointCloud];
     
     //    [self setupLabel];
 
@@ -79,6 +88,11 @@ typedef struct PointCloudModel
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    
+    if (!self.isObjectPlaced) {
+         [self.sceneView addSubview:self.playVideo];
+        [self setIsObjectPlaced:YES];
+    }
    
     UITouch *touch = touches.allObjects.firstObject;
     NSArray<ARHitTestResult *> *results =
@@ -90,6 +104,7 @@ typedef struct PointCloudModel
     SCNVector3 hitPosition = SCNVector3Make(hitTransform.m41, hitTransform.m42, hitTransform.m43);
     
     self.particle.position = hitPosition;
+    NSLog(@"New Particle Positioning: %f %f %f", hitPosition.x, hitPosition.y, hitPosition.z);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -104,6 +119,14 @@ typedef struct PointCloudModel
     configuration.planeDetection = ARPlaneDetectionHorizontal;
     configuration.worldAlignment = ARWorldAlignmentGravityAndHeading;
     [self.sceneView.session runWithConfiguration:configuration];
+    
+    self.playVideo = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [self.playVideo setFrame: CGRectMake(0, 0, 275, 40)];
+    [self.playVideo setCenter:CGPointMake(self.view.frame.size.width / 2, self.view.frame.size.height * 6 / 7)];
+    self.playVideo.backgroundColor = [UIColor whiteColor];
+    [self.playVideo setTitle:@"Play video message now!" forState:UIControlStateNormal];
+    self.playVideo.layer.cornerRadius = 8;
+    [self.playVideo addTarget:self action:@selector(playVideoPressed) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void) handleTimer:(NSTimer *)timer {
@@ -136,15 +159,22 @@ typedef struct PointCloudModel
     NSMutableArray *frames = self.message.framesArray;
     
     NSLog(@"%lu", [[self.message.framesArray firstObject].pointsArray count]);
+    float sum_x = 0.0;
+    float sum_y = 0.0;
+    float sum_z = 0.0;
     for (int i = 0; i < numPoints; i++) {
         
         PointCloudModel vertex;
         
         int testing_algorithm = i*4;
         
-        vertex.x = [[[frames firstObject] pointsArray] objectAtIndex:testing_algorithm].x / 15.0;
-        vertex.y = [[[frames firstObject] pointsArray] objectAtIndex:testing_algorithm].y / -15.0;
-        vertex.z = [[[frames firstObject] pointsArray] objectAtIndex:testing_algorithm].z / 15.0;
+        vertex.x = ([[[frames firstObject] pointsArray] objectAtIndex:testing_algorithm].x / 15.0) + (self.particle.position.x - self.xcenter);
+        vertex.y = [[[frames firstObject] pointsArray] objectAtIndex:testing_algorithm].y / -15.0 + (self.particle.position.y - self.ycenter);
+        vertex.z = [[[frames firstObject] pointsArray] objectAtIndex:testing_algorithm].z / 15.0 + (self.particle.position.z - self.zcenter);
+        
+        sum_x += vertex.x;
+        sum_y += vertex.y;
+        sum_z += vertex.z;
         
         vertex.r = [[[frames firstObject] pointsArray] objectAtIndex:testing_algorithm].r / 255.0;
         vertex.g = [[[frames firstObject] pointsArray] objectAtIndex:testing_algorithm].g / 255.0;
@@ -156,6 +186,10 @@ typedef struct PointCloudModel
         
         pointCloudVertices[i] = vertex;
     }
+    
+    self.xcenter = sum_x / numPoints;
+    self.ycenter = sum_y / numPoints;
+    self.zcenter = sum_z / numPoints;
     
     
     // convert array to point cloud data (position and color)
