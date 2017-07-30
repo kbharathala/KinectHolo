@@ -1,3 +1,2 @@
-*.json
-*.proto
-*.hologram
+compressed_files/*
+files/*
