@@ -4,6 +4,8 @@ var url = require('url');
 var spawn = require("child_process").spawn;
 let path = require('path')
 let express = require('express');
+let zlib = require('zlib');
+let gzip = zlib.createGzip();
 let app = express();
 let publicFolderName = '../common';
 app.use(express.static(publicFolderName));
@@ -41,7 +43,20 @@ app.get('/messages/:name', (req, res, next)=>{
       res.writeHead(404, {'Content-Type': 'text/html'});
       return res.end("404 Not Found");
     }
-    res.writeHead(200, {'Content-Type': 'text/json'});
+    res.write(data);
+    return res.end();
+  });
+})
+
+app.get('/compressedmessages/:name', (req, res, next)=>{
+  var filename = path.join(__dirname, 'compressed_files',
+      req.params.name + '.gz');
+  console.log(filename);
+  fs.readFile(filename, function(err, data) {
+    if (err) {
+      res.writeHead(404, {'Content-Type': 'text/html'});
+      return res.end("404 Not Found");
+    }
     res.write(data);
     return res.end();
   });
@@ -56,7 +71,11 @@ app.post('/newmessage/:name', (req, res, next)=>{
         if(err) {
             return console.log(err);
         }
-      }); 
+      });
+      const inp = fs.createReadStream(path.join(__dirname, 'files', req.params.name));
+      const out = fs.createWriteStream(path.join(__dirname,
+          'compressed_files', req.params.name));
+      inp.pipe(gzip).pipe(out);
     } catch (err) {
       console.log('Processing failed:', err);
       next(err);
