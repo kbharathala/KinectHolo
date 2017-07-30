@@ -1,6 +1,7 @@
 var http = require('http');
 var fs = require('fs');
 var url = require('url');
+var spawn = require("child_process").spawn;
 let path = require('path')
 let express = require('express');
 let app = express();
@@ -15,6 +16,7 @@ let builder = ProtoBuf.loadProtoFile(
   'message.proto')
 );
 let Message = builder.build('Message');
+
 
 app.get('/allmessages', (req, res, next)=>{
   fs.readdir('files', function(err, items) {
@@ -41,8 +43,8 @@ app.get('/messages/:name', (req, res, next)=>{
 app.post('/newmessage/:name', (req, res, next)=>{
   if (req.raw) {
     try {
-      let msg = new Message(req.raw).encode().toBuffer();
-      fs.writeFile("files/" + req.params.name, msg, function(err) {
+      // let msg = new Message(req.raw).encode().toBuffer();
+      fs.writeFile("files/" + req.params.name, req.raw, function(err) {
         if(err) {
             return console.log(err);
         }
@@ -54,6 +56,17 @@ app.post('/newmessage/:name', (req, res, next)=>{
   } else {
     console.log("Not binary data");
   }
+});
+
+app.get('/testing/:name', (req, res, next)=>{
+  // var pr = spawn('python',["test.py", req.params.name]);
+  // console.log(req.params.name);
+  // pr.stdout.on('data', function (data) {
+  //   console.log(data.toString());
+  // });
+  // pr.stdout.on('end', function () {
+  //   console.log(data.toString());
+  // });
 });
 
 app.all('*', (req, res)=>{
