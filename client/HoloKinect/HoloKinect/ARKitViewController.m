@@ -39,6 +39,8 @@ typedef struct PointCloudModel
     [self.view addSubview: _sceneView];
     
     [self makePointCloud];
+    [NSTimer scheduledTimerWithTimeInterval:0.05f target:self selector:@selector(handleTimer:) userInfo:nil repeats:YES];
+
     
 //    SCNNode *cubeNode = [SCNNode node];
 //    cubeNode.geometry = [SCNBox boxWithWidth:0.1 height:0.1 length:0.1 chamferRadius:0];
@@ -50,6 +52,11 @@ typedef struct PointCloudModel
     UISwipeGestureRecognizer *rightSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipe:)];
     rightSwipe.direction = UISwipeGestureRecognizerDirectionRight;
     [self.view addGestureRecognizer:rightSwipe];
+}
+
+- (void) handleTimer:(NSTimer *)timer {
+    [self resetPointCloud];
+    // Hanlde the timed event.
 }
 
 - (void)didSwipe:(UISwipeGestureRecognizer*) swipe {
@@ -103,9 +110,18 @@ typedef struct PointCloudModel
     [self.sceneView.session runWithConfiguration:configuration];
 }
 
+- (void)resetPointCloud
+{
+    for (SCNNode *node in [self.sceneView.scene.rootNode childNodes]) {
+        [node removeFromParentNode];
+    }
+    
+    [self makePointCloud];
+}
+
 - (void)makePointCloud
 {
-    NSUInteger numPoints = 25000;
+    NSUInteger numPoints = 1000;
 
     int randomPosUL = 2;
     int scaleFactor = 10000;
@@ -138,8 +154,8 @@ typedef struct PointCloudModel
         SCNNode *particle = [SCNNode nodeWithGeometry:particleGeometry];
         particle.position = SCNVector3Make(vertex.x, vertex.y, vertex.z);
         [self.sceneView.scene.rootNode addChildNode:particle];
-
     }
+    
 
     // convert array to point cloud data (position and color)
 //    NSData *pointCloudData = [NSData dataWithBytes:&pointCloudVertices length:sizeof(pointCloudVertices)];
