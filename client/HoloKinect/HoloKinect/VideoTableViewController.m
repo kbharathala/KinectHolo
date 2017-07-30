@@ -42,6 +42,7 @@
 - (void) updateTable {
     
 <<<<<<< HEAD
+<<<<<<< HEAD
     NSString *filepath = [[NSBundle mainBundle] pathForResource:@"movie2" ofType:@"hologram"];
     NSLog(@"%@", filepath);
     NSError *error;
@@ -51,6 +52,8 @@
     
     return;
 =======
+=======
+>>>>>>> afe681c2af3653897961d4cab520d11b4d2bac0a
 //    NSString *filepath = [[NSBundle mainBundle] pathForResource:@"hologram10" ofType:@"hologram"];
 //    NSError *error;
 //    NSData *data = [NSData dataWithContentsOfFile:filepath];
@@ -58,6 +61,9 @@
 //    self.message = [Message parseFromData:data error:&error];
 //
 //    return;
+<<<<<<< HEAD
+>>>>>>> afe681c2af3653897961d4cab520d11b4d2bac0a
+=======
 >>>>>>> afe681c2af3653897961d4cab520d11b4d2bac0a
     
 //    [SVProgressHUD showWithStatus:@"Loading Holos"];

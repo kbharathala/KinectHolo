@@ -27,7 +27,6 @@ typedef struct PointCloudModel
 
 @property (nonatomic, strong) UIButton *playVideo;
 @property (nonatomic, strong) UIButton *closeViewButton;
-
 @property (nonatomic, strong) UILabel *tutorialView;
 //@property (nonatomic, strong) UIButton *rotateCameraButton;
 
@@ -171,7 +170,6 @@ typedef struct PointCloudModel
     self.closeViewButton.backgroundColor = [UIColor clearColor];
     [self.closeViewButton addTarget:self action:@selector(closeViewPressed) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.closeViewButton];
-    
 
     self.tutorialView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width + 100, 40)];
     // [self.tutorialView setBackgroundColor:[UIColor colorWithWhite:0.2 alpha:0.2]];
@@ -311,11 +309,6 @@ typedef struct PointCloudModel
     [self.sceneView.scene.rootNode addChildNode:self.pointcloudNode];
     
 }
-
--(void) playVideoPressed {
-
-    [self.playVideo setImage:[UIImage imageNamed:@"redCircle"] forState:UIControlStateNormal];
-    [self.playVideo setUserInteractionEnabled:NO];
 
 -(void) playVideoPressed {
 
