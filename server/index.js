@@ -17,13 +17,13 @@ let builder = ProtoBuf.loadProtoFile(
 );
 let Message = builder.build('Message');
 
- fs.readFile("proto", function(err, data) {
-    if (err) {
-      res.writeHead(404, {'Content-Type': 'text/html'});
-      return res.end("404 Not Found");
-    }
-    new Message.decodeDelimited(data).encode().toBuffer();
-  });
+ // fs.readFile("proto", function(err, data) {
+ //    if (err) {
+ //      res.writeHead(404, {'Content-Type': 'text/html'});
+ //      return res.end("404 Not Found");
+ //    }
+ //    new Message.decodeDelimited(data).encode().toBuffer();
+ //  });
 
 app.get('/allmessages', (req, res, next)=>{
   fs.readdir('files', function(err, items) {

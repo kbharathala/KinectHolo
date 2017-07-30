@@ -112,19 +112,19 @@ typedef struct PointCloudModel
         
         PointCloudModel vertex;
         
-        int testing_algorithm = 150000 + i*5;
+        int testing_algorithm = i*5;
         
         vertex.x = [[[frames firstObject] pointsArray] objectAtIndex:testing_algorithm].x / 5.0;
         vertex.y = -1.0 * [[[frames firstObject] pointsArray] objectAtIndex:testing_algorithm].y / 5.0;
         vertex.z = [[[frames firstObject] pointsArray] objectAtIndex:testing_algorithm].z / 5.0;
         
-        if (i%1000 == 0) {
-            NSLog(@"%f, %f, %f", vertex.x, vertex.y, vertex.z);
-        }
-        
         vertex.r = [[[frames firstObject] pointsArray] objectAtIndex:testing_algorithm].r / 255.0;
         vertex.g = [[[frames firstObject] pointsArray] objectAtIndex:testing_algorithm].g / 255.0;
         vertex.b = [[[frames firstObject] pointsArray] objectAtIndex:testing_algorithm].b / 255.0;
+        
+        if (i%1000 == 0) {
+            NSLog(@"Location: %f, %f, %f\n Color: %f, %f, %f", vertex.x, vertex.y, vertex.z, vertex.r, vertex.g, vertex.b);
+        }
         
         pointCloudVertices[i] = vertex;
     }
@@ -166,9 +166,9 @@ typedef struct PointCloudModel
     
     SCNNode *pointcloudNode = [SCNNode nodeWithGeometry:pointcloudGeometry];
     //    pointcloudGeometry.firstMaterial.shaderModifiers = @{SCNShaderModifierEntryPointGeometry : @"gl_PointSize = 0.0000000000005"};
-    pointcloudNode.geometry = pointcloudGeometry;
+//    pointcloudNode.geometry = pointcloudGeometry;
     //    pointcloudNode.geometry.shaderModifiers = @{SCNShaderModifierEntryPointGeometry : @"gl_PointSize = 2.0"};
-    pointcloudNode.position = SCNVector3Make(0, 0, -0.2);
+    pointcloudNode.position = SCNVector3Make(0, 0, 0);
     //    SCNAction *fadeParticle = [SCNAction fadeOpacityTo:0.0 duration:0.05f];
     //    [pointcloudNode runAction:fadeParticle];
     
