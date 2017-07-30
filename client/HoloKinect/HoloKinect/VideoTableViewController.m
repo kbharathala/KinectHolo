@@ -170,7 +170,7 @@
 //        NSURLResponse * _Nullable response,
 //        NSError * _Nullable error) {
     
-    NSString *filepath = [[NSBundle mainBundle] pathForResource:@"movie" ofType:@"hologram"];
+    NSString *filepath = [[NSBundle mainBundle] pathForResource:@"brijen" ofType:@"hologram"];
     NSError *error;
     NSData *data = [NSData dataWithContentsOfFile:filepath];
     
