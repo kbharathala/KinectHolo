@@ -87,8 +87,6 @@ typedef struct PointCloudModel
     
     // [self makePointCloud];
     
-    //    [self setupLabel];
-    
     //    SCNNode *cubeNode = [SCNNode node];
     //    cubeNode.geometry = [SCNBox boxWithWidth:0.1 height:0.1 length:0.1 chamferRadius:0];
     //    cubeNode.position = SCNVector3Make(0, 0, -0.2);
@@ -118,7 +116,7 @@ typedef struct PointCloudModel
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     
     if (!self.isObjectPlaced) {
-         [self.sceneView addSubview:self.playVideo];
+        [self.playVideo setUserInteractionEnabled:YES];
         [self setIsObjectPlaced:YES];
     }
    
@@ -158,10 +156,11 @@ typedef struct PointCloudModel
     [self.playVideo setImage:[UIImage imageNamed:@"circle"] forState:UIControlStateNormal];
     self.playVideo.backgroundColor = [UIColor clearColor];
     [self.playVideo addTarget:self action:@selector(playVideoPressed) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.playVideo];
+    [self.playVideo setUserInteractionEnabled:NO];
     
     self.closeViewButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.closeViewButton setFrame: CGRectMake(20, 30, 20, 20)];
-    // [self.closeViewButton setCenter:CGPointMake(self.view.frame.size.width / 2, self.view.frame.size.height * 20 / 21)];
     [self.closeViewButton setImage:[UIImage imageNamed:@"cross"] forState:UIControlStateNormal];
     self.closeViewButton.backgroundColor = [UIColor clearColor];
     [self.closeViewButton addTarget:self action:@selector(closeViewPressed) forControlEvents:UIControlEventTouchUpInside];

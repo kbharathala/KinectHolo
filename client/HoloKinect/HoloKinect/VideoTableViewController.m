@@ -37,13 +37,11 @@
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar setHidden:NO];
-    
-    [self updateTable];
 }
 
 - (void) updateTable {
     
-//    NSString *filepath = [[NSBundle mainBundle] pathForResource:@"hologram" ofType:@"hologram"];
+//    NSString *filepath = [[NSBundle mainBundle] pathForResource:@"hologram10" ofType:@"hologram"];
 //    NSError *error;
 //    NSData *data = [NSData dataWithContentsOfFile:filepath];
 //
@@ -51,32 +49,32 @@
 //
 //    return;
     
-    [SVProgressHUD showWithStatus:@"Loading Holos"];
-
-    NSString *baseUrl = @"https://dc89e4d7.ngrok.io";
-
-    // making a GET request
-    NSString *targetUrl = [NSString stringWithFormat:@"%@/allmessages", baseUrl];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-    [request setHTTPMethod:@"GET"];
-    [request setURL:[NSURL URLWithString:targetUrl]];
-
-    [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:
-      ^(NSData * _Nullable data,
-        NSURLResponse * _Nullable response,
-        NSError * _Nullable error) {
-
-          self.videoArray = [NSJSONSerialization JSONObjectWithData:data
-                                                                   options:kNilOptions
-                                                                     error:&error];
-          
-          NSLog(@"%@", self.videoArray);
-          
-          dispatch_async(dispatch_get_main_queue(), ^{
-              [SVProgressHUD dismiss];
-              [self.tableView reloadData];
-          });
-      }] resume];
+//    [SVProgressHUD showWithStatus:@"Loading Holos"];
+//
+//    NSString *baseUrl = @"https://dc89e4d7.ngrok.io";
+//
+//    // making a GET request
+//    NSString *targetUrl = [NSString stringWithFormat:@"%@/allmessages", baseUrl];
+//    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+//    [request setHTTPMethod:@"GET"];
+//    [request setURL:[NSURL URLWithString:targetUrl]];
+//
+//    [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:
+//      ^(NSData * _Nullable data,
+//        NSURLResponse * _Nullable response,
+//        NSError * _Nullable error) {
+//
+//          self.videoArray = [NSJSONSerialization JSONObjectWithData:data
+//                                                                   options:kNilOptions
+//                                                                     error:&error];
+//
+//          NSLog(@"%@", self.videoArray);
+//
+//          dispatch_async(dispatch_get_main_queue(), ^{
+//              [SVProgressHUD dismiss];
+//              [self.tableView reloadData];
+//          });
+//      }] resume];
     
 //    if (!raw_data) {
 //        [SVProgressHUD showErrorWithStatus:@"HoloChat is no fun without friends. Invite someone now!"];
@@ -113,8 +111,7 @@
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // return 10;
-    return [self.videoArray count];
+    return 10;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -150,28 +147,29 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    [SVProgressHUD showWithStatus:@"Loading Stickers"];
-    NSString *baseUrl = @"https://dc89e4d7.ngrok.io";
+//    [SVProgressHUD showWithStatus:@"Loading Stickers"];
+//    NSString *baseUrl = @"https://dc89e4d7.ngrok.io";
+//
+//    // making a GET request
+//    NSString *targetUrl = [NSString stringWithFormat:@"%@/messages/%@", baseUrl, [self.videoArray objectAtIndex: indexPath.row]];
+//    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+//    [request setHTTPMethod:@"GET"];
+//    [request setURL:[NSURL URLWithString:targetUrl]];
+//
+//    [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:
+//      ^(NSData * _Nullable data,
+//        NSURLResponse * _Nullable response,
+//        NSError * _Nullable error) {
     
-    // making a GET request
-    NSString *targetUrl = [NSString stringWithFormat:@"%@/messages/%@", baseUrl, [self.videoArray objectAtIndex: indexPath.row]];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-    [request setHTTPMethod:@"GET"];
-    [request setURL:[NSURL URLWithString:targetUrl]];
+    NSString *filepath = [[NSBundle mainBundle] pathForResource:@"hologram10" ofType:@"hologram"];
+    NSError *error;
+    NSData *data = [NSData dataWithContentsOfFile:filepath];
     
-    [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:
-      ^(NSData * _Nullable data,
-        NSURLResponse * _Nullable response,
-        NSError * _Nullable error) {
-          
-          ARKitViewController *arVC = [[ARKitViewController alloc] init];
-          arVC.message = [Message parseFromData:data error:&error];
-          [self.navigationController pushViewController:arVC animated:YES];
-          
-          dispatch_async(dispatch_get_main_queue(), ^{
-              [SVProgressHUD dismiss];
-          });
-      }] resume];
+    self.message = [Message parseFromData:data error:&error];
+    
+    ARKitViewController *arVC = [[ARKitViewController alloc] init];
+    arVC.message = self.message;
+    [self.navigationController pushViewController:arVC animated:YES];
 }
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath

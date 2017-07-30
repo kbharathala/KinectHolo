@@ -35,6 +35,7 @@
 		6B4CAD061F2DD01E00E868C2 /* hologram.hologram in Resources */ = {isa = PBXBuildFile; fileRef = 6B4CAD051F2DD01B00E868C2 /* hologram.hologram */; };
 		6B4CAD071F2DD02000E868C2 /* hologram7.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6B4CAD041F2DD01B00E868C2 /* hologram7.txt */; };
 		6B4CAD121F2DE33200E868C2 /* ASScreenRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B4CAD111F2DE33200E868C2 /* ASScreenRecorder.m */; };
+		6B4CAD141F2E004800E868C2 /* hologram10.hologram in Resources */ = {isa = PBXBuildFile; fileRef = 6B4CAD131F2E001D00E868C2 /* hologram10.hologram */; };
 		6B700AD31F2D867B00BA3D60 /* Message.pbobjc.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B700AD11F2D867B00BA3D60 /* Message.pbobjc.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		6B736A5A1F2D0BEE0007F9BE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B736A591F2D0BEE0007F9BE /* main.m */; };
 		6B736A5D1F2D0BEE0007F9BE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B736A5C1F2D0BEE0007F9BE /* AppDelegate.m */; };
@@ -121,6 +122,7 @@
 		6B4CAD051F2DD01B00E868C2 /* hologram.hologram */ = {isa = PBXFileReference; lastKnownFileType = file; path = hologram.hologram; sourceTree = "<group>"; };
 		6B4CAD101F2DE33200E868C2 /* ASScreenRecorder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ASScreenRecorder.h; sourceTree = "<group>"; };
 		6B4CAD111F2DE33200E868C2 /* ASScreenRecorder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ASScreenRecorder.m; sourceTree = "<group>"; };
+		6B4CAD131F2E001D00E868C2 /* hologram10.hologram */ = {isa = PBXFileReference; lastKnownFileType = file; path = hologram10.hologram; sourceTree = "<group>"; };
 		6B700AD11F2D867B00BA3D60 /* Message.pbobjc.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Message.pbobjc.m; sourceTree = "<group>"; };
 		6B700AD21F2D867B00BA3D60 /* Message.pbobjc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Message.pbobjc.h; sourceTree = "<group>"; };
 		6B736A551F2D0BEE0007F9BE /* HoloKinect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HoloKinect.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -303,6 +305,7 @@
 		6B736A581F2D0BEE0007F9BE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				6B4CAD131F2E001D00E868C2 /* hologram10.hologram */,
 				6B4CAD101F2DE33200E868C2 /* ASScreenRecorder.h */,
 				6B4CAD111F2DE33200E868C2 /* ASScreenRecorder.m */,
 				6B4CAD051F2DD01B00E868C2 /* hologram.hologram */,
@@ -390,6 +393,7 @@
 				6B736A701F2D0C260007F9BE /* Default-568h@2x.png in Resources */,
 				6B4CAD071F2DD02000E868C2 /* hologram7.txt in Resources */,
 				6B4CAD061F2DD01E00E868C2 /* hologram.hologram in Resources */,
+				6B4CAD141F2E004800E868C2 /* hologram10.hologram in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
