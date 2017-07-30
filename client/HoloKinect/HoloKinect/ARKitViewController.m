@@ -23,6 +23,8 @@ typedef struct PointCloudModel
 
 @property (nonatomic) int *count;
 
+@property (nonatomic) NSTimer *renderTimer;
+
 @property (nonatomic, strong) UIButton *playVideo;
 @property (nonatomic, strong) UIButton *closeViewButton;
 @property (nonatomic, strong) UILabel *tutorialView;
@@ -66,9 +68,9 @@ typedef struct PointCloudModel
         
         int testing_algorithm = i;
         
-        vertex.x = ([[[frames firstObject] pointsArray] objectAtIndex:testing_algorithm].x / 15.0);
-        vertex.y = [[[frames firstObject] pointsArray] objectAtIndex:testing_algorithm].y / -15.0;
-        vertex.z = ([[[frames firstObject] pointsArray] objectAtIndex:testing_algorithm].z / 15.0);
+        vertex.x = ([[[frames firstObject] pointsArray] objectAtIndex:testing_algorithm].x / 14.0);
+        vertex.y = [[[frames firstObject] pointsArray] objectAtIndex:testing_algorithm].y / -14.0;
+        vertex.z = ([[[frames firstObject] pointsArray] objectAtIndex:testing_algorithm].z / 14.0);
         
         sum_x += vertex.x;
         sum_y += vertex.y;
@@ -121,6 +123,7 @@ typedef struct PointCloudModel
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     
+
     if (!self.isObjectPlaced) {
         [self.playVideo setUserInteractionEnabled:YES];
         [self.tutorialView removeFromSuperview];
@@ -139,7 +142,7 @@ typedef struct PointCloudModel
     self.particle.position = hitPosition;
     if (self.buttonPressed) {
         NSLog(@"button pressed");
-        [self resetPointCloud];
+        [self movePointCloud];
     }
     NSLog(@"New Particle Positioning: %f %f %f", hitPosition.x, hitPosition.y, hitPosition.z);
 }
@@ -172,7 +175,7 @@ typedef struct PointCloudModel
     self.closeViewButton.backgroundColor = [UIColor clearColor];
     [self.closeViewButton addTarget:self action:@selector(closeViewPressed) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.closeViewButton];
-    
+
     self.tutorialView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width + 100, 40)];
     [self.tutorialView setTextColor:[UIColor whiteColor]];
     [self.tutorialView setText:@"Drop a sticker to get started"];
@@ -210,8 +213,14 @@ typedef struct PointCloudModel
 }
 
 - (void)resetPointCloud {
-        SCNAction *fadeParticle = [SCNAction fadeOpacityTo:0.0 duration:0.05f];
-        [self.pointcloudNode runAction:fadeParticle];
+    SCNAction *fadeParticle = [SCNAction fadeOpacityTo:0.0 duration:0.05f];
+    [self.pointcloudNode runAction:fadeParticle];
+    [self makePointCloud];
+}
+
+-(void)movePointCloud {
+    SCNAction *fadeParticle = [SCNAction fadeOpacityTo:0.0 duration:0.0f];
+    [self.pointcloudNode runAction:fadeParticle];
     [self makePointCloud];
 }
 
@@ -232,9 +241,9 @@ typedef struct PointCloudModel
         
         int testing_algorithm = i;
         
-        vertex.x = ([[[frames objectAtIndex:self.count] pointsArray] objectAtIndex:testing_algorithm].x / 15.0) + (self.particle.position.x - self.xcenter);
-        vertex.y = [[[frames objectAtIndex:self.count] pointsArray] objectAtIndex:testing_algorithm].y / -15.0 + (self.particle.position.y - self.ycenter);
-        vertex.z = [[[frames objectAtIndex:self.count] pointsArray] objectAtIndex:testing_algorithm].z / 15.0 + (self.particle.position.z - self.zcenter);
+        vertex.x = ([[[frames objectAtIndex:self.count] pointsArray] objectAtIndex:testing_algorithm].x / 14.0) + ( - self.xcenter  + self.particle.position.x);
+        vertex.y = [[[frames objectAtIndex:self.count] pointsArray] objectAtIndex:testing_algorithm].y / -14.0 + ( - self.ycenter + self.particle.position.y);
+        vertex.z = [[[frames objectAtIndex:self.count] pointsArray] objectAtIndex:testing_algorithm].z / 14.0 + ( - self.zcenter + self.particle.position.z);
         
         sum_x += vertex.x;
         sum_y += vertex.y;
@@ -308,7 +317,8 @@ typedef struct PointCloudModel
     [self.playVideo setImage:[UIImage imageNamed:@"redCircle"] forState:UIControlStateNormal];
     [self.playVideo setUserInteractionEnabled:NO];
 
-    [NSTimer scheduledTimerWithTimeInterval:0.052f target:self selector:@selector(handleTimer:) userInfo:nil repeats:YES];
+    self.renderTimer = [NSTimer scheduledTimerWithTimeInterval:0.05f target:self selector:@selector(handleTimer:) userInfo:nil repeats:YES];
+
     self.buttonPressed = YES;
 
     [self makePointCloud];
@@ -325,6 +335,7 @@ typedef struct PointCloudModel
 
 -(void) stopRecorder {
     if (self.isRecording) {
+        [self.renderTimer invalidate];
         [self.recorder stopRecordingWithCompletion:^{
             NSLog(@"Finished recording");
         }];
