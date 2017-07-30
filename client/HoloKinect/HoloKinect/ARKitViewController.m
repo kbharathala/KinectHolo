@@ -88,7 +88,7 @@ typedef struct PointCloudModel
     
     UIView *overlayView = [[UIView alloc] initWithFrame:self.view.frame];
     [overlayView setUserInteractionEnabled:NO];
-    [overlayView setBackgroundColor:[UIColor colorWithWhite:0.2 alpha:0.2]];
+    [overlayView setBackgroundColor:[UIColor colorWithWhite:0.3 alpha:0.3]];
     [self.view addSubview: overlayView];
     
     // [self makePointCloud];
