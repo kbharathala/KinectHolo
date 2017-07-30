@@ -62,9 +62,9 @@ typedef struct PointCloudModel
         
         int testing_algorithm = i;
         
-        vertex.x = ([[[frames firstObject] pointsArray] objectAtIndex:testing_algorithm].x / 15.0);
-        vertex.y = [[[frames firstObject] pointsArray] objectAtIndex:testing_algorithm].y / -15.0;
-        vertex.z = ([[[frames firstObject] pointsArray] objectAtIndex:testing_algorithm].z / 15.0);
+        vertex.x = ([[[frames firstObject] pointsArray] objectAtIndex:testing_algorithm].x / 14.0);
+        vertex.y = [[[frames firstObject] pointsArray] objectAtIndex:testing_algorithm].y / -14.0;
+        vertex.z = ([[[frames firstObject] pointsArray] objectAtIndex:testing_algorithm].z / 14.0);
         
         sum_x += vertex.x;
         sum_y += vertex.y;
@@ -130,7 +130,7 @@ typedef struct PointCloudModel
     self.particle.position = hitPosition;
     if (self.buttonPressed) {
         NSLog(@"button pressed");
-        [self resetPointCloud];
+        [self movePointCloud];
     }
     NSLog(@"New Particle Positioning: %f %f %f", hitPosition.x, hitPosition.y, hitPosition.z);
 }
@@ -176,8 +176,14 @@ typedef struct PointCloudModel
 }
 
 - (void)resetPointCloud {
-        SCNAction *fadeParticle = [SCNAction fadeOpacityTo:0.0 duration:0.05f];
-        [self.pointcloudNode runAction:fadeParticle];
+    SCNAction *fadeParticle = [SCNAction fadeOpacityTo:0.0 duration:0.05f];
+    [self.pointcloudNode runAction:fadeParticle];
+    [self makePointCloud];
+}
+
+-(void)movePointCloud {
+    SCNAction *fadeParticle = [SCNAction fadeOpacityTo:0.0 duration:0.0f];
+    [self.pointcloudNode runAction:fadeParticle];
     [self makePointCloud];
 }
 
@@ -198,9 +204,9 @@ typedef struct PointCloudModel
         
         int testing_algorithm = i;
         
-        vertex.x = ([[[frames objectAtIndex:self.count] pointsArray] objectAtIndex:testing_algorithm].x / 15.0) + ( - self.xcenter  + self.particle.position.x);
-        vertex.y = [[[frames objectAtIndex:self.count] pointsArray] objectAtIndex:testing_algorithm].y / -15.0 + ( - self.ycenter + self.particle.position.y);
-        vertex.z = [[[frames objectAtIndex:self.count] pointsArray] objectAtIndex:testing_algorithm].z / 15.0 + ( - self.zcenter + self.particle.position.z);
+        vertex.x = ([[[frames objectAtIndex:self.count] pointsArray] objectAtIndex:testing_algorithm].x / 14.0) + ( - self.xcenter  + self.particle.position.x);
+        vertex.y = [[[frames objectAtIndex:self.count] pointsArray] objectAtIndex:testing_algorithm].y / -14.0 + ( - self.ycenter + self.particle.position.y);
+        vertex.z = [[[frames objectAtIndex:self.count] pointsArray] objectAtIndex:testing_algorithm].z / 14.0 + ( - self.zcenter + self.particle.position.z);
         
         sum_x += vertex.x;
         sum_y += vertex.y;
