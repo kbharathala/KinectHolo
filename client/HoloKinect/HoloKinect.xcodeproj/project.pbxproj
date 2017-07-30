@@ -13,14 +13,18 @@
 		6B736A651F2D0BEE0007F9BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6B736A641F2D0BEE0007F9BE /* Assets.xcassets */; };
 		6B736A701F2D0C260007F9BE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6B736A6F1F2D0C260007F9BE /* Default-568h@2x.png */; };
 		6B736A731F2D0D280007F9BE /* VideoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B736A721F2D0D280007F9BE /* VideoTableViewController.m */; };
+		6B7659C81F2D5C460019E455 /* NSObject+MKBlockTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B7659C71F2D5C460019E455 /* NSObject+MKBlockTimer.m */; };
 		6BF88DC41F2D17E70086CA3C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BF88DC31F2D17E70086CA3C /* UIKit.framework */; };
 		6BF88DC61F2D17EF0086CA3C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BF88DC51F2D17EF0086CA3C /* AVFoundation.framework */; };
 		6BF88DC81F2D17F60086CA3C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BF88DC71F2D17F60086CA3C /* CoreGraphics.framework */; };
 		6BF88DCA1F2D17FC0086CA3C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BF88DC91F2D17FC0086CA3C /* Foundation.framework */; };
 		BFBA040C1F2D3B10000B39EB /* TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BFBA040B1F2D3B10000B39EB /* TableViewCell.m */; };
+		F46A2352CC2C0986883105B7 /* libPods-HoloKinect.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AED85776ACA43A383A62E2D /* libPods-HoloKinect.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		06257C711E172A7184DA0B93 /* Pods-HoloKinect.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoloKinect.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HoloKinect/Pods-HoloKinect.debug.xcconfig"; sourceTree = "<group>"; };
+		2AED85776ACA43A383A62E2D /* libPods-HoloKinect.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HoloKinect.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B060EA01F2D29270097D482 /* ARKitViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARKitViewController.h; sourceTree = "<group>"; };
 		6B060EA11F2D29270097D482 /* ARKitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ARKitViewController.m; sourceTree = "<group>"; };
 		6B736A551F2D0BEE0007F9BE /* HoloKinect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HoloKinect.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -32,10 +36,13 @@
 		6B736A6F1F2D0C260007F9BE /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		6B736A711F2D0D280007F9BE /* VideoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoTableViewController.h; sourceTree = "<group>"; };
 		6B736A721F2D0D280007F9BE /* VideoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoTableViewController.m; sourceTree = "<group>"; };
+		6B7659C61F2D5C460019E455 /* NSObject+MKBlockTimer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+MKBlockTimer.h"; sourceTree = "<group>"; };
+		6B7659C71F2D5C460019E455 /* NSObject+MKBlockTimer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MKBlockTimer.m"; sourceTree = "<group>"; };
 		6BF88DC31F2D17E70086CA3C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		6BF88DC51F2D17EF0086CA3C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		6BF88DC71F2D17F60086CA3C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		6BF88DC91F2D17FC0086CA3C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		ACC6CDD89A2E119B612F688D /* Pods-HoloKinect.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoloKinect.release.xcconfig"; path = "Pods/Target Support Files/Pods-HoloKinect/Pods-HoloKinect.release.xcconfig"; sourceTree = "<group>"; };
 		BFBA040A1F2D3B10000B39EB /* TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCell.h; sourceTree = "<group>"; };
 		BFBA040B1F2D3B10000B39EB /* TableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -49,12 +56,22 @@
 				6BF88DC81F2D17F60086CA3C /* CoreGraphics.framework in Frameworks */,
 				6BF88DC61F2D17EF0086CA3C /* AVFoundation.framework in Frameworks */,
 				6BF88DC41F2D17E70086CA3C /* UIKit.framework in Frameworks */,
+				F46A2352CC2C0986883105B7 /* libPods-HoloKinect.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5423B89C9E18ECFF4016044E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				06257C711E172A7184DA0B93 /* Pods-HoloKinect.debug.xcconfig */,
+				ACC6CDD89A2E119B612F688D /* Pods-HoloKinect.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		6B736A4C1F2D0BEE0007F9BE = {
 			isa = PBXGroup;
 			children = (
@@ -62,6 +79,7 @@
 				6B736A571F2D0BEE0007F9BE /* HoloKinect */,
 				6B736A561F2D0BEE0007F9BE /* Products */,
 				6BF88DC21F2D17E70086CA3C /* Frameworks */,
+				5423B89C9E18ECFF4016044E /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -94,6 +112,8 @@
 		6B736A581F2D0BEE0007F9BE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				6B7659C61F2D5C460019E455 /* NSObject+MKBlockTimer.h */,
+				6B7659C71F2D5C460019E455 /* NSObject+MKBlockTimer.m */,
 				6B736A591F2D0BEE0007F9BE /* main.m */,
 			);
 			name = "Supporting Files";
@@ -106,6 +126,7 @@
 				6BF88DC71F2D17F60086CA3C /* CoreGraphics.framework */,
 				6BF88DC51F2D17EF0086CA3C /* AVFoundation.framework */,
 				6BF88DC31F2D17E70086CA3C /* UIKit.framework */,
+				2AED85776ACA43A383A62E2D /* libPods-HoloKinect.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -117,9 +138,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6B736A6C1F2D0BEE0007F9BE /* Build configuration list for PBXNativeTarget "HoloKinect" */;
 			buildPhases = (
+				83E04CE609EF8C1631107FC9 /* [CP] Check Pods Manifest.lock */,
 				6B736A511F2D0BEE0007F9BE /* Sources */,
 				6B736A521F2D0BEE0007F9BE /* Frameworks */,
 				6B736A531F2D0BEE0007F9BE /* Resources */,
+				93627A484E5CFA5FABD1BE94 /* [CP] Embed Pods Frameworks */,
+				60B4C242905DB8366949D4F8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -176,6 +200,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		60B4C242905DB8366949D4F8 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HoloKinect/Pods-HoloKinect-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		83E04CE609EF8C1631107FC9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		93627A484E5CFA5FABD1BE94 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HoloKinect/Pods-HoloKinect-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		6B736A511F2D0BEE0007F9BE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -184,6 +256,7 @@
 				6B736A5D1F2D0BEE0007F9BE /* AppDelegate.m in Sources */,
 				6B736A5A1F2D0BEE0007F9BE /* main.m in Sources */,
 				6B060EA21F2D29270097D482 /* ARKitViewController.m in Sources */,
+				6B7659C81F2D5C460019E455 /* NSObject+MKBlockTimer.m in Sources */,
 				BFBA040C1F2D3B10000B39EB /* TableViewCell.m in Sources */,
 				6B736A731F2D0D280007F9BE /* VideoTableViewController.m in Sources */,
 			);
@@ -284,6 +357,7 @@
 		};
 		6B736A6D1F2D0BEE0007F9BE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 06257C711E172A7184DA0B93 /* Pods-HoloKinect.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 55KFDSK3L9;
@@ -296,6 +370,7 @@
 		};
 		6B736A6E1F2D0BEE0007F9BE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = ACC6CDD89A2E119B612F688D /* Pods-HoloKinect.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 55KFDSK3L9;
