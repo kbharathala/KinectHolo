@@ -14,6 +14,5 @@
 @interface ARKitViewController : UIViewController
 
 @property (nonatomic, strong) Message *message;
--(id) initWithMessage:(Message *) message;
 
 @end

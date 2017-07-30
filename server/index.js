@@ -81,4 +81,6 @@ app.all('*', (req, res)=>{
   res.status(400).send('Not supported');
 });
 
-app.listen(3000);
+app.listen(8080, '0.0.0.0', function() {
+    console.log('Listening to port:  ' + 8080);
+});

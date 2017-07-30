@@ -18,7 +18,8 @@ public:
     bool isConnected;
 
     ofPixels getColorPixels();
-    ofFloatPixels getDepthPixels();
+    ofFloatPixels getSmallDepthPixels();
+    ofFloatPixels getBigDepthPixels();
 
     // Camera registration parameters
     float fx, fy, cx, cy;
@@ -29,8 +30,11 @@ private:
     ofPixels colorPixelsBack;
     ofPixels colorPixelsFront;
 
-    ofFloatPixels depthPixelsBack;
-    ofFloatPixels depthPixelsFront;
+    ofFloatPixels smallDepthPixelsBack;
+    ofFloatPixels smallDepthPixelsFront;
+
+    ofFloatPixels bigDepthPixelsBack;
+    ofFloatPixels bigDepthPixelsFront;
 
     libfreenect2::FrameMap frames;
     libfreenect2::Freenect2 freenect2;
