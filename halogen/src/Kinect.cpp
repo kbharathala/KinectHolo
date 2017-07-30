@@ -68,6 +68,15 @@ void Kinect::disconnect() {
   isConnected = false;
 }
 
+void Kinect::getPoint(int row, int col, float &x, float &y, float &z, uint8_t &r, uint8_t &g, uint8_t &b) {
+  float rgb;
+  registration->getPointXYZRGB(undistorted, registered, row, col, x, y, z, rgb);
+  const uint8_t *p = reinterpret_cast<uint8_t*>(&rgb);
+  b = p[0];
+  g = p[1];
+  r = p[2];
+}
+
 ofPixels Kinect::getColorPixels() {
   return colorPixelsFront;
 }
@@ -87,9 +96,9 @@ void Kinect::threadedFunction() {
       // libfreenect2::Frame *ir = frames[libfreenect2::Frame::Ir];
       libfreenect2::Frame *depth = frames[libfreenect2::Frame::Depth];
 
-      registration->apply(color, depth, undistorted, registered, true, bigDepth);
-
       mutex.lock();
+
+      registration->apply(color, depth, undistorted, registered, true, bigDepth);
 
       colorPixelsBack.setFromPixels(color->data, color->width, color->height, OF_PIXELS_BGRA);
       // unalignedDepthPixelsBack.setFromPixels(reinterpret_cast<float *>(depth->data), ir->width, ir->height, OF_PIXELS_GRAY);

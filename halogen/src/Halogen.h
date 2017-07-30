@@ -5,6 +5,7 @@
 #include "Kinect.h"
 #include "ofxCv.h"
 #include "ofxGui.h"
+#include "proto/message.pb.h"
 #undef Status
 #undef None
 
@@ -19,6 +20,7 @@ private:
   ofTexture colorTexture;
 
   ofRectangle face;
+  float faceDistance;
 
   cv::CascadeClassifier face_cascade;
   bool hasData = false;
@@ -27,6 +29,11 @@ private:
 
   ofxFloatSlider radius;
   ofxPanel gui;
+
+  bool isRecording = false;
+  void startRecording();
+  void stopRecording();
+  void saveFrame();
 
 public:
   void setup();

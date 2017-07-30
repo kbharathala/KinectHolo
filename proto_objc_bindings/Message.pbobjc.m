@@ -156,9 +156,9 @@ typedef struct Message_Frame_Point__storage_ {
   float x;
   float y;
   float z;
-  float r;
-  float g;
-  float b;
+  uint32_t r;
+  uint32_t g;
+  uint32_t b;
 } Message_Frame_Point__storage_;
 
 // This method is threadsafe because it is initially called
@@ -201,7 +201,7 @@ typedef struct Message_Frame_Point__storage_ {
         .hasIndex = 3,
         .offset = (uint32_t)offsetof(Message_Frame_Point__storage_, r),
         .flags = GPBFieldRequired,
-        .dataType = GPBDataTypeFloat,
+        .dataType = GPBDataTypeUInt32,
       },
       {
         .name = "g",
@@ -210,7 +210,7 @@ typedef struct Message_Frame_Point__storage_ {
         .hasIndex = 4,
         .offset = (uint32_t)offsetof(Message_Frame_Point__storage_, g),
         .flags = GPBFieldRequired,
-        .dataType = GPBDataTypeFloat,
+        .dataType = GPBDataTypeUInt32,
       },
       {
         .name = "b",
@@ -219,7 +219,7 @@ typedef struct Message_Frame_Point__storage_ {
         .hasIndex = 5,
         .offset = (uint32_t)offsetof(Message_Frame_Point__storage_, b),
         .flags = GPBFieldRequired,
-        .dataType = GPBDataTypeFloat,
+        .dataType = GPBDataTypeUInt32,
       },
     };
     GPBDescriptor *localDescriptor =
