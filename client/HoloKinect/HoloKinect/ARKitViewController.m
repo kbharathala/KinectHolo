@@ -7,7 +7,6 @@
 //
 
 #import "ARKitViewController.h"
-@import SceneKit;
 
 typedef struct PointCloudModel
 {
@@ -20,249 +19,190 @@ typedef struct PointCloudModel
 @property (nonatomic, strong) SCNScene *scene;
 @property (nonatomic, strong) UILabel *label;
 
+@property (nonatomic) int *count;
+
 @property (nonatomic) BOOL planeFound;
 
 @end
 
 @implementation ARKitViewController
 
-
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-//    [self setupLabel];
-    [self setupSceneView];
+    self.count = 0;
     
-    self.sceneView = [[ARSCNView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-    [self.view addSubview: _sceneView];
+    // setting up the sceneView
+    self.sceneView = [[ARSCNView alloc] initWithFrame:self.view.frame];
+    self.sceneView.delegate = self;
+    self.sceneView.autoenablesDefaultLighting = YES;
+    [self.view addSubview: self.sceneView];
     
-    [self makePointCloud];
-    [NSTimer scheduledTimerWithTimeInterval:0.05f target:self selector:@selector(handleTimer:) userInfo:nil repeats:YES];
+    //    [self setupLabel];
 
+    //    [NSTimer scheduledTimerWithTimeInterval:0.05f target:self selector:@selector(handleTimer:) userInfo:nil repeats:YES];
     
-//    SCNNode *cubeNode = [SCNNode node];
-//    cubeNode.geometry = [SCNBox boxWithWidth:0.1 height:0.1 length:0.1 chamferRadius:0];
-//    cubeNode.position = SCNVector3Make(0, 0, -0.2);
-//
-//    [self.sceneView.scene.rootNode addChildNode:cubeNode];
+    //    SCNNode *cubeNode = [SCNNode node];
+    //    cubeNode.geometry = [SCNBox boxWithWidth:0.1 height:0.1 length:0.1 chamferRadius:0];
+    //    cubeNode.position = SCNVector3Make(0, 0, -0.2);
+    //
+    //    [self.sceneView.scene.rootNode addChildNode:cubeNode];
     
-
     UISwipeGestureRecognizer *rightSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipe:)];
     rightSwipe.direction = UISwipeGestureRecognizerDirectionRight;
     [self.view addGestureRecognizer:rightSwipe];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    // Setting up the navigation bar
+    [self.navigationController.navigationBar setHidden:YES];
+    self.navigationController.navigationItem.backBarButtonItem = nil;
+    
+    // setting up the scene
+    self.scene = [SCNScene new];
+    self.sceneView.scene = self.scene;
+    
+    // starting the session
+    ARWorldTrackingSessionConfiguration *configuration = [ARWorldTrackingSessionConfiguration new];
+    configuration.planeDetection = ARPlaneDetectionHorizontal;
+    configuration.worldAlignment = ARWorldAlignmentGravityAndHeading;
+    [self.sceneView.session runWithConfiguration:configuration];
+    
+    // Makes the point cloud
+    [self makePointCloud];
+
+}
+
 - (void) handleTimer:(NSTimer *)timer {
-    [self resetPointCloud];
+    //    [self resetPointCloud];
     // Hanlde the timed event.
 }
 
 - (void)didSwipe:(UISwipeGestureRecognizer*) swipe {
     
-    
-    
     if (swipe.direction == UISwipeGestureRecognizerDirectionRight) {
-
+        
         [self.navigationController popViewControllerAnimated:YES];
     }
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-//    [self setupScene];
-    [self startSession];
-    
-    // Setting up the navigation bar
-    [self.navigationController.navigationBar setHidden:YES];
-    self.navigationController.navigationItem.backBarButtonItem = nil;
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-
+- (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    
     [self.sceneView.scene removeAllParticleSystems];
-    
     [self.sceneView.session pause];
-    
-}
-- (void)setupSceneView
-{
-    self.sceneView.delegate = self;
-    self.sceneView.autoenablesDefaultLighting = YES;
 }
 
-//- (void)setupScene
-//{
-//    SCNScene *scene = [SCNScene scene];
-//    self.myView.scene = scene;
-//
-//    SCNNode *cameraNode = [SCNNode node];
-//    cameraNode.camera = [SCNCamera camera];
-//    cameraNode.position = SCNVector3Make(0, 12, 30);
-//    cameraNode.rotation = SCNVector4Make(1, 0, 0, -sin(12.0/30.0));
-//
-//    [scene.rootNode addChildNode:cameraNode];
-//}
-
-- (void)startSession
-{
-    ARWorldTrackingSessionConfiguration *configuration = [ARWorldTrackingSessionConfiguration new];
-    configuration.planeDetection = ARPlaneDetectionHorizontal;
-    configuration.worldAlignment = ARWorldAlignmentGravityAndHeading;
-    
-//    for (SCNNode *node in [self.sceneView.scene.rootNode childNodes]) {
-//        [node removeFromParentNode];
-//    }
-    
-    [self.sceneView.session runWithConfiguration:configuration];
-}
-
-- (void)resetPointCloud
-{
-    
+- (void)resetPointCloud {
     [self makePointCloud];
 }
 
 - (void)makePointCloud
 {
     NSUInteger numPoints = 30000;
-
-    int randomPosUL = 2;
-    int scaleFactor = 1000;
-
-    PointCloudModel pointCloudVertices[numPoints];
-
-    for (NSUInteger i = 0; i < numPoints; i++) {
-
-        PointCloudModel vertex;
     
-        float x = (arc4random_uniform(randomPosUL * 2 * scaleFactor));
-//        (float) rand() / (RAND_MAX);
-        float y = (arc4random_uniform(randomPosUL * 2 * scaleFactor));
-        float z = (arc4random_uniform(randomPosUL * 2 * scaleFactor));
-//        (arc4random_uniform(randomPosUL * 2 * scaleFactor));
-
-        vertex.x = (x - randomPosUL * scaleFactor) / scaleFactor;
-        vertex.y = (y - randomPosUL * scaleFactor) / scaleFactor;
-        vertex.z = (z - randomPosUL * scaleFactor) / scaleFactor;
+    PointCloudModel pointCloudVertices[numPoints+10];
+    NSMutableArray *frames = self.message.framesArray;
+    
+    NSLog(@"%lu", [[self.message.framesArray firstObject].pointsArray count]);
+    for (int i = 0; i < numPoints; i++) {
         
-//        vertex.x = (float) (rand() / RAND_MAX);
-//        vertex.y = (float) (rand() / RAND_MAX);
-//        vertex.z = (float) (rand() / RAND_MAX);
-
-        vertex.r = arc4random_uniform(255) / 255.0;
-        vertex.g = arc4random_uniform(255) / 255.0;
-        vertex.b = arc4random_uniform(255) / 255.0;
+        PointCloudModel vertex;
         
-
+        int testing_algorithm = 150000 + i*5;
+        
+        vertex.x = [[[frames firstObject] pointsArray] objectAtIndex:testing_algorithm].x / 5.0;
+        vertex.y = -1.0 * [[[frames firstObject] pointsArray] objectAtIndex:testing_algorithm].y / 5.0;
+        vertex.z = [[[frames firstObject] pointsArray] objectAtIndex:testing_algorithm].z / 5.0;
+        
+        if (i%1000 == 0) {
+            NSLog(@"%f, %f, %f", vertex.x, vertex.y, vertex.z);
+        }
+        
+        vertex.r = [[[frames firstObject] pointsArray] objectAtIndex:testing_algorithm].r / 255.0;
+        vertex.g = [[[frames firstObject] pointsArray] objectAtIndex:testing_algorithm].g / 255.0;
+        vertex.b = [[[frames firstObject] pointsArray] objectAtIndex:testing_algorithm].b / 255.0;
+        
         pointCloudVertices[i] = vertex;
-        
-//        SCNMaterial *particleMaterial = [SCNMaterial new];
-//        particleMaterial.diffuse.contents = [UIColor colorWithRed:vertex.r green:vertex.g blue:vertex.b alpha:1];
-//
-//        SCNGeometry *particleGeometry = [SCNSphere sphereWithRadius:0.003];
-//        particleGeometry.firstMaterial = particleMaterial;
-//        SCNNode *particle = [SCNNode nodeWithGeometry:particleGeometry];
-//        particle.position = SCNVector3Make(vertex.x, vertex.y, vertex.z);
-//        SCNAction *fadeParticle = [SCNAction fadeOpacityTo:0.0 duration:0.05f];
-//        [particle runAction:fadeParticle];
-//        [self.sceneView.scene.rootNode addChildNode:particle];
     }
     
-
+    
     // convert array to point cloud data (position and color)
     NSData *pointCloudData = [NSData dataWithBytes:&pointCloudVertices length:sizeof(pointCloudVertices)];
-
-//    // create vertex source
+    
+    //    // create vertex source
     SCNGeometrySource *vertexSource = [SCNGeometrySource geometrySourceWithData:pointCloudData
-                                                               semantic:SCNGeometrySourceSemanticVertex
+                                                                       semantic:SCNGeometrySourceSemanticVertex
                                                                     vectorCount:numPoints
                                                                 floatComponents:YES
                                                             componentsPerVector:3
                                                               bytesPerComponent:sizeof(float)
                                                                      dataOffset:offsetof(PointCloudModel, x)
                                                                      dataStride:sizeof(PointCloudModel)];
-
+    
     // create color source
     SCNGeometrySource *colorSource = [SCNGeometrySource geometrySourceWithData:pointCloudData
-                                                                  semantic:SCNGeometrySourceSemanticColor
+                                                                      semantic:SCNGeometrySourceSemanticColor
                                                                    vectorCount:numPoints
                                                                floatComponents:YES
                                                            componentsPerVector:3
                                                              bytesPerComponent:sizeof(float)
                                                                     dataOffset:offsetof(PointCloudModel, r)
                                                                     dataStride:sizeof(PointCloudModel)];
-
+    
     // create element
     SCNGeometryElement *element = [SCNGeometryElement geometryElementWithData:nil
-                                                            primitiveType:SCNGeometryPrimitiveTypePoint
+                                                                primitiveType:SCNGeometryPrimitiveTypePoint
                                                                primitiveCount:numPoints
                                                                 bytesPerIndex:sizeof(int)];
-
+    
     // create geometry
     
     
     SCNGeometry *pointcloudGeometry = [SCNGeometry geometryWithSources:@[ vertexSource, colorSource] elements:@[ element]];
     
     SCNNode *pointcloudNode = [SCNNode nodeWithGeometry:pointcloudGeometry];
-//    pointcloudGeometry.firstMaterial.shaderModifiers = @{SCNShaderModifierEntryPointGeometry : @"gl_PointSize = 0.0000000000005"};
+    //    pointcloudGeometry.firstMaterial.shaderModifiers = @{SCNShaderModifierEntryPointGeometry : @"gl_PointSize = 0.0000000000005"};
     pointcloudNode.geometry = pointcloudGeometry;
-//    pointcloudNode.geometry.shaderModifiers = @{SCNShaderModifierEntryPointGeometry : @"gl_PointSize = 2.0"};
+    //    pointcloudNode.geometry.shaderModifiers = @{SCNShaderModifierEntryPointGeometry : @"gl_PointSize = 2.0"};
     pointcloudNode.position = SCNVector3Make(0, 0, -0.2);
-    SCNAction *fadeParticle = [SCNAction fadeOpacityTo:0.0 duration:0.05f];
-    [pointcloudNode runAction:fadeParticle];
+    //    SCNAction *fadeParticle = [SCNAction fadeOpacityTo:0.0 duration:0.05f];
+    //    [pointcloudNode runAction:fadeParticle];
     
-//
-//    pointcloudGeometry.firstMaterial.shaderModifiers =[SCNShaderModifierEntryPointGeometry] [SCNShaderModifierEntryPointGeometry:"gl_PointSize = 2.5;"];
-    
-//    pointcloudGeometry.firstMaterial.shaderModifiers = [SCNShaderModifierEntryPoint.geometry: "gl_PointSize = 2.5;"]
     [self.sceneView.scene.rootNode addChildNode:pointcloudNode];
-
-
+    
+    
 }
-
-//- (void)setupLabel
-//{
-//    self.label = [[UILabel alloc] initWithFrame:CGRectMake(10, self.view.frame.size.height * 0.5, self.view.frame.size.width - 20, 40)];
-//    self.label.numberOfLines = 0;
-//    self.label.textAlignment = NSTextAlignmentCenter;
-//    self.label.font = [UIFont systemFontOfSize:16];
-//    [self.view addSubview:self.label];
-//    self.label.text = @"FIND A DANCEFLOOR.";
-//}
 
 
 
 - (void)showDiscoBallWithAncor:(ARPlaneAnchor *)anchor onNode:(SCNNode *)node
 {
-//    SCNNode *plane = [self planeFromAnchor:anchor];
-//    SCNNode *discoBall = [self discoBall];
-//
-//    NSArray *colors = @[[UIColor yellowColor],
-//                        [UIColor redColor],
-//                        [UIColor greenColor],
-//                        [UIColor blueColor],
-//                        [UIColor purpleColor],
-//                        [UIColor magentaColor],
-//                        [UIColor orangeColor],
-//                        [UIColor cyanColor]];
-//
-//    for (NSInteger i = 0; i < 30; i++) {
-//        UIColor *color = colors[arc4random() % colors.count];
-//        SCNNode *lightBeam = [self lightBeamOfColor:color];
-//        lightBeam.rotation = SCNVector4Make([self randomFloat], [self randomFloat], [self randomFloat], (M_PI * 0.5) * (CGFloat)((arc4random() % 3) + 1));
-//        [discoBall addChildNode:lightBeam];
-//    }
+    //    SCNNode *plane = [self planeFromAnchor:anchor];
+    //    SCNNode *discoBall = [self discoBall];
+    //
+    //    NSArray *colors = @[[UIColor yellowColor],
+    //                        [UIColor redColor],
+    //                        [UIColor greenColor],
+    //                        [UIColor blueColor],
+    //                        [UIColor purpleColor],
+    //                        [UIColor magentaColor],
+    //                        [UIColor orangeColor],
+    //                        [UIColor cyanColor]];
+    //
+    //    for (NSInteger i = 0; i < 30; i++) {
+    //        UIColor *color = colors[arc4random() % colors.count];
+    //        SCNNode *lightBeam = [self lightBeamOfColor:color];
+    //        lightBeam.rotation = SCNVector4Make([self randomFloat], [self randomFloat], [self randomFloat], (M_PI * 0.5) * (CGFloat)((arc4random() % 3) + 1));
+    //        [discoBall addChildNode:lightBeam];
+    //    }
     
-//    CABasicAnimation *rotation = [self rotationAnimation];
-//    [discoBall addAnimation:rotation forKey:@"rotation"];
-//    [plane addChildNode:discoBall];
-//    [node addChildNode:plane];
+    //    CABasicAnimation *rotation = [self rotationAnimation];
+    //    [discoBall addAnimation:rotation forKey:@"rotation"];
+    //    [plane addChildNode:discoBall];
+    //    [node addChildNode:plane];
 }
 
 #pragma mark - Utils
@@ -284,29 +224,32 @@ typedef struct PointCloudModel
 
 - (void)renderer:(id <SCNSceneRenderer>)renderer didAddNode:(SCNNode *)node forAnchor:(ARAnchor *)anchor;
 {
-//    if (self.planeFound == NO)
-//    {
-//        if ([anchor isKindOfClass:[ARPlaneAnchor class]])
-//        {
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                self.planeFound = YES;
-//                self.label.text = @"DANCEFLOOR FOUND. LET'S BOOGIE";
-//
-//                UIView *overlay = [[UIView alloc] initWithFrame:self.view.frame];
-//                overlay.backgroundColor = [UIColor blackColor];
-//                overlay.alpha = 0;
-//                [self.view insertSubview:overlay belowSubview:self.label];
-//
-//                [UIView animateWithDuration:1.5 delay:2 options:UIViewAnimationOptionCurveEaseIn animations:^{
-//                    self.label.alpha = 0;
-//                    overlay.alpha = 0.5;
-//                } completion:^(BOOL finished) {
-//                    ARPlaneAnchor *planeAnchor = (ARPlaneAnchor *)anchor;
-//                    [self showDiscoBallWithAncor:planeAnchor onNode:node];
-//                }];
-//            });
-//        }
-//    }
+    
+    NSLog(@"HIELAJ:fiawef");
+    
+    if (self.planeFound == NO)
+    {
+        if ([anchor isKindOfClass:[ARPlaneAnchor class]])
+        {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.planeFound = YES;
+                self.label.text = @"DANCEFLOOR FOUND. LET'S BOOGIE";
+                
+                UIView *overlay = [[UIView alloc] initWithFrame:self.view.frame];
+                overlay.backgroundColor = [UIColor blackColor];
+                overlay.alpha = 0;
+                [self.view insertSubview:overlay belowSubview:self.label];
+                
+                [UIView animateWithDuration:1.5 delay:2 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                    self.label.alpha = 0;
+                    overlay.alpha = 0.5;
+                } completion:^(BOOL finished) {
+                    ARPlaneAnchor *planeAnchor = (ARPlaneAnchor *)anchor;
+                    [self showDiscoBallWithAncor:planeAnchor onNode:node];
+                }];
+            });
+        }
+    }
 }
 
 - (void)session:(ARSession *)session didFailWithError:(NSError *)error
@@ -324,3 +267,4 @@ typedef struct PointCloudModel
 
 
 @end
+
