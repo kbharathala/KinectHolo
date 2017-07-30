@@ -1,6 +1,7 @@
 var http = require('http');
 var fs = require('fs');
 var url = require('url');
+var spawn = require("child_process").spawn;
 let path = require('path')
 let express = require('express');
 let app = express();
@@ -54,6 +55,14 @@ app.post('/newmessage/:name', (req, res, next)=>{
   } else {
     console.log("Not binary data");
   }
+});
+
+app.get('/testing/:name', (req, res, next)=>{
+  // var pr = spawn('python',["test.py", req.params.name]);
+  // console.log(req.params.name);
+  // pr.stdout.on('data', function (data) {
+  //   console.log(data.toString());
+  // });
 });
 
 app.all('*', (req, res)=>{
