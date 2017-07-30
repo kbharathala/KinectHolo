@@ -56,6 +56,8 @@ void Halogen::setup() {
   gui.setup();
   gui.setPosition(200, 200);
   gui.add(radius.setup("radius", 255, 25, 350));
+
+  bannerImage.load("../assets/wait.png");
 }
 
 void Halogen::update() {
@@ -132,13 +134,8 @@ void Halogen::draw() {
   colorTexture.draw(0,0);
   drawBoundBox(face, ofColor::green);
 
-  // bool blink = ofGetSeconds() % 2 == 0;
-  if (isRecording) {
-    ofFill();
-    ofSetColor(ofColor::red);
-    auto circleSize = 50;
-    ofDrawCircle(circleSize * 1.5, circleSize * 1.5, circleSize);
-    ofSetColor(ofColor::white);
+  if (bannerImage.isAllocated()) {
+    bannerImage.draw(0,0);
   }
 }
 
@@ -189,11 +186,13 @@ void Halogen::addFrame() {
 void Halogen::startRecording() {
   isRecording = true;
   msg = new Message();
+  bannerImage.load("../assets/record.png");
 }
 
 void Halogen::stopRecording() {
   isRecording = false;
   serializeToDisk();
+  bannerImage.load("../assets/wait.png");
 }
 
 Halogen::~Halogen() {
