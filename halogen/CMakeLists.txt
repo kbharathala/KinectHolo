@@ -16,7 +16,7 @@ set(sources
   src/main.cpp
   src/Halogen.cpp
   src/Kinect.cpp
-  src/proto_cpp_bindings/message.pb.cc
+  src/proto/message.pb.cc
 )
 
 ### dependencies

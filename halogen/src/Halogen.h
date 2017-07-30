@@ -5,6 +5,7 @@
 #include "Kinect.h"
 #include "ofxCv.h"
 #include "ofxGui.h"
+#include "proto/message.pb.h"
 #undef Status
 #undef None
 
