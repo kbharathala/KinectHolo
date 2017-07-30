@@ -13,6 +13,8 @@
 #import <SVProgressHUD/SVProgressHUD.h>
 #import "Message.pbobjc.h"
 
+#include <stdlib.h>
+
 
 @interface VideoTableViewController ()
 
@@ -42,12 +44,9 @@
 - (void) updateTable {
     
     
-    NSString *filepath = [[NSBundle mainBundle] pathForResource:@"hologram" ofType:@"txt"];
-    NSLog(@"%@", filepath);
-    
+    NSString *filepath = [[NSBundle mainBundle] pathForResource:@"hologram" ofType:@"hologram"];
     NSError *error;
     NSData *data = [NSData dataWithContentsOfFile:filepath];
-    NSLog(@"%lu", [data length]);
     
     self.message = [Message parseFromData:data error:&error];
     
@@ -69,8 +68,6 @@
 //        [SVProgressHUD dismiss];
 //    });
     
-    // Message parseFromData:<#(nonnull NSData *)#> error:<#(NSError * _Nullable __autoreleasing * _Nullable)#>
-
 }
 
 - (void)viewDidLoad {
@@ -101,10 +98,29 @@
 }
 
 - (TableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    TableViewCell *cell =
-        [[TableViewCell alloc] initWithCellInfo:@"kbharathala"
-                                      timestamp:@"10 minutes ago"
-                                        picture:[UIImage imageNamed:@"SampleProfPic"]];
+    
+    TableViewCell *cell;
+    
+    NSInteger r = indexPath.row;
+    
+    if (r % 4 == 0) {
+        cell = [[TableViewCell alloc] initWithCellInfo:@"nnarang"
+                                             timestamp:@"10 minutes ago"
+                                               picture:[UIImage imageNamed:@"Natasha"]];
+    } else if (r % 4 == 1) {
+        cell = [[TableViewCell alloc] initWithCellInfo:@"kbharathala"
+                                             timestamp:@"10 minutes ago"
+                                               picture:[UIImage imageNamed:@"krishna"]];
+    } else if (r % 4 == 2) {
+        cell = [[TableViewCell alloc] initWithCellInfo:@"aroman"
+                                             timestamp:@"10 minutes ago"
+                                               picture:[UIImage imageNamed:@"Avi"]];
+    } else {
+        cell = [[TableViewCell alloc] initWithCellInfo:@"bthanajeyan"
+                                             timestamp:@"10 minutes ago"
+                                               picture:[UIImage imageNamed:@"Brijen"]];
+    }
+
     return cell;
 }
 

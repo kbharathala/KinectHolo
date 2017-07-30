@@ -8,6 +8,7 @@
 
 #import "ARKitViewController.h"
 #import <SVProgressHUD/SVProgressHUD.h>
+#import "ASScreenRecorder.h"
 
 typedef struct PointCloudModel
 {
@@ -23,10 +24,17 @@ typedef struct PointCloudModel
 @property (nonatomic) int *count;
 
 @property (nonatomic, strong) UIButton *playVideo;
-@property (nonatomic, strong) SCNNode *currNode;
-@property (nonatomic, strong) ARPlaneAnchor *currAnchor;
+
+@property (nonatomic) float xcenter;
+@property (nonatomic) float ycenter;
+@property (nonatomic) float zcenter;
+
+@property (nonatomic, strong) SCNNode *particle;
 
 @property (nonatomic) BOOL planeFound;
+@property (nonatomic, strong) ASScreenRecorder *recorder;
+
+@property (nonatomic) BOOL isObjectPlaced;
 
 @end
 
@@ -37,12 +45,16 @@ typedef struct PointCloudModel
     [super viewDidLoad];
     
     self.count = 0;
+    self.xcenter = 0.0;
+    self.ycenter = 0.0;
+    self.zcenter = 0.0;
     
     // setting up the sceneView
     self.sceneView = [[ARSCNView alloc] initWithFrame:self.view.frame];
     self.sceneView.delegate = self;
-    self.sceneView.autoenablesDefaultLighting = YES;
     [self.view addSubview: self.sceneView];
+    
+    // [self makePointCloud];
     
     //    [self setupLabel];
 
@@ -57,6 +69,40 @@ typedef struct PointCloudModel
     UISwipeGestureRecognizer *rightSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipe:)];
     rightSwipe.direction = UISwipeGestureRecognizerDirectionRight;
     [self.view addGestureRecognizer:rightSwipe];
+    
+    SCNMaterial *particleMaterial = [SCNMaterial new];
+    particleMaterial.diffuse.contents = [UIColor colorWithRed:125/255.0 green:125/255.0 blue:125/255.0 alpha:1];
+    
+    SCNGeometry *particleGeometry = [SCNSphere sphereWithRadius:0.003];
+    particleGeometry.firstMaterial = particleMaterial;
+    
+    self.particle = [SCNNode nodeWithGeometry:particleGeometry];
+    self.particle.position = SCNVector3Make(0, 0, 0);
+    [self.sceneView.scene.rootNode addChildNode:self.particle];
+    
+    [self.view setMultipleTouchEnabled:YES];
+    
+    self.recorder = [ASScreenRecorder sharedInstance];
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    
+    if (!self.isObjectPlaced) {
+         [self.sceneView addSubview:self.playVideo];
+        [self setIsObjectPlaced:YES];
+    }
+   
+    UITouch *touch = touches.allObjects.firstObject;
+    NSArray<ARHitTestResult *> *results =
+        [self.sceneView hitTest: [touch locationInView:self.sceneView] types:ARHitTestResultTypeFeaturePoint];
+    
+    ARHitTestResult *hitFeature = results.lastObject;
+    SCNMatrix4 hitTransform = SCNMatrix4FromMat4(hitFeature.worldTransform);
+    
+    SCNVector3 hitPosition = SCNVector3Make(hitTransform.m41, hitTransform.m42, hitTransform.m43);
+    
+    self.particle.position = hitPosition;
+    NSLog(@"New Particle Positioning: %f %f %f", hitPosition.x, hitPosition.y, hitPosition.z);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -66,26 +112,29 @@ typedef struct PointCloudModel
     [self.navigationController.navigationBar setHidden:YES];
     self.navigationController.navigationItem.backBarButtonItem = nil;
     
-    // setting up the scene
-    self.scene = [SCNScene new];
-    self.sceneView.scene = self.scene;
-    
     // starting the session
     ARWorldTrackingSessionConfiguration *configuration = [ARWorldTrackingSessionConfiguration new];
     configuration.planeDetection = ARPlaneDetectionHorizontal;
     configuration.worldAlignment = ARWorldAlignmentGravityAndHeading;
     [self.sceneView.session runWithConfiguration:configuration];
+    
+    self.playVideo = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [self.playVideo setFrame: CGRectMake(0, 0, 275, 40)];
+    [self.playVideo setCenter:CGPointMake(self.view.frame.size.width / 2, self.view.frame.size.height * 6 / 7)];
+    self.playVideo.backgroundColor = [UIColor whiteColor];
+    [self.playVideo setTitle:@"Play video message now!" forState:UIControlStateNormal];
+    self.playVideo.layer.cornerRadius = 8;
+    [self.playVideo addTarget:self action:@selector(playVideoPressed) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void) handleTimer:(NSTimer *)timer {
-    //    [self resetPointCloud];
+    // [self resetPointCloud];
     // Hanlde the timed event.
 }
 
 - (void)didSwipe:(UISwipeGestureRecognizer*) swipe {
     
     if (swipe.direction == UISwipeGestureRecognizerDirectionRight) {
-        
         [self.navigationController popViewControllerAnimated:YES];
     }
 }
@@ -102,21 +151,28 @@ typedef struct PointCloudModel
 
 - (void)makePointCloud
 {
-    NSUInteger numPoints = 30000;
+    NSUInteger numPoints = 40000;
     
     PointCloudModel pointCloudVertices[numPoints+10];
     NSMutableArray *frames = self.message.framesArray;
     
     NSLog(@"%lu", [[self.message.framesArray firstObject].pointsArray count]);
+    float sum_x = 0.0;
+    float sum_y = 0.0;
+    float sum_z = 0.0;
     for (int i = 0; i < numPoints; i++) {
         
         PointCloudModel vertex;
         
-        int testing_algorithm = i*5;
+        int testing_algorithm = i*4;
         
-        vertex.x = [[[frames firstObject] pointsArray] objectAtIndex:testing_algorithm].x / 5.0;
-        vertex.y = -1.0 * [[[frames firstObject] pointsArray] objectAtIndex:testing_algorithm].y / 5.0;
-        vertex.z = [[[frames firstObject] pointsArray] objectAtIndex:testing_algorithm].z / 5.0;
+        vertex.x = ([[[frames firstObject] pointsArray] objectAtIndex:testing_algorithm].x / 15.0) + (self.particle.position.x - self.xcenter);
+        vertex.y = [[[frames firstObject] pointsArray] objectAtIndex:testing_algorithm].y / -15.0 + (self.particle.position.y - self.ycenter);
+        vertex.z = [[[frames firstObject] pointsArray] objectAtIndex:testing_algorithm].z / 15.0 + (self.particle.position.z - self.zcenter);
+        
+        sum_x += vertex.x;
+        sum_y += vertex.y;
+        sum_z += vertex.z;
         
         vertex.r = [[[frames firstObject] pointsArray] objectAtIndex:testing_algorithm].r / 255.0;
         vertex.g = [[[frames firstObject] pointsArray] objectAtIndex:testing_algorithm].g / 255.0;
@@ -128,6 +184,10 @@ typedef struct PointCloudModel
         
         pointCloudVertices[i] = vertex;
     }
+    
+    self.xcenter = sum_x / numPoints;
+    self.ycenter = sum_y / numPoints;
+    self.zcenter = sum_z / numPoints;
     
     
     // convert array to point cloud data (position and color)
@@ -160,113 +220,38 @@ typedef struct PointCloudModel
                                                                 bytesPerIndex:sizeof(int)];
     
     // create geometry
-    
-    
     SCNGeometry *pointcloudGeometry = [SCNGeometry geometryWithSources:@[ vertexSource, colorSource] elements:@[ element]];
     
     SCNNode *pointcloudNode = [SCNNode nodeWithGeometry:pointcloudGeometry];
-    //    pointcloudGeometry.firstMaterial.shaderModifiers = @{SCNShaderModifierEntryPointGeometry : @"gl_PointSize = 0.0000000000005"};
-//    pointcloudNode.geometry = pointcloudGeometry;
-    //    pointcloudNode.geometry.shaderModifiers = @{SCNShaderModifierEntryPointGeometry : @"gl_PointSize = 2.0"};
+    // pointcloudGeometry.firstMaterial.shaderModifiers = @{SCNShaderModifierEntryPointGeometry : @"gl_PointSize = 0.0000000000005"};
+    // pointcloudNode.geometry = pointcloudGeometry;
+    // pointcloudNode.geometry.shaderModifiers = @{SCNShaderModifierEntryPointGeometry : @"gl_PointSize = 2.0"};
     pointcloudNode.position = SCNVector3Make(0, 0, 0);
-    //    SCNAction *fadeParticle = [SCNAction fadeOpacityTo:0.0 duration:0.05f];
-    //    [pointcloudNode runAction:fadeParticle];
+    // SCNAction *fadeParticle = [SCNAction fadeOpacityTo:0.0 duration:0.05f];
+    // [pointcloudNode runAction:fadeParticle];
     
     [self.sceneView.scene.rootNode addChildNode:pointcloudNode];
-    
-    
-}
-
-
-
-- (void)showDiscoBallWithAncor:(ARPlaneAnchor *)anchor onNode:(SCNNode *)node
-{
-    //    SCNNode *plane = [self planeFromAnchor:anchor];
-    //    SCNNode *discoBall = [self discoBall];
-    //
-    //    NSArray *colors = @[[UIColor yellowColor],
-    //                        [UIColor redColor],
-    //                        [UIColor greenColor],
-    //                        [UIColor blueColor],
-    //                        [UIColor purpleColor],
-    //                        [UIColor magentaColor],
-    //                        [UIColor orangeColor],
-    //                        [UIColor cyanColor]];
-    //
-    //    for (NSInteger i = 0; i < 30; i++) {
-    //        UIColor *color = colors[arc4random() % colors.count];
-    //        SCNNode *lightBeam = [self lightBeamOfColor:color];
-    //        lightBeam.rotation = SCNVector4Make([self randomFloat], [self randomFloat], [self randomFloat], (M_PI * 0.5) * (CGFloat)((arc4random() % 3) + 1));
-    //        [discoBall addChildNode:lightBeam];
-    //    }
-    
-    //    CABasicAnimation *rotation = [self rotationAnimation];
-    //    [discoBall addAnimation:rotation forKey:@"rotation"];
-    //    [plane addChildNode:discoBall];
-    //    [node addChildNode:plane];
-}
-
-#pragma mark - Utils
-
-#pragma mark - Node builders
-
-- (SCNNode *)planeFromAnchor:(ARPlaneAnchor *)anchor
-{
-    SCNPlane *plane = [SCNPlane planeWithWidth:anchor.extent.x height:anchor.extent.z];
-    plane.firstMaterial.diffuse.contents = [UIColor clearColor];
-    SCNNode *planeNode = [SCNNode nodeWithGeometry:plane];
-    planeNode.position = SCNVector3Make(anchor.center.x, 0, anchor.center.z);
-    planeNode.transform = SCNMatrix4MakeRotation(-M_PI * 0.5, 1, 0, 0);
-    
-    return planeNode;
-}
-
-#pragma mark - ARSCNViewDelegate
-
-- (void)renderer:(id <SCNSceneRenderer>)renderer didAddNode:(SCNNode *)node forAnchor:(ARAnchor *)anchor;
-{
-    
-    [SVProgressHUD showSuccessWithStatus:@"found an anchor"];
-    
-    if (self.planeFound == NO)
-    {
-        if ([anchor isKindOfClass:[ARPlaneAnchor class]])
-        {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [SVProgressHUD showSuccessWithStatus:@"found the right anchor"];
-                self.planeFound = YES;
-                
-                self.currNode = node;
-                self.currAnchor = (ARPlaneAnchor *) anchor;
-                
-                self.playVideo = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-                [self.playVideo setFrame: CGRectMake(0, 0, 275, 40)];
-                [self.playVideo setCenter:CGPointMake(self.view.frame.size.width / 2, self.view.frame.size.height * 6 / 7)];
-                self.playVideo.backgroundColor = [UIColor whiteColor];
-                [self.playVideo setTitle:@"Play video message now!" forState:UIControlStateNormal];
-                self.playVideo.layer.cornerRadius = 8;
-                [self.playVideo addTarget:self action:@selector(playVideoPressed) forControlEvents:UIControlEventTouchUpInside];
-                [self.sceneView addSubview:self.playVideo];
-            });
-        }
-    }
 }
 
 -(void) playVideoPressed {
     [self.playVideo removeFromSuperview];
     [self makePointCloud];
+    
+    [self.recorder startRecording];
+    
+    [NSTimer scheduledTimerWithTimeInterval:10.0
+                                     target:self
+                                   selector:@selector(stopRecorder)
+                                   userInfo:nil
+                                    repeats:NO];
 }
 
-- (void)session:(ARSession *)session didFailWithError:(NSError *)error
-{
-}
-
-- (void)sessionWasInterrupted:(ARSession *)session
-{
-}
-
-- (void)sessionInterruptionEnded:(ARSession *)session
-{
+-(void) stopRecorder {
+    [self.recorder stopRecordingWithCompletion:^{
+        NSLog(@"Finished recording");
+    }];
+    [self.navigationController popViewControllerAnimated:YES];
+    [SVProgressHUD showSuccessWithStatus:@"saved to disk!"];
 }
 
 
