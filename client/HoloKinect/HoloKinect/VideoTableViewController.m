@@ -9,10 +9,11 @@
 #import "VideoTableViewController.h"
 #import "TableViewCell.h"
 #import "ARKitViewController.h"
-#import "NSObject+MKBlockTimer.h"
 
 #import <ProtocolBuffers/ProtocolBuffers.h>
 #import <SVProgressHUD/SVProgressHUD.h>
+#import "../../../proto_objc_bindings/Message.pbobjc.h"
+
 
 @interface VideoTableViewController ()
 
@@ -48,14 +49,12 @@
         [SVProgressHUD showErrorWithStatus:@"Our servers are down :("];
         return;
     }
-
-    // __block Message* message;
-    // self.videoArray = [Message parseFromData:raw_data];
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
         [SVProgressHUD dismiss];
     });
-    
+
 }
 
 - (void)viewDidLoad {
