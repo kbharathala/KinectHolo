@@ -101,13 +101,13 @@ typedef GPB_ENUM(Message_Frame_Point_FieldNumber) {
 @property(nonatomic, readwrite) float z;
 
 @property(nonatomic, readwrite) BOOL hasZ;
-@property(nonatomic, readwrite) float r;
+@property(nonatomic, readwrite) uint32_t r;
 
 @property(nonatomic, readwrite) BOOL hasR;
-@property(nonatomic, readwrite) float g;
+@property(nonatomic, readwrite) uint32_t g;
 
 @property(nonatomic, readwrite) BOOL hasG;
-@property(nonatomic, readwrite) float b;
+@property(nonatomic, readwrite) uint32_t b;
 
 @property(nonatomic, readwrite) BOOL hasB;
 @end

@@ -1,12 +1,14 @@
+syntax = "proto2";
+
 message Message {
     message Frame {
         message Point {
             required float x = 1;
             required float y = 2;
             required float z = 3;
-            required float r = 4;
-            required float g = 5;
-            required float b = 6;
+            required uint32 r = 4;
+            required uint32 g = 5;
+            required uint32 b = 6;
         }
         repeated Point points = 1;
         required float timestamp = 2;
