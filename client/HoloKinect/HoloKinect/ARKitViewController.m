@@ -86,6 +86,11 @@ typedef struct PointCloudModel
     self.sceneView.delegate = self;
     [self.view addSubview: self.sceneView];
     
+    UIView *overlayView = [[UIView alloc] initWithFrame:self.view.frame];
+    [overlayView setUserInteractionEnabled:NO];
+    [overlayView setBackgroundColor:[UIColor colorWithWhite:0.2 alpha:0.2]];
+    [self.view addSubview: overlayView];
+    
     // [self makePointCloud];
     
     //    SCNNode *cubeNode = [SCNNode node];
@@ -169,16 +174,13 @@ typedef struct PointCloudModel
     [self.view addSubview:self.closeViewButton];
     
     self.tutorialView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width + 100, 40)];
-    // [self.tutorialView setBackgroundColor:[UIColor colorWithWhite:0.2 alpha:0.2]];
     [self.tutorialView setTextColor:[UIColor whiteColor]];
     [self.tutorialView setText:@"Drop a sticker to get started"];
     [self.tutorialView setTextAlignment:NSTextAlignmentCenter];
-    //[self.tutorialView sizeToFit];
     [self.tutorialView setCenter:CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/2)];
     [self.tutorialView setFont: [UIFont fontWithName:@"AvenirNext-Regular" size:18.0]];
     [self.tutorialView setUserInteractionEnabled:NO];
     [self.view addSubview: self.tutorialView];
-    
     
 //    self.rotateCameraButton = [UIButton buttonWithType:UIButtonTypeCustom];
 //    [self.rotateCameraButton setFrame: CGRectMake(self.view.frame.size.width - 60, 30, 30, 30)];
