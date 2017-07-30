@@ -199,7 +199,8 @@ typedef struct PointCloudModel
             [self.particle runAction:fadeParticle];
             NSLog(@"button pressed");
             [self movePointCloud];
-            self.pointcloudNode.position = SCNVector3Make(self.particle.position.x, self.particle.position.y, self.particle.position.z);
+            self.pointcloudNode.position = self.particle.position;
+//            SCNVector3Make(self.particle.position.x, self.particle.position.y, self.particle.position.z);
         }
     }
 
@@ -451,7 +452,7 @@ typedef struct PointCloudModel
     SCNGeometry *pointcloudGeometry = [SCNGeometry geometryWithSources:@[ vertexSource, colorSource] elements:@[ element]];
     
     self.pointcloudNode = [SCNNode nodeWithGeometry:pointcloudGeometry];
-//    self.pointcloudNode.position = self.particle.position;
+    self.pointcloudNode.position = self.particle.position;
     self.pointcloudNode.pivot = SCNMatrix4MakeRotation((CGFloat) -1 * M_PI,0, (CGFloat) M_PI * 1.5, 0);
     
     [self.sceneView.scene.rootNode addChildNode:self.pointcloudNode];
@@ -472,7 +473,7 @@ typedef struct PointCloudModel
     [self.particle runAction:fadeParticle];
     
     [self makePointCloud];
-    //    self.pointcloudNode.position = self.particle.position;
+        self.pointcloudNode.position = self.particle.position;
     
     
     [self.recorder startRecording];
