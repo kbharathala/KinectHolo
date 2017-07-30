@@ -9,7 +9,10 @@
 #import <UIKit/UIKit.h>
 #import <SceneKit/SceneKit.h>
 #import <ARKit/ARKit.h>
+#import "Message.pbobjc.h"
 
 @interface ARKitViewController : UIViewController
+
+@property (nonatomic, strong) Message *message;
 
 @end

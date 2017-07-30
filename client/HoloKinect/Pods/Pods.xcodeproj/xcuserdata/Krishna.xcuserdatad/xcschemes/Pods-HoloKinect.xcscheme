@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '54E965D33B1E43CBB828F704105D58CA'
+               BlueprintIdentifier = '2C8BFE61CBB954A6342B5CB9E7FB3C4E'
                BlueprintName = 'Pods-HoloKinect'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libPods-HoloKinect.a'>

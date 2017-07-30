@@ -7,215 +7,85 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00E948A56D263EF5EEA7CB2C780335BC /* ForwardDeclarations.h in Headers */ = {isa = PBXBuildFile; fileRef = E36BE5CCACB79FEDE76D71CE9F4A27F3 /* ForwardDeclarations.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		016D6220EEA8903F408AB89EAF1FF08E /* ObjectivecDescriptor.pb.h in Headers */ = {isa = PBXBuildFile; fileRef = 5ED2C08085BD27C51EB82166AA2EDE9F /* ObjectivecDescriptor.pb.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		03115A0007FA7052E63DA56FD4888AD8 /* ExtendableMessageBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 943BBEEBEA57AF2BCBC31E0FAB0444BF /* ExtendableMessageBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		03D0D80EDFFBB8391E88AB3F6C096642 /* ConcreteExtensionField.h in Headers */ = {isa = PBXBuildFile; fileRef = EF4988E4366258EE619100A5D6383927 /* ConcreteExtensionField.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0B38FA192384B30FE60A79049B0BB0CF /* PBArray.m in Sources */ = {isa = PBXBuildFile; fileRef = EE500AD72B2AC3026346B01719E8E7F5 /* PBArray.m */; };
-		0DE132522A9870ADF72365B8973DF332 /* ProtocolBuffers.h in Headers */ = {isa = PBXBuildFile; fileRef = 7278295A709D9050D5A1B4C6B4C7BAC7 /* ProtocolBuffers.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		12B761AFE0B9D03AE60B7BD07713ADB8 /* Field.h in Headers */ = {isa = PBXBuildFile; fileRef = 231275DCE10FE284D637648523E24DCC /* Field.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		180FBB0D6490B96F389AE36A4DFCEC0D /* SVProgressHUD-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B16DDE737CCBA016380B535C848D4A4 /* SVProgressHUD-dummy.m */; };
-		1D6383942B993DACEED1DC5247F887DA /* CodedOutputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 8335A5492A2C0F7E1D80AB2C4A612037 /* CodedOutputStream.m */; };
-		1F468FB185797E9E714C646D1F94EA94 /* AbstractMessageBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FF0538DC06835B54841E727706EF313 /* AbstractMessageBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2385EA155ECCECD4F935EE73DF9B3E5D /* UnknownFieldSetBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 167E83F53120B91C71FD725FEB3907EA /* UnknownFieldSetBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		24F4106CE58BE689F013DC8537BB76CD /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 20E6A280FBD2EEC492C03877A0614FFF /* SVProgressHUD.m */; };
-		294285B7D51A73B0D9E41FC8B4D79641 /* SVProgressAnimatedView.h in Headers */ = {isa = PBXBuildFile; fileRef = 87C68E2FE9ABB6CD2A169CE9DC0D2DFF /* SVProgressAnimatedView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		298B027E0188E046A9925B8E21F770F8 /* ExtensionRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3A457DEDB28CA01B874EE02D2BCC8D /* ExtensionRegistry.m */; };
-		2A963119776A1F07F7DA7A40B028059F /* UnknownFieldSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 282A4A56DA72410D197B09396736B6C5 /* UnknownFieldSet.m */; };
-		2C430768AB7D191FF5648F92381601C3 /* SVProgressAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0063D60B77746EB55C766D14D8CAF7D7 /* SVProgressAnimatedView.m */; };
-		2F8A351B9A64CB609BDAA4A1F7E83EB6 /* GeneratedMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = A45D1190D933C2955678FA6643633A29 /* GeneratedMessage.m */; };
-		3AC16818FE3C460356F7E19B3B686225 /* AbstractMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A41DA97068B83D71D7F84CF0520C340 /* AbstractMessage.m */; };
-		414B0CC48E204D7FBCB23FC36E717B78 /* Bootstrap.h in Headers */ = {isa = PBXBuildFile; fileRef = 959F016E8A4E78E71ACC71DE5456DDDA /* Bootstrap.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		423905137C8760EB11918BEB979D4477 /* Message.h in Headers */ = {isa = PBXBuildFile; fileRef = A8756B1CE7C060613C82054F03FC5F24 /* Message.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		46C2EB0A1822934E243CCF75000FF28C /* CodedInputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 9106B52D6AF0C75BE58666B27FDF3916 /* CodedInputStream.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4C32B1FEC602B4F5285089A2D5FC3136 /* UnknownFieldSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 103E4824BD05A806103BD2D07EC5D167 /* UnknownFieldSet.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		51C476CF26C9D40361828B992193513A /* WireFormat.h in Headers */ = {isa = PBXBuildFile; fileRef = CB3EB641C02BB9E6B97A60B4C041B1C6 /* WireFormat.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5A99DC9E4006F36D173D720AE3169EE8 /* GeneratedMessageBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = BC18A0D015C66699EA6E4B4A8C409B58 /* GeneratedMessageBuilder.m */; };
-		5D50727187B6BC9123E3A45F8F185972 /* Descriptor.pb.h in Headers */ = {isa = PBXBuildFile; fileRef = 736C9E927447EFA35B8E1F88DD797D88 /* Descriptor.pb.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5FAA9D87A3C1756FFE0D29FF5B464F6D /* CodedOutputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = F47D1B3092E27240E193E3167FF7C385 /* CodedOutputStream.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		62BED3CFF067C2F47FE2D9C8AD6C25D8 /* GeneratedMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = E458560734B54F698EB445B82BA11263 /* GeneratedMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		658CCD4F5AA8EFACC44EF0B84604032C /* RingBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = CFF1126015F0A3F628461AD7133257EB /* RingBuffer.m */; };
-		678A407C8F7332E9ABFC6EAAC699BCC8 /* MutableExtensionRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C17B84D9E2D76B87CA4567C67D0D444 /* MutableExtensionRegistry.m */; };
-		695BAC4F3BC772969F26254A6E3179A3 /* TextFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = E8A1991C481687917798FB4259871A8E /* TextFormat.m */; };
-		708DEAF762B7F17B8375E325DAE6A8C9 /* Pods-HoloKinect-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D73AA83BE2DC389E67A3F2AFFBBC032B /* Pods-HoloKinect-dummy.m */; };
-		75299EE37A1C90799291B9A179FEA165 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BACC64101FAE4862F8806DB02FC71B0E /* QuartzCore.framework */; };
-		77B60BCC6AC0DD353D35CE6B429DBA68 /* TextFormat.h in Headers */ = {isa = PBXBuildFile; fileRef = 16DD6DCB44708DE9C095EB8D8A92E4E9 /* TextFormat.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7EF24FA211A0AAC25CA4FBE45BB760CA /* MutableField.m in Sources */ = {isa = PBXBuildFile; fileRef = 05FEF37AF15D3C59F9E0ED714C43BD3A /* MutableField.m */; };
-		825E1C7F9EA2DFE83C736B3C5CFC0EA1 /* MessageBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 9237F62F4F981A28760423317EF2557B /* MessageBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		85913971399A8691270413F3BF77A1E6 /* AbstractMessageBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = CABE0F058D83ECEE1BCCEE6634A23B56 /* AbstractMessageBuilder.m */; };
-		9D28E89F99668BF752C091C113DEA66E /* Utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = B84F15F16CD5E63ADC518A2045E4C81F /* Utilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AC65F530192E8BEF972BA37E19077376 /* ObjectivecDescriptor.pb.m in Sources */ = {isa = PBXBuildFile; fileRef = 45F57BBE772A69F5AEC3BD346BB34608 /* ObjectivecDescriptor.pb.m */; };
-		ACED3F495EBCA9E5DCD76A81205C0AD1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AC5D9C5B838BE747D0154460D02F926 /* Foundation.framework */; };
-		AE3DB498AA0F628441F856BFF6A06ECA /* AbstractMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 3CC6A8023959759A08BAFAC8380F9734 /* AbstractMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AE796485C2936720F21D89254D399A06 /* UnknownFieldSetBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = BE018A406E5580E75439EB049F826829 /* UnknownFieldSetBuilder.m */; };
-		B066AF540C07045B3E9D86E63E18CF69 /* PBArray.h in Headers */ = {isa = PBXBuildFile; fileRef = 14D141AE02442FF1E154D8FA8E5BAA9F /* PBArray.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		BE17799705BE41BCFD9EC23C0371839B /* ProtocolBuffers-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 86AD7A3E8128B086F13FE032B6BF213A /* ProtocolBuffers-dummy.m */; };
-		C8172DFCD6341EF688197C67388DAC43 /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 915474F3D4442ACB89326407FA2D6098 /* SVIndefiniteAnimatedView.m */; };
-		C992FD3E53B31870F3919B7F3808453E /* CodedInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 71841DBFCFA8294D8C838A3C0150372A /* CodedInputStream.m */; };
-		CBFAEF1FB346EF4A0E1EBFD193B6057F /* ExtendableMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EFC4D7493C28654EE0FBF8F4837B770 /* ExtendableMessage.m */; };
-		CC714065E3DA1E51D5101EFE32F80813 /* Descriptor.pb.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E6D5D8BBD2411FB1D6C1D2BAA9A05C /* Descriptor.pb.m */; };
-		CC733E241C80713553039FC0C3EFC134 /* RingBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 040390E4699B25397386D85C66BDD84A /* RingBuffer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D57EAF4C39EC306D08F1A97D4273E36F /* SVIndefiniteAnimatedView.h in Headers */ = {isa = PBXBuildFile; fileRef = 63749666516A5EAEAD5DEDAF528C439E /* SVIndefiniteAnimatedView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D5D4662238D26C94E3C89A0006337219 /* SVRadialGradientLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 514494ED7E4C4CDD6BF8115EB3D65990 /* SVRadialGradientLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D672D02A66709E97B3658E773DA9E705 /* GeneratedMessageBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C8DA703D38283FE5A4902B3F709D02D /* GeneratedMessageBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D8619F4256A44E5A3E00A6F7009406DB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AC5D9C5B838BE747D0154460D02F926 /* Foundation.framework */; };
-		D8A0AA174F8B22110BDB20155CCA9747 /* ConcreteExtensionField.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A4E6BAABE415A76819A6EE58925C6A7 /* ConcreteExtensionField.m */; };
-		DADC41FF510CA643F3BD591EF1BE3B04 /* ExtendableMessageBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E6199D5E6C518242B474A4FB06FBEB /* ExtendableMessageBuilder.m */; };
-		DB3C52C05088EF2F10EC2ECAF980FE2B /* ExtensionRegistry.h in Headers */ = {isa = PBXBuildFile; fileRef = BE400C1C1CEB1F52F388E2266DA8840B /* ExtensionRegistry.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DCF338C657701F9CFC903728E6303DAA /* ExtensionField.h in Headers */ = {isa = PBXBuildFile; fileRef = ABE5E77B09B70D97D1671EF671F6D8BC /* ExtensionField.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E53D43EF5CCEBD4782515C09965C68D3 /* MutableField.h in Headers */ = {isa = PBXBuildFile; fileRef = 4AEB11786E36F24C363B888B5F8BBD4A /* MutableField.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EA1444589D6DEA002468E5108CA5252C /* MutableExtensionRegistry.h in Headers */ = {isa = PBXBuildFile; fileRef = FA93D5023DFA5237EBFF4B43E02C9328 /* MutableExtensionRegistry.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EBFD733B527D91A7FB72B879BEA7709A /* SVProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BD5F8B03D468AEEA490E05A09F9BAF8 /* SVProgressHUD.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EC7B39249DA127E3D54E923323B3E995 /* ExtendableMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = C251DADA667CD61379E61F80CA7C241F /* ExtendableMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EF08FB4E0B8794351AF064659088A95E /* WireFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 8586F3B8C1FB04A9C5870AE49BA89E07 /* WireFormat.m */; };
-		F1455916F825D8F826F6C6582EECA9D7 /* Field.m in Sources */ = {isa = PBXBuildFile; fileRef = B1A26C6607DECB40B226DD8A7AEC3CF2 /* Field.m */; };
-		F3C686D467513F6F10F43A86FE270EA3 /* SVRadialGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B8DDF1B3404A6302331ACFCB3E43CFA /* SVRadialGradientLayer.m */; };
-		F6CD70468D0C2B8F0E1151933CEC32F9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AC5D9C5B838BE747D0154460D02F926 /* Foundation.framework */; };
-		FFEA44B93552831871343FFDB3672773 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 93A8ED635BF7FB8A54DB1DFE3E615C76 /* Utilities.m */; };
+		18DF2423466F32E0EFE54E001240777F /* SVProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = DBAD9287DEE246626CE463AB766658E4 /* SVProgressHUD.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D1101D1DD373712AD6FD27F456DC8EC /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 64C68F19C7FDB89739A12A754AC192B9 /* SVIndefiniteAnimatedView.m */; };
+		3DDB1293165FB3680F41C010784EDBCD /* SVRadialGradientLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 68F7D46BED1E968333C3A6BF1D08EF35 /* SVRadialGradientLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5AFAF6C5D3C836A8BEC257EB31BE352F /* SVProgressAnimatedView.h in Headers */ = {isa = PBXBuildFile; fileRef = C447657581C0A5726D1B490667A418D4 /* SVProgressAnimatedView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6742979D90EDAC3A8A2EA6D5D30818E7 /* Pods-HoloKinect-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D73AA83BE2DC389E67A3F2AFFBBC032B /* Pods-HoloKinect-dummy.m */; };
+		7C8694B9CF2DF6523230D8C1BEB66ED0 /* SVRadialGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = E6A374AB1310EA4B32513CEB3F350671 /* SVRadialGradientLayer.m */; };
+		80FBFF58B794CF54CF343465D5F65002 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AC5D9C5B838BE747D0154460D02F926 /* Foundation.framework */; };
+		8A136BAF424E47FC172146A83573D68D /* SVProgressHUD-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A6073EEDABEA90F4218E48202444AB6 /* SVProgressHUD-dummy.m */; };
+		945F95583945BBD9BA3B74E23F10ACAD /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = D3444AE0273523AC57BAC6A7EBE004B0 /* SVProgressHUD.m */; };
+		AD2DEFE45FC4A1D86DD7616643019C1E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BACC64101FAE4862F8806DB02FC71B0E /* QuartzCore.framework */; };
+		D94F540E57E0C014EA5CECED582E736C /* SVIndefiniteAnimatedView.h in Headers */ = {isa = PBXBuildFile; fileRef = DD6F6957AD861C2D16D4AAF6524973A8 /* SVIndefiniteAnimatedView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DDD2547AE99DCD0D56B1B1BB6DA9D356 /* SVProgressAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C80D8A3D824F9A8BECF1041F91261A4 /* SVProgressAnimatedView.m */; };
+		E6B4EEA899E51C98C021CF6729C44F10 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AC5D9C5B838BE747D0154460D02F926 /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		498CC421C8038D49B380B17A163AFCDB /* PBXContainerItemProxy */ = {
+		7B5DE9EAC260B7467F6690158FED3FD5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = C8F1BA651B4CCB15DEB61324882E5E1E;
+			remoteGlobalIDString = 472296B1208D122411714F385C9E5E11;
 			remoteInfo = SVProgressHUD;
-		};
-		994B373EEBA0B104731E1C7EFCA442E3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F46ECE4B7BA039BB8ECAD5A2F77B781C;
-			remoteInfo = ProtocolBuffers;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0063D60B77746EB55C766D14D8CAF7D7 /* SVProgressAnimatedView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVProgressAnimatedView.m; path = SVProgressHUD/SVProgressAnimatedView.m; sourceTree = "<group>"; };
-		040390E4699B25397386D85C66BDD84A /* RingBuffer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RingBuffer.h; path = src/runtime/Classes/RingBuffer.h; sourceTree = "<group>"; };
-		05FEF37AF15D3C59F9E0ED714C43BD3A /* MutableField.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MutableField.m; path = src/runtime/Classes/MutableField.m; sourceTree = "<group>"; };
-		0B16DDE737CCBA016380B535C848D4A4 /* SVProgressHUD-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SVProgressHUD-dummy.m"; sourceTree = "<group>"; };
 		0EFEA8A6FD75991B8F8189D44A8B1982 /* Pods-HoloKinect-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-HoloKinect-acknowledgements.plist"; sourceTree = "<group>"; };
-		0F3A457DEDB28CA01B874EE02D2BCC8D /* ExtensionRegistry.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ExtensionRegistry.m; path = src/runtime/Classes/ExtensionRegistry.m; sourceTree = "<group>"; };
-		103E4824BD05A806103BD2D07EC5D167 /* UnknownFieldSet.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = UnknownFieldSet.h; path = src/runtime/Classes/UnknownFieldSet.h; sourceTree = "<group>"; };
-		14D141AE02442FF1E154D8FA8E5BAA9F /* PBArray.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PBArray.h; path = src/runtime/Classes/PBArray.h; sourceTree = "<group>"; };
-		15606A3BB0358D7A5C1158034FABBB5E /* ProtocolBuffers-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ProtocolBuffers-prefix.pch"; sourceTree = "<group>"; };
-		167E83F53120B91C71FD725FEB3907EA /* UnknownFieldSetBuilder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = UnknownFieldSetBuilder.h; path = src/runtime/Classes/UnknownFieldSetBuilder.h; sourceTree = "<group>"; };
-		16DD6DCB44708DE9C095EB8D8A92E4E9 /* TextFormat.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TextFormat.h; path = src/runtime/Classes/TextFormat.h; sourceTree = "<group>"; };
-		2057D0139D0DE1597F54A2F31AC712B3 /* SVProgressHUD.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SVProgressHUD.xcconfig; sourceTree = "<group>"; };
-		20E6A280FBD2EEC492C03877A0614FFF /* SVProgressHUD.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVProgressHUD.m; path = SVProgressHUD/SVProgressHUD.m; sourceTree = "<group>"; };
-		231275DCE10FE284D637648523E24DCC /* Field.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Field.h; path = src/runtime/Classes/Field.h; sourceTree = "<group>"; };
-		26567C93EF43000D6724B522A0C714FB /* SVProgressHUD-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SVProgressHUD-prefix.pch"; sourceTree = "<group>"; };
-		27D0A8CA5E67025C3C8C8E585F9EE939 /* libSVProgressHUD.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSVProgressHUD.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		282A4A56DA72410D197B09396736B6C5 /* UnknownFieldSet.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = UnknownFieldSet.m; path = src/runtime/Classes/UnknownFieldSet.m; sourceTree = "<group>"; };
+		2D619B9ACB8981FDEB8B6C16926AD452 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = SVProgressHUD.bundle; path = SVProgressHUD/SVProgressHUD.bundle; sourceTree = "<group>"; };
 		36CEEC53E9928FA15BC3D494448DF8F1 /* Pods-HoloKinect.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-HoloKinect.release.xcconfig"; sourceTree = "<group>"; };
-		3A41DA97068B83D71D7F84CF0520C340 /* AbstractMessage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AbstractMessage.m; path = src/runtime/Classes/AbstractMessage.m; sourceTree = "<group>"; };
+		39EAE0AC178A35D7C78A3D98B2B0A152 /* libPods-HoloKinect.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-HoloKinect.a"; path = "libPods-HoloKinect.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AC5D9C5B838BE747D0154460D02F926 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		3CC6A8023959759A08BAFAC8380F9734 /* AbstractMessage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AbstractMessage.h; path = src/runtime/Classes/AbstractMessage.h; sourceTree = "<group>"; };
-		45F57BBE772A69F5AEC3BD346BB34608 /* ObjectivecDescriptor.pb.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ObjectivecDescriptor.pb.m; path = src/runtime/Classes/ObjectivecDescriptor.pb.m; sourceTree = "<group>"; };
-		4AEB11786E36F24C363B888B5F8BBD4A /* MutableField.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MutableField.h; path = src/runtime/Classes/MutableField.h; sourceTree = "<group>"; };
-		4B8DDF1B3404A6302331ACFCB3E43CFA /* SVRadialGradientLayer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVRadialGradientLayer.m; path = SVProgressHUD/SVRadialGradientLayer.m; sourceTree = "<group>"; };
-		4C8DA703D38283FE5A4902B3F709D02D /* GeneratedMessageBuilder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GeneratedMessageBuilder.h; path = src/runtime/Classes/GeneratedMessageBuilder.h; sourceTree = "<group>"; };
-		514494ED7E4C4CDD6BF8115EB3D65990 /* SVRadialGradientLayer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVRadialGradientLayer.h; path = SVProgressHUD/SVRadialGradientLayer.h; sourceTree = "<group>"; };
-		58E6D5D8BBD2411FB1D6C1D2BAA9A05C /* Descriptor.pb.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = Descriptor.pb.m; path = src/runtime/Classes/Descriptor.pb.m; sourceTree = "<group>"; };
-		5ED2C08085BD27C51EB82166AA2EDE9F /* ObjectivecDescriptor.pb.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ObjectivecDescriptor.pb.h; path = src/runtime/Classes/ObjectivecDescriptor.pb.h; sourceTree = "<group>"; };
-		63749666516A5EAEAD5DEDAF528C439E /* SVIndefiniteAnimatedView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVIndefiniteAnimatedView.h; path = SVProgressHUD/SVIndefiniteAnimatedView.h; sourceTree = "<group>"; };
-		6C17B84D9E2D76B87CA4567C67D0D444 /* MutableExtensionRegistry.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MutableExtensionRegistry.m; path = src/runtime/Classes/MutableExtensionRegistry.m; sourceTree = "<group>"; };
-		70D748DA7FEE876BE2F0C87A7E37D35E /* libProtocolBuffers.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libProtocolBuffers.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		71841DBFCFA8294D8C838A3C0150372A /* CodedInputStream.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CodedInputStream.m; path = src/runtime/Classes/CodedInputStream.m; sourceTree = "<group>"; };
-		7278295A709D9050D5A1B4C6B4C7BAC7 /* ProtocolBuffers.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ProtocolBuffers.h; path = src/runtime/Classes/ProtocolBuffers.h; sourceTree = "<group>"; };
-		736C9E927447EFA35B8E1F88DD797D88 /* Descriptor.pb.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Descriptor.pb.h; path = src/runtime/Classes/Descriptor.pb.h; sourceTree = "<group>"; };
-		7A4E6BAABE415A76819A6EE58925C6A7 /* ConcreteExtensionField.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ConcreteExtensionField.m; path = src/runtime/Classes/ConcreteExtensionField.m; sourceTree = "<group>"; };
-		7FF0538DC06835B54841E727706EF313 /* AbstractMessageBuilder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AbstractMessageBuilder.h; path = src/runtime/Classes/AbstractMessageBuilder.h; sourceTree = "<group>"; };
-		8335A5492A2C0F7E1D80AB2C4A612037 /* CodedOutputStream.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CodedOutputStream.m; path = src/runtime/Classes/CodedOutputStream.m; sourceTree = "<group>"; };
-		8586F3B8C1FB04A9C5870AE49BA89E07 /* WireFormat.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = WireFormat.m; path = src/runtime/Classes/WireFormat.m; sourceTree = "<group>"; };
-		86AD7A3E8128B086F13FE032B6BF213A /* ProtocolBuffers-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ProtocolBuffers-dummy.m"; sourceTree = "<group>"; };
-		87C68E2FE9ABB6CD2A169CE9DC0D2DFF /* SVProgressAnimatedView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVProgressAnimatedView.h; path = SVProgressHUD/SVProgressAnimatedView.h; sourceTree = "<group>"; };
-		8BD5F8B03D468AEEA490E05A09F9BAF8 /* SVProgressHUD.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVProgressHUD.h; path = SVProgressHUD/SVProgressHUD.h; sourceTree = "<group>"; };
-		8EFC4D7493C28654EE0FBF8F4837B770 /* ExtendableMessage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ExtendableMessage.m; path = src/runtime/Classes/ExtendableMessage.m; sourceTree = "<group>"; };
-		9106B52D6AF0C75BE58666B27FDF3916 /* CodedInputStream.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CodedInputStream.h; path = src/runtime/Classes/CodedInputStream.h; sourceTree = "<group>"; };
-		915474F3D4442ACB89326407FA2D6098 /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVIndefiniteAnimatedView.m; path = SVProgressHUD/SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
-		9237F62F4F981A28760423317EF2557B /* MessageBuilder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MessageBuilder.h; path = src/runtime/Classes/MessageBuilder.h; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		93A8ED635BF7FB8A54DB1DFE3E615C76 /* Utilities.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = Utilities.m; path = src/runtime/Classes/Utilities.m; sourceTree = "<group>"; };
-		943BBEEBEA57AF2BCBC31E0FAB0444BF /* ExtendableMessageBuilder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ExtendableMessageBuilder.h; path = src/runtime/Classes/ExtendableMessageBuilder.h; sourceTree = "<group>"; };
-		959F016E8A4E78E71ACC71DE5456DDDA /* Bootstrap.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Bootstrap.h; path = src/runtime/Classes/Bootstrap.h; sourceTree = "<group>"; };
+		64C68F19C7FDB89739A12A754AC192B9 /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVIndefiniteAnimatedView.m; path = SVProgressHUD/SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
+		68F7D46BED1E968333C3A6BF1D08EF35 /* SVRadialGradientLayer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVRadialGradientLayer.h; path = SVProgressHUD/SVRadialGradientLayer.h; sourceTree = "<group>"; };
+		6A6073EEDABEA90F4218E48202444AB6 /* SVProgressHUD-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SVProgressHUD-dummy.m"; sourceTree = "<group>"; };
+		7639CFC0D8B53A181379B3D35CF6B409 /* SVProgressHUD.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SVProgressHUD.xcconfig; sourceTree = "<group>"; };
+		86E3DC48E40F8C3C553801CB0080D74D /* SVProgressHUD-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SVProgressHUD-prefix.pch"; sourceTree = "<group>"; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		996AF382A7F74D13E078E3C7201723A4 /* Pods-HoloKinect-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-HoloKinect-acknowledgements.markdown"; sourceTree = "<group>"; };
-		A45D1190D933C2955678FA6643633A29 /* GeneratedMessage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GeneratedMessage.m; path = src/runtime/Classes/GeneratedMessage.m; sourceTree = "<group>"; };
-		A8756B1CE7C060613C82054F03FC5F24 /* Message.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Message.h; path = src/runtime/Classes/Message.h; sourceTree = "<group>"; };
-		ABE5E77B09B70D97D1671EF671F6D8BC /* ExtensionField.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ExtensionField.h; path = src/runtime/Classes/ExtensionField.h; sourceTree = "<group>"; };
-		B1A26C6607DECB40B226DD8A7AEC3CF2 /* Field.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = Field.m; path = src/runtime/Classes/Field.m; sourceTree = "<group>"; };
-		B2261E4E09C7671F873FE64B0A07A765 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = SVProgressHUD.bundle; path = SVProgressHUD/SVProgressHUD.bundle; sourceTree = "<group>"; };
+		9A4FD84ACF1B8EEEDAC8CC95717A7962 /* libSVProgressHUD.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libSVProgressHUD.a; path = libSVProgressHUD.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		9C80D8A3D824F9A8BECF1041F91261A4 /* SVProgressAnimatedView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVProgressAnimatedView.m; path = SVProgressHUD/SVProgressAnimatedView.m; sourceTree = "<group>"; };
 		B3FFB0412341EB13DC961433D4480BE6 /* Pods-HoloKinect.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-HoloKinect.debug.xcconfig"; sourceTree = "<group>"; };
-		B69C046547AD1ECA39C0E8995F02319A /* libPods-HoloKinect.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HoloKinect.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B84F15F16CD5E63ADC518A2045E4C81F /* Utilities.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Utilities.h; path = src/runtime/Classes/Utilities.h; sourceTree = "<group>"; };
 		BACC64101FAE4862F8806DB02FC71B0E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
-		BC18A0D015C66699EA6E4B4A8C409B58 /* GeneratedMessageBuilder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GeneratedMessageBuilder.m; path = src/runtime/Classes/GeneratedMessageBuilder.m; sourceTree = "<group>"; };
-		BE018A406E5580E75439EB049F826829 /* UnknownFieldSetBuilder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = UnknownFieldSetBuilder.m; path = src/runtime/Classes/UnknownFieldSetBuilder.m; sourceTree = "<group>"; };
-		BE400C1C1CEB1F52F388E2266DA8840B /* ExtensionRegistry.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ExtensionRegistry.h; path = src/runtime/Classes/ExtensionRegistry.h; sourceTree = "<group>"; };
-		C251DADA667CD61379E61F80CA7C241F /* ExtendableMessage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ExtendableMessage.h; path = src/runtime/Classes/ExtendableMessage.h; sourceTree = "<group>"; };
+		C447657581C0A5726D1B490667A418D4 /* SVProgressAnimatedView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVProgressAnimatedView.h; path = SVProgressHUD/SVProgressAnimatedView.h; sourceTree = "<group>"; };
 		C7C3036E2A447C7D1DEF9AF242ADB600 /* Pods-HoloKinect-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-HoloKinect-resources.sh"; sourceTree = "<group>"; };
-		CABE0F058D83ECEE1BCCEE6634A23B56 /* AbstractMessageBuilder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AbstractMessageBuilder.m; path = src/runtime/Classes/AbstractMessageBuilder.m; sourceTree = "<group>"; };
-		CB3EB641C02BB9E6B97A60B4C041B1C6 /* WireFormat.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WireFormat.h; path = src/runtime/Classes/WireFormat.h; sourceTree = "<group>"; };
 		CFB783746FA69F3295019AE3318891A0 /* Pods-HoloKinect-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-HoloKinect-frameworks.sh"; sourceTree = "<group>"; };
-		CFF1126015F0A3F628461AD7133257EB /* RingBuffer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = RingBuffer.m; path = src/runtime/Classes/RingBuffer.m; sourceTree = "<group>"; };
+		D3444AE0273523AC57BAC6A7EBE004B0 /* SVProgressHUD.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVProgressHUD.m; path = SVProgressHUD/SVProgressHUD.m; sourceTree = "<group>"; };
 		D73AA83BE2DC389E67A3F2AFFBBC032B /* Pods-HoloKinect-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-HoloKinect-dummy.m"; sourceTree = "<group>"; };
-		DD43853B4E84F23A6644926097146EC2 /* ProtocolBuffers.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ProtocolBuffers.xcconfig; sourceTree = "<group>"; };
-		E36BE5CCACB79FEDE76D71CE9F4A27F3 /* ForwardDeclarations.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ForwardDeclarations.h; path = src/runtime/Classes/ForwardDeclarations.h; sourceTree = "<group>"; };
-		E458560734B54F698EB445B82BA11263 /* GeneratedMessage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GeneratedMessage.h; path = src/runtime/Classes/GeneratedMessage.h; sourceTree = "<group>"; };
-		E8A1991C481687917798FB4259871A8E /* TextFormat.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = TextFormat.m; path = src/runtime/Classes/TextFormat.m; sourceTree = "<group>"; };
-		EE500AD72B2AC3026346B01719E8E7F5 /* PBArray.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PBArray.m; path = src/runtime/Classes/PBArray.m; sourceTree = "<group>"; };
-		EF4988E4366258EE619100A5D6383927 /* ConcreteExtensionField.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ConcreteExtensionField.h; path = src/runtime/Classes/ConcreteExtensionField.h; sourceTree = "<group>"; };
-		F47D1B3092E27240E193E3167FF7C385 /* CodedOutputStream.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CodedOutputStream.h; path = src/runtime/Classes/CodedOutputStream.h; sourceTree = "<group>"; };
-		F4E6199D5E6C518242B474A4FB06FBEB /* ExtendableMessageBuilder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ExtendableMessageBuilder.m; path = src/runtime/Classes/ExtendableMessageBuilder.m; sourceTree = "<group>"; };
-		FA93D5023DFA5237EBFF4B43E02C9328 /* MutableExtensionRegistry.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MutableExtensionRegistry.h; path = src/runtime/Classes/MutableExtensionRegistry.h; sourceTree = "<group>"; };
+		DBAD9287DEE246626CE463AB766658E4 /* SVProgressHUD.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVProgressHUD.h; path = SVProgressHUD/SVProgressHUD.h; sourceTree = "<group>"; };
+		DD6F6957AD861C2D16D4AAF6524973A8 /* SVIndefiniteAnimatedView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVIndefiniteAnimatedView.h; path = SVProgressHUD/SVIndefiniteAnimatedView.h; sourceTree = "<group>"; };
+		E6A374AB1310EA4B32513CEB3F350671 /* SVRadialGradientLayer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVRadialGradientLayer.m; path = SVProgressHUD/SVRadialGradientLayer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		25812FC94F3D85CA18C41EA444BBEFDD /* Frameworks */ = {
+		142F552B35F31434437DB5F4A83AAE28 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ACED3F495EBCA9E5DCD76A81205C0AD1 /* Foundation.framework in Frameworks */,
+				E6B4EEA899E51C98C021CF6729C44F10 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6041B06AF011C8D8071D7416AD2E2D6A /* Frameworks */ = {
+		5F40E47E1C8813AD2D7F937263FBABFF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F6CD70468D0C2B8F0E1151933CEC32F9 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		78362B74A007DD30DBFD02B24A3C26E5 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D8619F4256A44E5A3E00A6F7009406DB /* Foundation.framework in Frameworks */,
-				75299EE37A1C90799291B9A179FEA165 /* QuartzCore.framework in Frameworks */,
+				80FBFF58B794CF54CF343465D5F65002 /* Foundation.framework in Frameworks */,
+				AD2DEFE45FC4A1D86DD7616643019C1E /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2790A5C7DA0901295F6EA23BD44EAC31 /* SVProgressHUD */ = {
+		035CB6C836B78EB37C4E6C442FF8BB1E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				63749666516A5EAEAD5DEDAF528C439E /* SVIndefiniteAnimatedView.h */,
-				915474F3D4442ACB89326407FA2D6098 /* SVIndefiniteAnimatedView.m */,
-				87C68E2FE9ABB6CD2A169CE9DC0D2DFF /* SVProgressAnimatedView.h */,
-				0063D60B77746EB55C766D14D8CAF7D7 /* SVProgressAnimatedView.m */,
-				8BD5F8B03D468AEEA490E05A09F9BAF8 /* SVProgressHUD.h */,
-				20E6A280FBD2EEC492C03877A0614FFF /* SVProgressHUD.m */,
-				514494ED7E4C4CDD6BF8115EB3D65990 /* SVRadialGradientLayer.h */,
-				4B8DDF1B3404A6302331ACFCB3E43CFA /* SVRadialGradientLayer.m */,
-				D79ED4D3D74B3B488BB2A2DA58E50245 /* Resources */,
-				53742C9A3F1B41417D9940E52CFBA887 /* Support Files */,
+				2D619B9ACB8981FDEB8B6C16926AD452 /* SVProgressHUD.bundle */,
 			);
-			path = SVProgressHUD;
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		37C30DE536B4BDF45C0F4E823FBB6505 /* Targets Support Files */ = {
@@ -234,94 +104,21 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		4801898627181F00D993C2FBFBDC6440 /* ProtocolBuffers */ = {
+		5721100547D4AAB492D271F55CA085C0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3CC6A8023959759A08BAFAC8380F9734 /* AbstractMessage.h */,
-				3A41DA97068B83D71D7F84CF0520C340 /* AbstractMessage.m */,
-				7FF0538DC06835B54841E727706EF313 /* AbstractMessageBuilder.h */,
-				CABE0F058D83ECEE1BCCEE6634A23B56 /* AbstractMessageBuilder.m */,
-				959F016E8A4E78E71ACC71DE5456DDDA /* Bootstrap.h */,
-				9106B52D6AF0C75BE58666B27FDF3916 /* CodedInputStream.h */,
-				71841DBFCFA8294D8C838A3C0150372A /* CodedInputStream.m */,
-				F47D1B3092E27240E193E3167FF7C385 /* CodedOutputStream.h */,
-				8335A5492A2C0F7E1D80AB2C4A612037 /* CodedOutputStream.m */,
-				EF4988E4366258EE619100A5D6383927 /* ConcreteExtensionField.h */,
-				7A4E6BAABE415A76819A6EE58925C6A7 /* ConcreteExtensionField.m */,
-				736C9E927447EFA35B8E1F88DD797D88 /* Descriptor.pb.h */,
-				58E6D5D8BBD2411FB1D6C1D2BAA9A05C /* Descriptor.pb.m */,
-				C251DADA667CD61379E61F80CA7C241F /* ExtendableMessage.h */,
-				8EFC4D7493C28654EE0FBF8F4837B770 /* ExtendableMessage.m */,
-				943BBEEBEA57AF2BCBC31E0FAB0444BF /* ExtendableMessageBuilder.h */,
-				F4E6199D5E6C518242B474A4FB06FBEB /* ExtendableMessageBuilder.m */,
-				ABE5E77B09B70D97D1671EF671F6D8BC /* ExtensionField.h */,
-				BE400C1C1CEB1F52F388E2266DA8840B /* ExtensionRegistry.h */,
-				0F3A457DEDB28CA01B874EE02D2BCC8D /* ExtensionRegistry.m */,
-				231275DCE10FE284D637648523E24DCC /* Field.h */,
-				B1A26C6607DECB40B226DD8A7AEC3CF2 /* Field.m */,
-				E36BE5CCACB79FEDE76D71CE9F4A27F3 /* ForwardDeclarations.h */,
-				E458560734B54F698EB445B82BA11263 /* GeneratedMessage.h */,
-				A45D1190D933C2955678FA6643633A29 /* GeneratedMessage.m */,
-				4C8DA703D38283FE5A4902B3F709D02D /* GeneratedMessageBuilder.h */,
-				BC18A0D015C66699EA6E4B4A8C409B58 /* GeneratedMessageBuilder.m */,
-				A8756B1CE7C060613C82054F03FC5F24 /* Message.h */,
-				9237F62F4F981A28760423317EF2557B /* MessageBuilder.h */,
-				FA93D5023DFA5237EBFF4B43E02C9328 /* MutableExtensionRegistry.h */,
-				6C17B84D9E2D76B87CA4567C67D0D444 /* MutableExtensionRegistry.m */,
-				4AEB11786E36F24C363B888B5F8BBD4A /* MutableField.h */,
-				05FEF37AF15D3C59F9E0ED714C43BD3A /* MutableField.m */,
-				5ED2C08085BD27C51EB82166AA2EDE9F /* ObjectivecDescriptor.pb.h */,
-				45F57BBE772A69F5AEC3BD346BB34608 /* ObjectivecDescriptor.pb.m */,
-				14D141AE02442FF1E154D8FA8E5BAA9F /* PBArray.h */,
-				EE500AD72B2AC3026346B01719E8E7F5 /* PBArray.m */,
-				7278295A709D9050D5A1B4C6B4C7BAC7 /* ProtocolBuffers.h */,
-				040390E4699B25397386D85C66BDD84A /* RingBuffer.h */,
-				CFF1126015F0A3F628461AD7133257EB /* RingBuffer.m */,
-				16DD6DCB44708DE9C095EB8D8A92E4E9 /* TextFormat.h */,
-				E8A1991C481687917798FB4259871A8E /* TextFormat.m */,
-				103E4824BD05A806103BD2D07EC5D167 /* UnknownFieldSet.h */,
-				282A4A56DA72410D197B09396736B6C5 /* UnknownFieldSet.m */,
-				167E83F53120B91C71FD725FEB3907EA /* UnknownFieldSetBuilder.h */,
-				BE018A406E5580E75439EB049F826829 /* UnknownFieldSetBuilder.m */,
-				B84F15F16CD5E63ADC518A2045E4C81F /* Utilities.h */,
-				93A8ED635BF7FB8A54DB1DFE3E615C76 /* Utilities.m */,
-				CB3EB641C02BB9E6B97A60B4C041B1C6 /* WireFormat.h */,
-				8586F3B8C1FB04A9C5870AE49BA89E07 /* WireFormat.m */,
-				6A92393618D05AF4D7547E03730BE65D /* Support Files */,
-			);
-			path = ProtocolBuffers;
-			sourceTree = "<group>";
-		};
-		53742C9A3F1B41417D9940E52CFBA887 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				2057D0139D0DE1597F54A2F31AC712B3 /* SVProgressHUD.xcconfig */,
-				0B16DDE737CCBA016380B535C848D4A4 /* SVProgressHUD-dummy.m */,
-				26567C93EF43000D6724B522A0C714FB /* SVProgressHUD-prefix.pch */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/SVProgressHUD";
-			sourceTree = "<group>";
-		};
-		61B31188FDEAF106BA40BCBDF08B7344 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				B69C046547AD1ECA39C0E8995F02319A /* libPods-HoloKinect.a */,
-				70D748DA7FEE876BE2F0C87A7E37D35E /* libProtocolBuffers.a */,
-				27D0A8CA5E67025C3C8C8E585F9EE939 /* libSVProgressHUD.a */,
+				39EAE0AC178A35D7C78A3D98B2B0A152 /* libPods-HoloKinect.a */,
+				9A4FD84ACF1B8EEEDAC8CC95717A7962 /* libSVProgressHUD.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		6A92393618D05AF4D7547E03730BE65D /* Support Files */ = {
+		74588D48F629C3D7E6B7E12AB83072D6 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				DD43853B4E84F23A6644926097146EC2 /* ProtocolBuffers.xcconfig */,
-				86AD7A3E8128B086F13FE032B6BF213A /* ProtocolBuffers-dummy.m */,
-				15606A3BB0358D7A5C1158034FABBB5E /* ProtocolBuffers-prefix.pch */,
+				95EB61328BDA1070876281302DF94ACF /* SVProgressHUD */,
 			);
-			name = "Support Files";
-			path = "../Target Support Files/ProtocolBuffers";
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		7DB346D0F39D3F0E887471402A8071AB = {
@@ -329,10 +126,39 @@
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
 				433CD3331B6C3787F473C941B61FC68F /* Frameworks */,
-				F519E96087C1646E2466686B243C7CD4 /* Pods */,
-				61B31188FDEAF106BA40BCBDF08B7344 /* Products */,
+				74588D48F629C3D7E6B7E12AB83072D6 /* Pods */,
+				5721100547D4AAB492D271F55CA085C0 /* Products */,
 				37C30DE536B4BDF45C0F4E823FBB6505 /* Targets Support Files */,
 			);
+			sourceTree = "<group>";
+		};
+		95EB61328BDA1070876281302DF94ACF /* SVProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				DD6F6957AD861C2D16D4AAF6524973A8 /* SVIndefiniteAnimatedView.h */,
+				64C68F19C7FDB89739A12A754AC192B9 /* SVIndefiniteAnimatedView.m */,
+				C447657581C0A5726D1B490667A418D4 /* SVProgressAnimatedView.h */,
+				9C80D8A3D824F9A8BECF1041F91261A4 /* SVProgressAnimatedView.m */,
+				DBAD9287DEE246626CE463AB766658E4 /* SVProgressHUD.h */,
+				D3444AE0273523AC57BAC6A7EBE004B0 /* SVProgressHUD.m */,
+				68F7D46BED1E968333C3A6BF1D08EF35 /* SVRadialGradientLayer.h */,
+				E6A374AB1310EA4B32513CEB3F350671 /* SVRadialGradientLayer.m */,
+				035CB6C836B78EB37C4E6C442FF8BB1E /* Resources */,
+				BDE1D145F4A334224EB232EECAD63B61 /* Support Files */,
+			);
+			name = SVProgressHUD;
+			path = SVProgressHUD;
+			sourceTree = "<group>";
+		};
+		BDE1D145F4A334224EB232EECAD63B61 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				7639CFC0D8B53A181379B3D35CF6B409 /* SVProgressHUD.xcconfig */,
+				6A6073EEDABEA90F4218E48202444AB6 /* SVProgressHUD-dummy.m */,
+				86E3DC48E40F8C3C553801CB0080D74D /* SVProgressHUD-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/SVProgressHUD";
 			sourceTree = "<group>";
 		};
 		BFD0A321F531B4CA04F7D1EC2FDA9100 /* Pods-HoloKinect */ = {
@@ -359,100 +185,47 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		D79ED4D3D74B3B488BB2A2DA58E50245 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				B2261E4E09C7671F873FE64B0A07A765 /* SVProgressHUD.bundle */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
-		F519E96087C1646E2466686B243C7CD4 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				4801898627181F00D993C2FBFBDC6440 /* ProtocolBuffers */,
-				2790A5C7DA0901295F6EA23BD44EAC31 /* SVProgressHUD */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		7BB1381FDE1356E127179FEEA4187D14 /* Headers */ = {
+		DCB47C947A252C3895BAAC203DCEA435 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE3DB498AA0F628441F856BFF6A06ECA /* AbstractMessage.h in Headers */,
-				1F468FB185797E9E714C646D1F94EA94 /* AbstractMessageBuilder.h in Headers */,
-				414B0CC48E204D7FBCB23FC36E717B78 /* Bootstrap.h in Headers */,
-				46C2EB0A1822934E243CCF75000FF28C /* CodedInputStream.h in Headers */,
-				5FAA9D87A3C1756FFE0D29FF5B464F6D /* CodedOutputStream.h in Headers */,
-				03D0D80EDFFBB8391E88AB3F6C096642 /* ConcreteExtensionField.h in Headers */,
-				5D50727187B6BC9123E3A45F8F185972 /* Descriptor.pb.h in Headers */,
-				EC7B39249DA127E3D54E923323B3E995 /* ExtendableMessage.h in Headers */,
-				03115A0007FA7052E63DA56FD4888AD8 /* ExtendableMessageBuilder.h in Headers */,
-				DCF338C657701F9CFC903728E6303DAA /* ExtensionField.h in Headers */,
-				DB3C52C05088EF2F10EC2ECAF980FE2B /* ExtensionRegistry.h in Headers */,
-				12B761AFE0B9D03AE60B7BD07713ADB8 /* Field.h in Headers */,
-				00E948A56D263EF5EEA7CB2C780335BC /* ForwardDeclarations.h in Headers */,
-				62BED3CFF067C2F47FE2D9C8AD6C25D8 /* GeneratedMessage.h in Headers */,
-				D672D02A66709E97B3658E773DA9E705 /* GeneratedMessageBuilder.h in Headers */,
-				423905137C8760EB11918BEB979D4477 /* Message.h in Headers */,
-				825E1C7F9EA2DFE83C736B3C5CFC0EA1 /* MessageBuilder.h in Headers */,
-				EA1444589D6DEA002468E5108CA5252C /* MutableExtensionRegistry.h in Headers */,
-				E53D43EF5CCEBD4782515C09965C68D3 /* MutableField.h in Headers */,
-				016D6220EEA8903F408AB89EAF1FF08E /* ObjectivecDescriptor.pb.h in Headers */,
-				B066AF540C07045B3E9D86E63E18CF69 /* PBArray.h in Headers */,
-				0DE132522A9870ADF72365B8973DF332 /* ProtocolBuffers.h in Headers */,
-				CC733E241C80713553039FC0C3EFC134 /* RingBuffer.h in Headers */,
-				77B60BCC6AC0DD353D35CE6B429DBA68 /* TextFormat.h in Headers */,
-				4C32B1FEC602B4F5285089A2D5FC3136 /* UnknownFieldSet.h in Headers */,
-				2385EA155ECCECD4F935EE73DF9B3E5D /* UnknownFieldSetBuilder.h in Headers */,
-				9D28E89F99668BF752C091C113DEA66E /* Utilities.h in Headers */,
-				51C476CF26C9D40361828B992193513A /* WireFormat.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9EDA38CA9F1577F7853E0377351D9403 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D57EAF4C39EC306D08F1A97D4273E36F /* SVIndefiniteAnimatedView.h in Headers */,
-				294285B7D51A73B0D9E41FC8B4D79641 /* SVProgressAnimatedView.h in Headers */,
-				EBFD733B527D91A7FB72B879BEA7709A /* SVProgressHUD.h in Headers */,
-				D5D4662238D26C94E3C89A0006337219 /* SVRadialGradientLayer.h in Headers */,
+				D94F540E57E0C014EA5CECED582E736C /* SVIndefiniteAnimatedView.h in Headers */,
+				5AFAF6C5D3C836A8BEC257EB31BE352F /* SVProgressAnimatedView.h in Headers */,
+				18DF2423466F32E0EFE54E001240777F /* SVProgressHUD.h in Headers */,
+				3DDB1293165FB3680F41C010784EDBCD /* SVRadialGradientLayer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		54E965D33B1E43CBB828F704105D58CA /* Pods-HoloKinect */ = {
+		2C8BFE61CBB954A6342B5CB9E7FB3C4E /* Pods-HoloKinect */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1776D098351A517315AF48D9427A9D4B /* Build configuration list for PBXNativeTarget "Pods-HoloKinect" */;
+			buildConfigurationList = 2802322E90CABBD32B6193FAEF8D482C /* Build configuration list for PBXNativeTarget "Pods-HoloKinect" */;
 			buildPhases = (
-				4D1A64AC26A8F424C1753DA09BB38AA2 /* Sources */,
-				25812FC94F3D85CA18C41EA444BBEFDD /* Frameworks */,
+				CA80EE49F801E11C761E2C3BA098027B /* Sources */,
+				142F552B35F31434437DB5F4A83AAE28 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				7C4EC8BB2CB5B58DB35179E048C15A96 /* PBXTargetDependency */,
-				06FB12C22C1A89E16031330A118752C1 /* PBXTargetDependency */,
+				74245B0EA2CD1E3E4639D3F3A59D647E /* PBXTargetDependency */,
 			);
 			name = "Pods-HoloKinect";
 			productName = "Pods-HoloKinect";
-			productReference = B69C046547AD1ECA39C0E8995F02319A /* libPods-HoloKinect.a */;
+			productReference = 39EAE0AC178A35D7C78A3D98B2B0A152 /* libPods-HoloKinect.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		C8F1BA651B4CCB15DEB61324882E5E1E /* SVProgressHUD */ = {
+		472296B1208D122411714F385C9E5E11 /* SVProgressHUD */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9BA012C23E1E46EAF7AE3E5436DF81BE /* Build configuration list for PBXNativeTarget "SVProgressHUD" */;
+			buildConfigurationList = 768DA3BA4A088ECCF3593D0EA989647C /* Build configuration list for PBXNativeTarget "SVProgressHUD" */;
 			buildPhases = (
-				3A7DC593BA866EA05C5CEEA65FC4A435 /* Sources */,
-				78362B74A007DD30DBFD02B24A3C26E5 /* Frameworks */,
-				9EDA38CA9F1577F7853E0377351D9403 /* Headers */,
+				F81B570D9B570F54914133274018206B /* Sources */,
+				5F40E47E1C8813AD2D7F937263FBABFF /* Frameworks */,
+				DCB47C947A252C3895BAAC203DCEA435 /* Headers */,
 			);
 			buildRules = (
 			);
@@ -460,24 +233,7 @@
 			);
 			name = SVProgressHUD;
 			productName = SVProgressHUD;
-			productReference = 27D0A8CA5E67025C3C8C8E585F9EE939 /* libSVProgressHUD.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		F46ECE4B7BA039BB8ECAD5A2F77B781C /* ProtocolBuffers */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 72C6CA32D5BE4389227FA92B0B06ABE6 /* Build configuration list for PBXNativeTarget "ProtocolBuffers" */;
-			buildPhases = (
-				B70C9077D072DCDCBCFC9D45063EA3C2 /* Sources */,
-				6041B06AF011C8D8071D7416AD2E2D6A /* Frameworks */,
-				7BB1381FDE1356E127179FEEA4187D14 /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = ProtocolBuffers;
-			productName = ProtocolBuffers;
-			productReference = 70D748DA7FEE876BE2F0C87A7E37D35E /* libProtocolBuffers.a */;
+			productReference = 9A4FD84ACF1B8EEEDAC8CC95717A7962 /* libSVProgressHUD.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -497,82 +253,45 @@
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = 61B31188FDEAF106BA40BCBDF08B7344 /* Products */;
+			productRefGroup = 5721100547D4AAB492D271F55CA085C0 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				54E965D33B1E43CBB828F704105D58CA /* Pods-HoloKinect */,
-				F46ECE4B7BA039BB8ECAD5A2F77B781C /* ProtocolBuffers */,
-				C8F1BA651B4CCB15DEB61324882E5E1E /* SVProgressHUD */,
+				2C8BFE61CBB954A6342B5CB9E7FB3C4E /* Pods-HoloKinect */,
+				472296B1208D122411714F385C9E5E11 /* SVProgressHUD */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		3A7DC593BA866EA05C5CEEA65FC4A435 /* Sources */ = {
+		CA80EE49F801E11C761E2C3BA098027B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C8172DFCD6341EF688197C67388DAC43 /* SVIndefiniteAnimatedView.m in Sources */,
-				2C430768AB7D191FF5648F92381601C3 /* SVProgressAnimatedView.m in Sources */,
-				180FBB0D6490B96F389AE36A4DFCEC0D /* SVProgressHUD-dummy.m in Sources */,
-				24F4106CE58BE689F013DC8537BB76CD /* SVProgressHUD.m in Sources */,
-				F3C686D467513F6F10F43A86FE270EA3 /* SVRadialGradientLayer.m in Sources */,
+				6742979D90EDAC3A8A2EA6D5D30818E7 /* Pods-HoloKinect-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4D1A64AC26A8F424C1753DA09BB38AA2 /* Sources */ = {
+		F81B570D9B570F54914133274018206B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				708DEAF762B7F17B8375E325DAE6A8C9 /* Pods-HoloKinect-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B70C9077D072DCDCBCFC9D45063EA3C2 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3AC16818FE3C460356F7E19B3B686225 /* AbstractMessage.m in Sources */,
-				85913971399A8691270413F3BF77A1E6 /* AbstractMessageBuilder.m in Sources */,
-				C992FD3E53B31870F3919B7F3808453E /* CodedInputStream.m in Sources */,
-				1D6383942B993DACEED1DC5247F887DA /* CodedOutputStream.m in Sources */,
-				D8A0AA174F8B22110BDB20155CCA9747 /* ConcreteExtensionField.m in Sources */,
-				CC714065E3DA1E51D5101EFE32F80813 /* Descriptor.pb.m in Sources */,
-				CBFAEF1FB346EF4A0E1EBFD193B6057F /* ExtendableMessage.m in Sources */,
-				DADC41FF510CA643F3BD591EF1BE3B04 /* ExtendableMessageBuilder.m in Sources */,
-				298B027E0188E046A9925B8E21F770F8 /* ExtensionRegistry.m in Sources */,
-				F1455916F825D8F826F6C6582EECA9D7 /* Field.m in Sources */,
-				2F8A351B9A64CB609BDAA4A1F7E83EB6 /* GeneratedMessage.m in Sources */,
-				5A99DC9E4006F36D173D720AE3169EE8 /* GeneratedMessageBuilder.m in Sources */,
-				678A407C8F7332E9ABFC6EAAC699BCC8 /* MutableExtensionRegistry.m in Sources */,
-				7EF24FA211A0AAC25CA4FBE45BB760CA /* MutableField.m in Sources */,
-				AC65F530192E8BEF972BA37E19077376 /* ObjectivecDescriptor.pb.m in Sources */,
-				0B38FA192384B30FE60A79049B0BB0CF /* PBArray.m in Sources */,
-				BE17799705BE41BCFD9EC23C0371839B /* ProtocolBuffers-dummy.m in Sources */,
-				658CCD4F5AA8EFACC44EF0B84604032C /* RingBuffer.m in Sources */,
-				695BAC4F3BC772969F26254A6E3179A3 /* TextFormat.m in Sources */,
-				2A963119776A1F07F7DA7A40B028059F /* UnknownFieldSet.m in Sources */,
-				AE796485C2936720F21D89254D399A06 /* UnknownFieldSetBuilder.m in Sources */,
-				FFEA44B93552831871343FFDB3672773 /* Utilities.m in Sources */,
-				EF08FB4E0B8794351AF064659088A95E /* WireFormat.m in Sources */,
+				3D1101D1DD373712AD6FD27F456DC8EC /* SVIndefiniteAnimatedView.m in Sources */,
+				DDD2547AE99DCD0D56B1B1BB6DA9D356 /* SVProgressAnimatedView.m in Sources */,
+				8A136BAF424E47FC172146A83573D68D /* SVProgressHUD-dummy.m in Sources */,
+				945F95583945BBD9BA3B74E23F10ACAD /* SVProgressHUD.m in Sources */,
+				7C8694B9CF2DF6523230D8C1BEB66ED0 /* SVRadialGradientLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		06FB12C22C1A89E16031330A118752C1 /* PBXTargetDependency */ = {
+		74245B0EA2CD1E3E4639D3F3A59D647E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = SVProgressHUD;
-			target = C8F1BA651B4CCB15DEB61324882E5E1E /* SVProgressHUD */;
-			targetProxy = 498CC421C8038D49B380B17A163AFCDB /* PBXContainerItemProxy */;
-		};
-		7C4EC8BB2CB5B58DB35179E048C15A96 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = ProtocolBuffers;
-			target = F46ECE4B7BA039BB8ECAD5A2F77B781C /* ProtocolBuffers */;
-			targetProxy = 994B373EEBA0B104731E1C7EFCA442E3 /* PBXContainerItemProxy */;
+			target = 472296B1208D122411714F385C9E5E11 /* SVProgressHUD */;
+			targetProxy = 7B5DE9EAC260B7467F6690158FED3FD5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -609,7 +328,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
 				STRIP_INSTALLED_PRODUCT = NO;
 				SYMROOT = "${SRCROOT}/../build";
@@ -617,19 +336,19 @@
 			};
 			name = Release;
 		};
-		2BACF49DDF5CCD843027523AFE00D0D5 /* Debug */ = {
+		52A83912158096922711B4869B1D4EC8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DD43853B4E84F23A6644926097146EC2 /* ProtocolBuffers.xcconfig */;
+			baseConfigurationReference = 7639CFC0D8B53A181379B3D35CF6B409 /* SVProgressHUD.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/ProtocolBuffers/ProtocolBuffers-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/SVProgressHUD/SVProgressHUD-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = "";
@@ -638,32 +357,9 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
-			name = Debug;
+			name = Release;
 		};
-		31B9F6E62EF3532FC19BF9948A2D49D8 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = B3FFB0412341EB13DC961433D4480BE6 /* Pods-HoloKinect.debug.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
-				MACH_O_TYPE = staticlib;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		8ABC9BA2846256C86E8691C5D61B9051 /* Release */ = {
+		952B9E3074EC00751E411AEB8640ADB4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 36CEEC53E9928FA15BC3D494448DF8F1 /* Pods-HoloKinect.release.xcconfig */;
 			buildSettings = {
@@ -686,32 +382,9 @@
 			};
 			name = Release;
 		};
-		8FB3CC52C44BD0996B3F8E0A4EF4EDCB /* Release */ = {
+		9B1826E54876973BE8EA4B4AD86ECC07 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2057D0139D0DE1597F54A2F31AC712B3 /* SVProgressHUD.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/SVProgressHUD/SVProgressHUD-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		9A6A747BA06085FE9268133BB9D234A4 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2057D0139D0DE1597F54A2F31AC712B3 /* SVProgressHUD.xcconfig */;
+			baseConfigurationReference = 7639CFC0D8B53A181379B3D35CF6B409 /* SVProgressHUD.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -768,7 +441,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -776,37 +449,37 @@
 			};
 			name = Debug;
 		};
-		C48792FA1E87D7FD1D40FA351B35F1D6 /* Release */ = {
+		F10E6646A0E0EEC19D43449CCE3F1D37 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DD43853B4E84F23A6644926097146EC2 /* ProtocolBuffers.xcconfig */;
+			baseConfigurationReference = B3FFB0412341EB13DC961433D4480BE6 /* Pods-HoloKinect.debug.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/ProtocolBuffers/ProtocolBuffers-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
-			name = Release;
+			name = Debug;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1776D098351A517315AF48D9427A9D4B /* Build configuration list for PBXNativeTarget "Pods-HoloKinect" */ = {
+		2802322E90CABBD32B6193FAEF8D482C /* Build configuration list for PBXNativeTarget "Pods-HoloKinect" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				31B9F6E62EF3532FC19BF9948A2D49D8 /* Debug */,
-				8ABC9BA2846256C86E8691C5D61B9051 /* Release */,
+				F10E6646A0E0EEC19D43449CCE3F1D37 /* Debug */,
+				952B9E3074EC00751E411AEB8640ADB4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -820,20 +493,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		72C6CA32D5BE4389227FA92B0B06ABE6 /* Build configuration list for PBXNativeTarget "ProtocolBuffers" */ = {
+		768DA3BA4A088ECCF3593D0EA989647C /* Build configuration list for PBXNativeTarget "SVProgressHUD" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				2BACF49DDF5CCD843027523AFE00D0D5 /* Debug */,
-				C48792FA1E87D7FD1D40FA351B35F1D6 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		9BA012C23E1E46EAF7AE3E5436DF81BE /* Build configuration list for PBXNativeTarget "SVProgressHUD" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				9A6A747BA06085FE9268133BB9D234A4 /* Debug */,
-				8FB3CC52C44BD0996B3F8E0A4EF4EDCB /* Release */,
+				9B1826E54876973BE8EA4B4AD86ECC07 /* Debug */,
+				52A83912158096922711B4869B1D4EC8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

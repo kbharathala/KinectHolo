@@ -7,7 +7,6 @@ target 'HoloKinect' do
 
   # Pods for HoloKinect
   
-  pod 'ProtocolBuffers'
   pod 'SVProgressHUD'
 
 end

@@ -10,14 +10,14 @@
 #import "TableViewCell.h"
 #import "ARKitViewController.h"
 
-#import <ProtocolBuffers/ProtocolBuffers.h>
 #import <SVProgressHUD/SVProgressHUD.h>
-#import "../../../proto_objc_bindings/Message.pbobjc.h"
+#import "Message.pbobjc.h"
 
 
 @interface VideoTableViewController ()
 
 @property (nonatomic, strong) NSMutableArray *videoArray;
+@property (nonatomic, strong) Message *message;
 
 @end
 
@@ -36,24 +36,40 @@
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar setHidden:NO];
     
-    // [self updateTable];
+    [self updateTable];
 }
 
 - (void) updateTable {
     
-    [SVProgressHUD showWithStatus:@"Loading Holos"];
     
-    NSData* raw_data =
-        [NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://127.0.0.1:5000/api/get_videos/"]];
-    if (!raw_data) {
-        [SVProgressHUD showErrorWithStatus:@"Our servers are down :("];
-        return;
-    }
+    NSString *filepath = [[NSBundle mainBundle] pathForResource:@"hologram" ofType:@"txt"];
+    NSLog(@"%@", filepath);
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableView reloadData];
-        [SVProgressHUD dismiss];
-    });
+    NSError *error;
+    NSData *data = [NSData dataWithContentsOfFile:filepath];
+    NSLog(@"%lu", [data length]);
+    
+    self.message = [Message parseFromData:data error:&error];
+    
+    return;
+    
+//    [SVProgressHUD showWithStatus:@"Loading Holos"];
+//
+//    NSData* raw_data =
+//        [NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://127.0.0.1:5000/api/get_videos/"]];
+//    if (!raw_data) {
+//        [SVProgressHUD showErrorWithStatus:@"Our servers are down :("];
+//        return;
+//    }
+//
+//    Message *message = [[Message alloc] init];
+//
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        [self.tableView reloadData];
+//        [SVProgressHUD dismiss];
+//    });
+    
+    // Message parseFromData:<#(nonnull NSData *)#> error:<#(NSError * _Nullable __autoreleasing * _Nullable)#>
 
 }
 
@@ -94,6 +110,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ARKitViewController *arVC = [[ARKitViewController alloc] init];
+    arVC.message = self.message;
     [self.navigationController pushViewController:arVC animated:YES];
 }
 
