@@ -45,6 +45,7 @@
 		6BF88DC61F2D17EF0086CA3C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BF88DC51F2D17EF0086CA3C /* AVFoundation.framework */; };
 		6BF88DC81F2D17F60086CA3C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BF88DC71F2D17F60086CA3C /* CoreGraphics.framework */; };
 		6BF88DCA1F2D17FC0086CA3C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BF88DC91F2D17FC0086CA3C /* Foundation.framework */; };
+		BF519DFD1F2DFA7D00594C5D /* movie2.hologram in Resources */ = {isa = PBXBuildFile; fileRef = BF519DFC1F2DFA7800594C5D /* movie2.hologram */; };
 		BFBA040C1F2D3B10000B39EB /* TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BFBA040B1F2D3B10000B39EB /* TableViewCell.m */; };
 		F46A2352CC2C0986883105B7 /* libPods-HoloKinect.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AED85776ACA43A383A62E2D /* libPods-HoloKinect.a */; };
 /* End PBXBuildFile section */
@@ -137,6 +138,7 @@
 		6BF88DC71F2D17F60086CA3C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		6BF88DC91F2D17FC0086CA3C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		ACC6CDD89A2E119B612F688D /* Pods-HoloKinect.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoloKinect.release.xcconfig"; path = "Pods/Target Support Files/Pods-HoloKinect/Pods-HoloKinect.release.xcconfig"; sourceTree = "<group>"; };
+		BF519DFC1F2DFA7800594C5D /* movie2.hologram */ = {isa = PBXFileReference; lastKnownFileType = file; name = movie2.hologram; path = ../../../../../../Downloads/movie2.hologram; sourceTree = "<group>"; };
 		BFBA040A1F2D3B10000B39EB /* TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCell.h; sourceTree = "<group>"; };
 		BFBA040B1F2D3B10000B39EB /* TableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -304,6 +306,7 @@
 			isa = PBXGroup;
 			children = (
 				6B4CAD101F2DE33200E868C2 /* ASScreenRecorder.h */,
+				BF519DFC1F2DFA7800594C5D /* movie2.hologram */,
 				6B4CAD111F2DE33200E868C2 /* ASScreenRecorder.m */,
 				6B4CAD051F2DD01B00E868C2 /* hologram.hologram */,
 				6B4CAD041F2DD01B00E868C2 /* hologram7.txt */,
@@ -386,6 +389,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF519DFD1F2DFA7D00594C5D /* movie2.hologram in Resources */,
 				6B736A651F2D0BEE0007F9BE /* Assets.xcassets in Resources */,
 				6B736A701F2D0C260007F9BE /* Default-568h@2x.png in Resources */,
 				6B4CAD071F2DD02000E868C2 /* hologram7.txt in Resources */,

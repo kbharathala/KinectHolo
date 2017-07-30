@@ -44,7 +44,7 @@
 - (void) updateTable {
     
     
-    NSString *filepath = [[NSBundle mainBundle] pathForResource:@"movie" ofType:@"hologram"];
+    NSString *filepath = [[NSBundle mainBundle] pathForResource:@"movie2" ofType:@"hologram"];
     NSLog(@"%@", filepath);
     NSError *error;
     NSData *data = [NSData dataWithContentsOfFile:filepath];
