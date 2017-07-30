@@ -23,6 +23,8 @@ public:
     // Camera registration parameters
     float fx, fy, cx, cy;
 
+    void getPoint(int row, int col, float &x, float &y, float &z, uint8_t &r, uint8_t &g, uint8_t &b);
+
 private:
     ofPixels colorPixelsBack;
     ofPixels colorPixelsFront;

@@ -80,17 +80,18 @@ void Halogen::update() {
 
   ofFloatPixels faceDepthPixels;
   depthPixels.cropTo(faceDepthPixels, face.x, face.y, face.width, face.height);
-  float faceDistance = averageDepth(faceDepthPixels);
+  faceDistance = averageDepth(faceDepthPixels);
 
   ofLogNotice("Halogen") << "Face at (x=" << face.x << ", y=" << face.y << ", w=" << face.width << ", h=" << face.height << ") " << mmToFeet(faceDistance) << " ft away";
 
+  ofPixels newColorPixels = colorPixels;
   subtractBackground(
     &colorPixels,
     depthPixels,
     faceDistance - (radius * 2),
     faceDistance + radius
   );
-  colorTexture.loadData(colorPixels);
+  colorTexture.loadData(newColorPixels);
 }
 
 void Halogen::findFace() {
@@ -125,6 +126,50 @@ void Halogen::draw() {
   }
   colorTexture.draw(0,0);
   drawBoundBox(face, ofColor::green);
+
+  // bool blink = ofGetSeconds() % 2 == 0;
+  if (isRecording) {
+    ofFill();
+    ofSetColor(ofColor::red);
+    auto circleSize = 50;
+    ofDrawCircle(circleSize * 1.5, circleSize * 1.5, circleSize);
+    ofSetColor(ofColor::white);
+  }
+}
+
+void Halogen::saveFrame() {
+  ofLogNotice("Halogen", "saving frame");
+  ofPixels newColorPixels = colorPixels;
+  subtractBackground(
+    &colorPixels,
+    depthPixels,
+    faceDistance - (radius * 2),
+    faceDistance + radius
+  );
+
+  float x, y, z;
+  uint8_t r, g, b;
+  for (auto i = 0; i < newColorPixels.getHeight(); i++) {
+    for (auto j = 0; j < newColorPixels.getWidth(); j++) {
+      auto pixel = newColorPixels.getColor(i, j);
+      bool isEmpty = pixel == ofColor(255, 255, 255, 255);
+      if (isEmpty) {
+        cout << " ";
+        continue;
+      }
+      kinect->getPoint(i, j, x, y, z, r, g, b);
+      cout << ".";
+    }
+  }
+
+}
+
+void Halogen::startRecording() {
+  isRecording = true;
+}
+
+void Halogen::stopRecording() {
+  isRecording = false;
 }
 
 Halogen::~Halogen() {
@@ -133,7 +178,16 @@ Halogen::~Halogen() {
   kinect->disconnect();
 }
 
-void Halogen::keyReleased(int key) {}
+void Halogen::keyReleased(int key) {
+  if (key == ' ') {
+    if (isRecording) stopRecording();
+    else startRecording();
+  }
+  else if (key == 'f') {
+    saveFrame();
+  }
+}
+
 void Halogen::keyPressed(int key) {}
 void Halogen::mouseMoved(int x, int y) {}
 void Halogen::mouseDragged(int x, int y, int button) {}

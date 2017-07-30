@@ -19,6 +19,7 @@ private:
   ofTexture colorTexture;
 
   ofRectangle face;
+  float faceDistance;
 
   cv::CascadeClassifier face_cascade;
   bool hasData = false;
@@ -27,6 +28,11 @@ private:
 
   ofxFloatSlider radius;
   ofxPanel gui;
+
+  bool isRecording = false;
+  void startRecording();
+  void stopRecording();
+  void saveFrame();
 
 public:
   void setup();
