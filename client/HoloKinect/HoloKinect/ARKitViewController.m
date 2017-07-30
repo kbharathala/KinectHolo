@@ -45,7 +45,9 @@ typedef struct PointCloudModel
 @property (nonatomic, strong) ASScreenRecorder *recorder;
 
 @property (nonatomic, strong) UIView *stickerOverlay;
-@property (nonatomic) int currStickerIndex;
+
+@property (nonatomic, strong) Message *currModel;
+@property (nonatomic, strong) NSArray *models;
 
 @property (nonatomic) BOOL isObjectPlaced;
 
@@ -57,11 +59,15 @@ typedef struct PointCloudModel
 {
     [super viewDidLoad];
     
+    self.currModel = nil;
+    
     self.count = 0;
     
     float sum_x = 0.0;
     float sum_y = 0.0;
     float sum_z = 0.0;
+    
+    self.models = [[NSArray alloc] initWithObjects:@"krishna", @"natasha", @"brijen_frame", @"avi", nil];
     
     NSMutableArray *frames = self.message.framesArray;
     
@@ -183,13 +189,20 @@ typedef struct PointCloudModel
     SCNVector3 hitPosition = SCNVector3Make(hitTransform.m41, hitTransform.m42, hitTransform.m43);
     
     self.particle.position = hitPosition;
-    if (self.buttonPressed) {
-        SCNAction *fadeParticle = [SCNAction fadeOpacityTo:0.0 duration:0.00f];
-        [self.particle runAction:fadeParticle];
-        NSLog(@"button pressed");
-        [self movePointCloud];
-        self.pointcloudNode.position = self.particle.position;
+    
+    if (self.currModel) {
+        [self makeModelCloud];
+    } else {
+        NSLog(@"ARE WE HERE");
+        if (self.buttonPressed) {
+            SCNAction *fadeParticle = [SCNAction fadeOpacityTo:0.0 duration:0.00f];
+            [self.particle runAction:fadeParticle];
+            NSLog(@"button pressed");
+            [self movePointCloud];
+            self.pointcloudNode.position = SCNVector3Make(self.particle.position.x, self.particle.position.y, self.particle.position.z);
+        }
     }
+
     NSLog(@"New Particle Positioning: %f %f %f", hitPosition.x, hitPosition.y, hitPosition.z);
 }
 
@@ -280,11 +293,89 @@ typedef struct PointCloudModel
     [self makePointCloud];
 }
 
-- (void)makePointCloud
+- (void)makeModelCloud
 {
-    NSUInteger numPoints = 40000;
+    
+    
+    NSMutableArray *frames = self.currModel.framesArray;
+    
+    NSUInteger numPoints;
+    
+    if (40000 < [[self.currModel.framesArray firstObject].pointsArray count]) {
+        numPoints = 40000;
+    } else {
+        numPoints = [[self.currModel.framesArray firstObject].pointsArray count];
+    }
     
     PointCloudModel pointCloudVertices[numPoints+10];
+    
+    NSLog(@"%lu", [[self.currModel.framesArray firstObject].pointsArray count]);
+    for (int i = 0; i < numPoints; i++) {
+        
+        PointCloudModel vertex;
+        
+        vertex.x = ([[[frames firstObject] pointsArray] objectAtIndex:i].x / 14.0);
+        vertex.y = [[[frames firstObject] pointsArray] objectAtIndex:i].y / -14.0;
+        vertex.z = [[[frames firstObject] pointsArray] objectAtIndex:i].z / 14.0;
+        
+        vertex.r = [[[frames firstObject] pointsArray] objectAtIndex:i].r / 255.0;
+        vertex.g = [[[frames firstObject] pointsArray] objectAtIndex:i].g / 255.0;
+        vertex.b = [[[frames firstObject] pointsArray] objectAtIndex:i].b / 255.0;
+        
+        pointCloudVertices[i] = vertex;
+    }
+    
+    // convert array to point cloud data (position and color)
+    NSData *pointCloudData = [NSData dataWithBytes:&pointCloudVertices length:sizeof(pointCloudVertices)];
+    
+    //    // create vertex source
+    SCNGeometrySource *vertexSource = [SCNGeometrySource geometrySourceWithData:pointCloudData
+                                                                       semantic:SCNGeometrySourceSemanticVertex
+                                                                    vectorCount:numPoints
+                                                                floatComponents:YES
+                                                            componentsPerVector:3
+                                                              bytesPerComponent:sizeof(float)
+                                                                     dataOffset:offsetof(PointCloudModel, x)
+                                                                     dataStride:sizeof(PointCloudModel)];
+    
+    // create color source
+    SCNGeometrySource *colorSource = [SCNGeometrySource geometrySourceWithData:pointCloudData
+                                                                      semantic:SCNGeometrySourceSemanticColor
+                                                                   vectorCount:numPoints
+                                                               floatComponents:YES
+                                                           componentsPerVector:3
+                                                             bytesPerComponent:sizeof(float)
+                                                                    dataOffset:offsetof(PointCloudModel, r)
+                                                                    dataStride:sizeof(PointCloudModel)];
+    
+    // create element
+    SCNGeometryElement *element = [SCNGeometryElement geometryElementWithData:nil
+                                                                primitiveType:SCNGeometryPrimitiveTypePoint
+                                                               primitiveCount:numPoints
+                                                                bytesPerIndex:sizeof(int)];
+    
+    // create geometry
+    SCNGeometry *pointcloudGeometry = [SCNGeometry geometryWithSources:@[ vertexSource, colorSource] elements:@[ element]];
+    
+    SCNNode *pointcloudNode = [SCNNode nodeWithGeometry:pointcloudGeometry];
+    pointcloudNode.position = SCNVector3Make(self.particle.position.x, self.particle.position.y, self.particle.position.z);
+    pointcloudNode.pivot = SCNMatrix4MakeRotation((CGFloat) -1 * M_PI,0, (CGFloat) M_PI * 1.5, 0);
+
+    [self.sceneView.scene.rootNode addChildNode:pointcloudNode];
+}
+
+- (void)makePointCloud
+{
+    
+    NSUInteger numPoints;
+    
+    if (40000 < [[self.message.framesArray objectAtIndex:self.count].pointsArray count]) {
+        numPoints = 40000;
+    } else {
+        numPoints = [[self.message.framesArray objectAtIndex:self.count].pointsArray count];
+    }
+        
+    PointCloudModel pointCloudVertices[40000+10];
     NSMutableArray *frames = self.message.framesArray;
     
     NSLog(@"%lu", [[self.message.framesArray objectAtIndex:self.count].pointsArray count]);
@@ -360,7 +451,7 @@ typedef struct PointCloudModel
     SCNGeometry *pointcloudGeometry = [SCNGeometry geometryWithSources:@[ vertexSource, colorSource] elements:@[ element]];
     
     self.pointcloudNode = [SCNNode nodeWithGeometry:pointcloudGeometry];
-    self.pointcloudNode.position = self.particle.position;
+//    self.pointcloudNode.position = self.particle.position;
     self.pointcloudNode.pivot = SCNMatrix4MakeRotation((CGFloat) -1 * M_PI,0, (CGFloat) M_PI * 1.5, 0);
     
     [self.sceneView.scene.rootNode addChildNode:self.pointcloudNode];
@@ -469,22 +560,39 @@ typedef struct PointCloudModel
 }
 
 - (void) firstUserStickerPressed {
-    self.currStickerIndex = 0;
+    
+    NSString *filepath = [[NSBundle mainBundle] pathForResource:[self.models objectAtIndex:0] ofType:@"hologram"];
+    NSError *error;
+    NSData *data = [NSData dataWithContentsOfFile:filepath];
+    
+    self.currModel = [Message parseFromData:data error:nil];
     [self closeStickerPressed];
 }
 
 - (void) secondUserStickerPressed {
-    self.currStickerIndex = 1;
+    NSString *filepath = [[NSBundle mainBundle] pathForResource:[self.models objectAtIndex:1] ofType:@"hologram"];
+    NSError *error;
+    NSData *data = [NSData dataWithContentsOfFile:filepath];
+    
+    self.currModel = [Message parseFromData:data error:nil];
     [self closeStickerPressed];
 }
 
 - (void) thirdUserStickerPressed {
-    self.currStickerIndex = 2;
+    NSString *filepath = [[NSBundle mainBundle] pathForResource:[self.models objectAtIndex:2] ofType:@"hologram"];
+    NSError *error;
+    NSData *data = [NSData dataWithContentsOfFile:filepath];
+    
+    self.currModel = [Message parseFromData:data error:nil];
     [self closeStickerPressed];
 }
 
 - (void) fourthUserStickerPressed {
-    self.currStickerIndex = 3;
+    NSString *filepath = [[NSBundle mainBundle] pathForResource:[self.models objectAtIndex:3] ofType:@"hologram"];
+    NSError *error;
+    NSData *data = [NSData dataWithContentsOfFile:filepath];
+    
+    self.currModel = [Message parseFromData:data error:nil];
     [self closeStickerPressed];
 }
 
