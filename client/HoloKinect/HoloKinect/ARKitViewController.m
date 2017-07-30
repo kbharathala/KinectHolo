@@ -27,9 +27,13 @@ typedef struct PointCloudModel
 @property (nonatomic, strong) UIButton *closeViewButton;
 //@property (nonatomic, strong) UIButton *rotateCameraButton;
 
+@property (nonatomic) SCNNode *pointcloudNode;
+
 @property (nonatomic) float xcenter;
 @property (nonatomic) float ycenter;
 @property (nonatomic) float zcenter;
+
+@property(nonatomic) BOOL buttonPressed;
 
 @property (nonatomic, strong) SCNNode *particle;
 
@@ -48,9 +52,33 @@ typedef struct PointCloudModel
     [super viewDidLoad];
     
     self.count = 0;
-    self.xcenter = 0.0;
-    self.ycenter = 0.0;
-    self.zcenter = 0.0;
+    
+    float sum_x = 0.0;
+    float sum_y = 0.0;
+    float sum_z = 0.0;
+    
+    NSMutableArray *frames = self.message.framesArray;
+
+    for (int i = 0; i < 40000; i++) {
+        
+        PointCloudModel vertex;
+        
+        int testing_algorithm = i;
+        
+        vertex.x = ([[[frames firstObject] pointsArray] objectAtIndex:testing_algorithm].x / 15.0);
+        vertex.y = [[[frames firstObject] pointsArray] objectAtIndex:testing_algorithm].y / -15.0;
+        vertex.z = ([[[frames firstObject] pointsArray] objectAtIndex:testing_algorithm].z / 15.0);
+        
+        sum_x += vertex.x;
+        sum_y += vertex.y;
+        sum_z += vertex.z;
+    }
+    
+    self.xcenter = sum_x / 40000;
+    self.ycenter = sum_y / 40000;
+    self.zcenter = sum_z / 40000;
+
+    self.buttonPressed = NO;
     
     // setting up the sceneView
     self.sceneView = [[ARSCNView alloc] initWithFrame:self.view.frame];
@@ -60,8 +88,6 @@ typedef struct PointCloudModel
     // [self makePointCloud];
     
     //    [self setupLabel];
-
-    //    [NSTimer scheduledTimerWithTimeInterval:0.05f target:self selector:@selector(handleTimer:) userInfo:nil repeats:YES];
     
     //    SCNNode *cubeNode = [SCNNode node];
     //    cubeNode.geometry = [SCNBox boxWithWidth:0.1 height:0.1 length:0.1 chamferRadius:0];
@@ -106,6 +132,10 @@ typedef struct PointCloudModel
     SCNVector3 hitPosition = SCNVector3Make(hitTransform.m41, hitTransform.m42, hitTransform.m43);
     
     self.particle.position = hitPosition;
+    if (self.buttonPressed) {
+        NSLog(@"button pressed");
+        [self resetPointCloud];
+    }
     NSLog(@"New Particle Positioning: %f %f %f", hitPosition.x, hitPosition.y, hitPosition.z);
 }
 
@@ -147,7 +177,7 @@ typedef struct PointCloudModel
 }
 
 - (void) handleTimer:(NSTimer *)timer {
-    // [self resetPointCloud];
+        [self resetPointCloud];
     // Hanlde the timed event.
 }
 
@@ -165,6 +195,8 @@ typedef struct PointCloudModel
 }
 
 - (void)resetPointCloud {
+        SCNAction *fadeParticle = [SCNAction fadeOpacityTo:0.0 duration:0.05f];
+        [self.pointcloudNode runAction:fadeParticle];
     [self makePointCloud];
 }
 
@@ -175,7 +207,7 @@ typedef struct PointCloudModel
     PointCloudModel pointCloudVertices[numPoints+10];
     NSMutableArray *frames = self.message.framesArray;
     
-    NSLog(@"%lu", [[self.message.framesArray firstObject].pointsArray count]);
+    NSLog(@"%lu", [[self.message.framesArray objectAtIndex:self.count].pointsArray count]);
     float sum_x = 0.0;
     float sum_y = 0.0;
     float sum_z = 0.0;
@@ -183,11 +215,11 @@ typedef struct PointCloudModel
         
         PointCloudModel vertex;
         
-        int testing_algorithm = i*4;
+        int testing_algorithm = i;
         
-        vertex.x = ([[[frames firstObject] pointsArray] objectAtIndex:testing_algorithm].x / 15.0) + (self.particle.position.x - self.xcenter);
-        vertex.y = [[[frames firstObject] pointsArray] objectAtIndex:testing_algorithm].y / -15.0 + (self.particle.position.y - self.ycenter);
-        vertex.z = [[[frames firstObject] pointsArray] objectAtIndex:testing_algorithm].z / 15.0 + (self.particle.position.z - self.zcenter);
+        vertex.x = ([[[frames objectAtIndex:self.count] pointsArray] objectAtIndex:testing_algorithm].x / 15.0) + (self.particle.position.x - self.xcenter);
+        vertex.y = [[[frames objectAtIndex:self.count] pointsArray] objectAtIndex:testing_algorithm].y / -15.0 + (self.particle.position.y - self.ycenter);
+        vertex.z = [[[frames objectAtIndex:self.count] pointsArray] objectAtIndex:testing_algorithm].z / 15.0 + (self.particle.position.z - self.zcenter);
         
         sum_x += vertex.x;
         sum_y += vertex.y;
@@ -202,6 +234,12 @@ typedef struct PointCloudModel
         }
         
         pointCloudVertices[i] = vertex;
+    }
+    
+    self.count = self.count + 1;
+
+    if (self.count >= self.message.framesArray_Count) {
+        self.count = 0;
     }
     
     self.xcenter = sum_x / numPoints;
@@ -241,20 +279,32 @@ typedef struct PointCloudModel
     // create geometry
     SCNGeometry *pointcloudGeometry = [SCNGeometry geometryWithSources:@[ vertexSource, colorSource] elements:@[ element]];
     
-    SCNNode *pointcloudNode = [SCNNode nodeWithGeometry:pointcloudGeometry];
+    self.pointcloudNode = [SCNNode nodeWithGeometry:pointcloudGeometry];
     // pointcloudGeometry.firstMaterial.shaderModifiers = @{SCNShaderModifierEntryPointGeometry : @"gl_PointSize = 0.0000000000005"};
     // pointcloudNode.geometry = pointcloudGeometry;
-    // pointcloudNode.geometry.shaderModifiers = @{SCNShaderModifierEntryPointGeometry : @"gl_PointSize = 2.0"};
-    pointcloudNode.position = SCNVector3Make(0, 0, 0);
-    // SCNAction *fadeParticle = [SCNAction fadeOpacityTo:0.0 duration:0.05f];
-    // [pointcloudNode runAction:fadeParticle];
+    self.pointcloudNode.position = SCNVector3Make(0, 0, 0);
     
-    [self.sceneView.scene.rootNode addChildNode:pointcloudNode];
+    [self.sceneView.scene.rootNode addChildNode:self.pointcloudNode];
+    
+}
+
+
+#pragma mark - Node builders
+
+#pragma mark - ARSCNViewDelegate
+
+- (void)renderer:(id <SCNSceneRenderer>)renderer didAddNode:(SCNNode *)node forAnchor:(ARAnchor *)anchor;
+{
 }
 
 -(void) playVideoPressed {
+
     [self.playVideo setImage:[UIImage imageNamed:@"redCircle"] forState:UIControlStateNormal];
     [self.playVideo setUserInteractionEnabled:NO];
+
+    [NSTimer scheduledTimerWithTimeInterval:0.052f target:self selector:@selector(handleTimer:) userInfo:nil repeats:YES];
+    self.buttonPressed = YES;
+
     [self makePointCloud];
     
     [self.recorder startRecording];

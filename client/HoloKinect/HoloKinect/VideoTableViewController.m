@@ -77,7 +77,6 @@
               [self.tableView reloadData];
           });
       }] resume];
-
     
 //    if (!raw_data) {
 //        [SVProgressHUD showErrorWithStatus:@"HoloChat is no fun without friends. Invite someone now!"];
