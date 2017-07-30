@@ -96,6 +96,10 @@ void Halogen::update() {
     faceDistance + radius
   );
   colorTexture.loadData(colorPixels);
+
+  if (isRecording) {
+    addFrame();
+  }
 }
 
 void Halogen::findFace() {
@@ -141,11 +145,16 @@ void Halogen::draw() {
   }
 }
 
-void Halogen::saveFrame() {
+void Halogen::serializeToDisk() {
+  ofLogNotice("Halogen", "serializeToDisk");
+  fstream output(ofGetTimestampString() + ".hologram", ios::out | ios::trunc | ios::binary);
+  msg->SerializeToOstream(&output);
+}
+
+void Halogen::addFrame() {
   isSaving = true;
   ofLogNotice("Halogen", "saving frame");
 
-  Message *msg = new Message();
   auto frame = msg->add_frames();
 
   auto low = faceDistance - (radius * 2);
@@ -174,20 +183,20 @@ void Halogen::saveFrame() {
     }
   }
 
-  fstream output(ofGetTimestampString() + ".hologram", ios::out | ios::trunc | ios::binary);
-  ofLogNotice() << "# of points " << frame->points_size();
   frame->set_timestamp(0);
-  msg->SerializeToOstream(&output);
+  ofLogNotice() << "# of points " << frame->points_size();
 
   isSaving = false;
 }
 
 void Halogen::startRecording() {
   isRecording = true;
+  msg = new Message();
 }
 
 void Halogen::stopRecording() {
   isRecording = false;
+  serializeToDisk();
 }
 
 Halogen::~Halogen() {
@@ -202,7 +211,7 @@ void Halogen::keyReleased(int key) {
     else startRecording();
   }
   else if (key == 'f') {
-    saveFrame();
+    addFrame();
   }
 }
 

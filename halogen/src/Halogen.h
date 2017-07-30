@@ -15,6 +15,8 @@ private:
   void updateKinect();
   Kinect *kinect = nullptr;
 
+  Message *msg = nullptr;
+
   ofPixels colorPixels;
   ofFloatPixels smallDepthPixels;
   ofFloatPixels bigDepthPixels;
@@ -34,7 +36,8 @@ private:
   bool isRecording = false;
   void startRecording();
   void stopRecording();
-  void saveFrame();
+  void addFrame();
+  void serializeToDisk();
 
   bool isSaving = false;
 
