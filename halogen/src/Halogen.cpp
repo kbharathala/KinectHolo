@@ -173,8 +173,7 @@ void Halogen::saveFrame() {
   }
 
   fstream output(ofGetTimestampString() + ".hologram", ios::out | ios::trunc | ios::binary);
-  msg.SerializeToOstream(&output);
-
+  msg->SerializeToOstream(&output);
 }
 
 void Halogen::startRecording() {
