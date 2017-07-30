@@ -28,6 +28,22 @@ float averageDepth(ofFloatPixels depthPixels) {
   return average;
 }
 
+void subtractBackground(ofPixels *colorPixels, const ofFloatPixels &depthPixels, float low, float high) {
+  // ofPixels paintedPixels;
+  // paintedPixels.allocate(depthPixels.getWidth(), depthPixels.getHeight(), OF_IMAGE_COLOR_ALPHA);
+  const float *data = depthPixels.getData();
+
+  for (int i = 0; i < colorPixels->getWidth() * colorPixels->getHeight(); i += 1) {
+    auto normalizedPixelValue = max(min(data[i], MAX_DEPTH), MIN_DEPTH);
+    bool isPixelWithinThreshold = (normalizedPixelValue > low) && (normalizedPixelValue < high);
+    if (!isPixelWithinThreshold) {
+      colorPixels->setColor(i*4, ofColor(255, 255, 255, 255));
+    }
+    // paintedPixels.setColor(i * 4, isPixelWithinThreshold ? inColor : outColor);
+  }
+
+  // return paintedPixels;
+}
 
 void Halogen::setup() {
 
@@ -41,6 +57,10 @@ void Halogen::setup() {
 
   // Set up face detector
   face_cascade.load("assets/haarcascade_frontalface_default.xml");
+
+  gui.setup();
+  gui.setPosition(200, 200);
+  gui.add(radius.setup("radius", 255, 25, 500));
 }
 
 void Halogen::update() {
@@ -62,13 +82,21 @@ void Halogen::update() {
   depthPixels.cropTo(faceDepthPixels, face.x, face.y, face.width, face.height);
   float faceDistance = averageDepth(faceDepthPixels);
 
-  ofLogNotice("Halogen") << "Distance of face: " << mmToFeet(faceDistance) << " ft";
+  ofLogNotice("Halogen") << "Face at (x=" << face.x << ", y=" << face.y << ", w=" << face.width << ", h=" << face.height << ") " << mmToFeet(faceDistance) << " ft away";
+
+  subtractBackground(
+    &colorPixels,
+    depthPixels,
+    faceDistance - (radius * 2),
+    faceDistance + radius
+  );
+  colorTexture.loadData(colorPixels);
 }
 
 void Halogen::findFace() {
   std::vector<cv::Rect> faces;
   TS_START("face detect");
-  face_cascade.detectMultiScale(ofxCv::toCv(colorPixels), faces, 1.1, 2, 0|CV_HAAR_SCALE_IMAGE, cv::Size(60, 60));
+  face_cascade.detectMultiScale(ofxCv::toCv(colorPixels), faces, 1.1, 2, 0|CV_HAAR_SCALE_IMAGE, cv::Size(90, 90));
   TS_STOP("face detect");
 
   auto sortedFaces = faces;
@@ -78,10 +106,14 @@ void Halogen::findFace() {
     [] (const cv::Rect& a, const cv::Rect& b) { return a.area() > b.area(); }
   );
 
-  // Only use biggest face
+  // Only use largest face
   if (sortedFaces.size() > 0) {
-     face = ofxCv::toOf(sortedFaces[0]);
-     ofLogNotice("Halogen") << "Face at (" << face.x << ", " << face.y << ")";
+    auto largestFace = sortedFaces[0];
+    auto FACE_RESCALE = 0.5;
+    auto scaledWidth = largestFace.width * FACE_RESCALE;
+    auto scaledHeight = largestFace.height * FACE_RESCALE;
+
+    face = ofRectangle(largestFace.x + (largestFace.width / 2*FACE_RESCALE), largestFace.y + (largestFace.height / 2*FACE_RESCALE), scaledWidth, scaledHeight);
   } else {
     ofLogNotice("Halogen", "No faces detected!");
   }
@@ -93,7 +125,6 @@ void Halogen::draw() {
   }
   colorTexture.draw(0,0);
   drawBoundBox(face, ofColor::green);
-  // drawBoundBox(ofRectangle(500, 500, 100, 100), ofColor::green);
 }
 
 Halogen::~Halogen() {

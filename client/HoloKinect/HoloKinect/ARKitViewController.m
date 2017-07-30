@@ -34,10 +34,17 @@ typedef struct PointCloudModel
     
 //    [self setupLabel];
     [self setupSceneView];
-    [self makePointCloud];
     
     self.sceneView = [[ARSCNView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     [self.view addSubview: _sceneView];
+    
+    [self makePointCloud];
+    
+//    SCNNode *cubeNode = [SCNNode node];
+//    cubeNode.geometry = [SCNBox boxWithWidth:0.1 height:0.1 length:0.1 chamferRadius:0];
+//    cubeNode.position = SCNVector3Make(0, 0, -0.2);
+//
+//    [self.sceneView.scene.rootNode addChildNode:cubeNode];
     
 
     UISwipeGestureRecognizer *rightSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipe:)];
@@ -55,7 +62,7 @@ typedef struct PointCloudModel
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [self setupScene];
+//    [self setupScene];
     [self startSession];
     
     // Setting up the navigation bar
@@ -75,84 +82,106 @@ typedef struct PointCloudModel
     self.sceneView.autoenablesDefaultLighting = YES;
 }
 
-- (void)setupScene
+//- (void)setupScene
+//{
+//    SCNScene *scene = [SCNScene scene];
+//    self.myView.scene = scene;
+//
+//    SCNNode *cameraNode = [SCNNode node];
+//    cameraNode.camera = [SCNCamera camera];
+//    cameraNode.position = SCNVector3Make(0, 12, 30);
+//    cameraNode.rotation = SCNVector4Make(1, 0, 0, -sin(12.0/30.0));
+//
+//    [scene.rootNode addChildNode:cameraNode];
+//}
+
+- (void)startSession
 {
-    self.scene = [SCNScene new];
-    self.sceneView.scene = self.scene;
-    
-    SCNNode *cameraNode = [SCNNode node];
-    cameraNode.camera = [SCNCamera camera];
-    cameraNode.position = SCNVector3Make(0, 0, 0);
-    cameraNode.rotation = SCNVector4Make(1, 0, 0, -sin(12.0/30.0));
-    
-    [self.scene.rootNode addChildNode:cameraNode];
+    ARWorldTrackingSessionConfiguration *configuration = [ARWorldTrackingSessionConfiguration new];
+    configuration.planeDetection = ARPlaneDetectionHorizontal;
+    configuration.worldAlignment = ARWorldAlignmentGravityAndHeading;
+    [self.sceneView.session runWithConfiguration:configuration];
 }
 
 - (void)makePointCloud
 {
-    NSUInteger numPoints = 100;
-    
+    NSUInteger numPoints = 25000;
+
     int randomPosUL = 2;
     int scaleFactor = 10000;
-    
+
     PointCloudModel pointCloudVertices[numPoints];
-    
+
     for (NSUInteger i = 0; i < numPoints; i++) {
-        
+
         PointCloudModel vertex;
-        
+
         float x = (float)(arc4random_uniform(randomPosUL * 2 * scaleFactor));
         float y = (float)(arc4random_uniform(randomPosUL * 2 * scaleFactor));
         float z = (float)(arc4random_uniform(randomPosUL * 2 * scaleFactor));
-        
+
         vertex.x = (x - randomPosUL * scaleFactor) / scaleFactor;
         vertex.y = (y - randomPosUL * scaleFactor) / scaleFactor;
         vertex.z = (z - randomPosUL * scaleFactor) / scaleFactor;
-        
+
         vertex.r = arc4random_uniform(255) / 255.0;
         vertex.g = arc4random_uniform(255) / 255.0;
         vertex.b = arc4random_uniform(255) / 255.0;
-        
+
         pointCloudVertices[i] = vertex;
+        
+        SCNMaterial *particleMaterial = [SCNMaterial new];
+        particleMaterial.diffuse.contents = [UIColor colorWithRed:vertex.r green:vertex.g blue:vertex.b alpha:1];
+        
+        SCNGeometry *particleGeometry = [SCNSphere sphereWithRadius:0.003];
+        particleGeometry.firstMaterial = particleMaterial;
+        SCNNode *particle = [SCNNode nodeWithGeometry:particleGeometry];
+        particle.position = SCNVector3Make(vertex.x, vertex.y, vertex.z);
+        [self.sceneView.scene.rootNode addChildNode:particle];
+
     }
-    
+
     // convert array to point cloud data (position and color)
-    NSData *pointCloudData = [NSData dataWithBytes:&pointCloudVertices length:sizeof(pointCloudVertices)];
-    
-    // create vertex source
-    SCNGeometrySource *vertexSource = [SCNGeometrySource geometrySourceWithData:pointCloudData
-                                                                       semantic:SCNGeometrySourceSemanticVertex
-                                                                    vectorCount:numPoints
-                                                                floatComponents:YES
-                                                            componentsPerVector:3
-                                                              bytesPerComponent:sizeof(float)
-                                                                     dataOffset:0
-                                                                     dataStride:sizeof(PointCloudModel)];
-    
-    // create color source
-    SCNGeometrySource *colorSource = [SCNGeometrySource geometrySourceWithData:pointCloudData
-                                                                      semantic:SCNGeometrySourceSemanticColor
-                                                                   vectorCount:numPoints
-                                                               floatComponents:YES
-                                                           componentsPerVector:3
-                                                             bytesPerComponent:sizeof(float)
-                                                                    dataOffset:sizeof(float) * 3
-                                                                    dataStride:sizeof(PointCloudModel)];
-    
-    // create element
-    SCNGeometryElement *element = [SCNGeometryElement geometryElementWithData:nil
-                                                                primitiveType:SCNGeometryPrimitiveTypePoint
-                                                               primitiveCount:numPoints
-                                                                bytesPerIndex:sizeof(int)];
-    
-    // create geometry
-    SCNGeometry *pointcloudGeometry = [SCNGeometry geometryWithSources:@[ vertexSource, colorSource ] elements:@[ element]];
-    
+//    NSData *pointCloudData = [NSData dataWithBytes:&pointCloudVertices length:sizeof(pointCloudVertices)];
+
+//    // create vertex source
+//    SCNGeometrySource *vertexSource = [SCNGeometrySource geometrySourceWithData:pointCloudData
+//                                                                       semantic:SCNGeometrySourceSemanticVertex
+//                                                                    vectorCount:numPoints
+//                                                                floatComponents:YES
+//                                                            componentsPerVector:3
+//                                                              bytesPerComponent:sizeof(float)
+//                                                                     dataOffset:0
+//                                                                     dataStride:sizeof(PointCloudModel)];
+//
+//    // create color source
+//    SCNGeometrySource *colorSource = [SCNGeometrySource geometrySourceWithData:pointCloudData
+//                                                                      semantic:SCNGeometrySourceSemanticColor
+//                                                                   vectorCount:numPoints
+//                                                               floatComponents:YES
+//                                                           componentsPerVector:3
+//                                                             bytesPerComponent:sizeof(float)
+//                                                                    dataOffset:sizeof(float) * 3
+//                                                                    dataStride:sizeof(PointCloudModel)];
+//
+//    // create element
+//    SCNGeometryElement *element = [SCNGeometryElement geometryElementWithData:nil
+//                                                                primitiveType:SCNGeometryPrimitiveTypePoint
+//                                                               primitiveCount:numPoints
+//                                                                bytesPerIndex:sizeof(int)];
+//
+//    // create geometry
+//    SCNGeometry *pointcloudGeometry = [SCNGeometry geometryWithSources:@[ vertexSource, colorSource ] elements:@[ element]];
+
     // add pointcloud to scene
-    SCNNode *pointcloudNode = [SCNNode nodeWithGeometry:pointcloudGeometry];
-    [self.sceneView.scene.rootNode addChildNode:pointcloudNode];
-    
-    
+//    SCNNode *pointcloudNode = [SCNNode nodeWithGeometry:pointcloudGeometry];
+//        [SCNBox boxWithWidth:0.1 height:0.1 length:0.1 chamferRadius:0];
+//    pointcloudNode.geometry = [SCNGeometry geometryWithSources:@[vertexSource, colorSource] elements:@[element]];
+//    pointcloudNode.geometry = [SCNGeometry geometryWithSources:@[ vertexSource, colorSource ] elements:@[ element]];
+//    pointcloudNode.position = SCNVector3Make(0, 0, -0.2);
+//    [self.sceneView.scene.rootNode addChildNode:pointcloudNode];
+
+
 }
 
 //- (void)setupLabel
@@ -165,13 +194,7 @@ typedef struct PointCloudModel
 //    self.label.text = @"FIND A DANCEFLOOR.";
 //}
 
-- (void)startSession
-{
-    ARWorldTrackingSessionConfiguration *configuration = [ARWorldTrackingSessionConfiguration new];
-    configuration.planeDetection = ARPlaneDetectionHorizontal;
-    configuration.worldAlignment = ARWorldAlignmentGravityAndHeading;
-    [self.sceneView.session runWithConfiguration:configuration];
-}
+
 
 - (void)showDiscoBallWithAncor:(ARPlaneAnchor *)anchor onNode:(SCNNode *)node
 {
